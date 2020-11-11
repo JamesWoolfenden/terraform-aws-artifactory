@@ -1,0 +1,31 @@
+{
+  "Resources": {
+    "MyAsg": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Properties": {
+        "AvailabilityZones": "$AvailabilityZones",
+        "VPCZoneIdentifier": "$VPCZoneIdentifier",
+        "LaunchConfigurationName": "$LaunchConfigurationName",
+        "MaxSize": "2",
+        "MinSize": "1",
+        "DesiredCapacity": "1",
+        "LoadBalancerNames": "$LoadBalancerNames",
+        "HealthCheckType": "ELB",
+        "HealthCheckGracePeriod" : "480"
+      },
+      "UpdatePolicy": {
+        "AutoScalingRollingUpdate": {
+          "MinInstancesInService": "0",
+          "MaxBatchSize": "1",
+          "PauseTime": "PT7M"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "AsgName": {
+      "Description": "The name of the auto scaling group",
+       "Value": {"Ref": "MyAsg"}
+    }
+  }
+}

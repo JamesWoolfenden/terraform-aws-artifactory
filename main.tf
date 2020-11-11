@@ -110,39 +110,12 @@ resource "aws_db_instance" "default" {
 
 resource "aws_cloudformation_stack" "autoscaling_group" {
   name          = "artifactory-asg"
-  template_body = <<EOF
-{
-  "Resources": {
-    "MyAsg": {
-      "Type": "AWS::AutoScaling::AutoScalingGroup",
-      "Properties": {
-        "AvailabilityZones": [aws_subnet.default_2.availability_zone,aws_subnet.default_3.availability_zone],
-        "VPCZoneIdentifier": [aws_subnet.default_2.id,aws_subnet.default_3.id],
-        "LaunchConfigurationName": aws_launch_configuration.master.name,
-        "MaxSize": "2",
-        "MinSize": "1",
-        "DesiredCapacity": "1",
-        "LoadBalancerNames": [aws_elb.web.name],
-        "HealthCheckType": "ELB",
-        "HealthCheckGracePeriod" : "480"
-      },
-      "UpdatePolicy": {
-        "AutoScalingRollingUpdate": {
-          "MinInstancesInService": "0",
-          "MaxBatchSize": "1",
-          "PauseTime": "PT7M"
-        }
-      }
-    }
-  },
-  "Outputs": {
-    "AsgName": {
-      "Description": "The name of the auto scaling group",
-       "Value": {"Ref": "MyAsg"}
-    }
-  }
-}
-EOF
+  template_body = templatefile("${path.module}/template/autoscaling", {
+    AvailabilityZones       = tolist([aws_subnet.default_2.availability_zone, aws_subnet.default_3.availability_zone]),
+    VPCZoneIdentifier       = tolist([aws_subnet.default_2.id, aws_subnet.default_3.id]),
+    LaunchConfigurationName = aws_launch_configuration.master.name,
+    LoadBalancerNames       = aws_elb.web.name
+  })
 }
 
 resource "aws_autoscaling_policy" "my_policy" {
@@ -155,39 +128,13 @@ resource "aws_autoscaling_policy" "my_policy" {
 
 resource "aws_cloudformation_stack" "autoscaling_group_secondary" {
   name          = "artifactory-secondary-asg"
-  template_body = <<EOF
-{
-  "Resources": {
-    "MySecondaryAsg": {
-      "Type": "AWS::AutoScaling::AutoScalingGroup",
-      "Properties": {
-        "AvailabilityZones": [aws_subnet.default_2.availability_zone,aws_subnet.default_3.availability_zone],
-        "VPCZoneIdentifier": [aws_subnet.default_2.id,aws_subnet.default_3.id],
-        "LaunchConfigurationName": aws_launch_configuration.secondary.name,
-        "MaxSize": "9",
-        "MinSize": "0",
-        "DesiredCapacity": var.secondary_node_count,
-        "LoadBalancerNames": [aws_elb.web.name],
-        "HealthCheckType": "ELB",
-        "HealthCheckGracePeriod" : "480"
-      },
-      "UpdatePolicy": {
-        "AutoScalingRollingUpdate": {
-          "MinInstancesInService": "1",
-          "MaxBatchSize": "1",
-          "PauseTime": "PT7M"
-        }
-      }
-    }
-  },
-  "Outputs": {
-    "SecondaryAsgName": {
-      "Description": "The name of the auto scaling group",
-       "Value": {"Ref": "MySecondaryAsg"}
-    }
-  }
-}
-EOF
+  template_body = templatefile("${path.module}/template/autoscaling_group_secondary",{
+    AvailabilityZones       = tolist([aws_subnet.default_2.availability_zone, aws_subnet.default_3.availability_zone]),
+    VPCZoneIdentifier       = tolist([aws_subnet.default_2.id, aws_subnet.default_3.id]),
+    LaunchConfigurationName = aws_launch_configuration.master.name,
+    LoadBalancerNames       = aws_elb.web.name,
+    DesiredCapacity         = var.secondary_node_count
+  })
 }
 
 resource "aws_autoscaling_policy" "my_secondary_policy" {

@@ -25,4 +25,6 @@ resource "aws_elb" "web" {
     target              = "HTTP:80/artifactory/webapp/#/login"
     interval            = 30
   }
+
+  tags = var.common_tags
 }

@@ -152,6 +152,10 @@ variable "aws_amis" {
 
 variable "elb_name" {
   type        = string
-  default     = "artifactory_elb"
+  default     = "artifactoryelb"
   description = "(optional) describe your variable"
+}
+
+variable "common_tags" {
+  type = map
 }

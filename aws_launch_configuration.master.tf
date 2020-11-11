@@ -1,5 +1,6 @@
 
 resource "aws_launch_configuration" "master" {
+
   image_id = lookup(var.aws_amis, var.aws_region)
 
   instance_type = var.artifactory_instance_type
@@ -17,6 +18,7 @@ resource "aws_launch_configuration" "master" {
     volume_type           = "gp2"
     volume_size           = var.volume_size
     delete_on_termination = true
+    encrypted             = true
   }
 
   lifecycle {
