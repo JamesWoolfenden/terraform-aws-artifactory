@@ -130,32 +130,9 @@ variable "artifactory_server_name" {
   default     = "artifactory"
 }
 
-variable "aws_amis" {
-  type = map
-  default = {
-    us-east-1      = "ami-6869aa05"
-    us-west-2      = "ami-7172b611"
-    us-west-1      = "ami-31490d51"
-    us-west-2      = "ami-7172b611"
-    eu-west-1      = "ami-f9dd458a"
-    eu-west-2      = "ami-886369ec"
-    eu-central-1   = "ami-ea26ce85"
-    ap-northeast-1 = "ami-374db956"
-    ap-northeast-2 = "ami-2b408b45"
-    ap-southeast-1 = "ami-a59b49c6"
-    ap-southeast-2 = "ami-dc361ebf"
-    ap-south-1     = "ami-ffbdd790"
-    us-east-2      = "ami-f6035893"
-    ca-central-1   = "ami-730ebd17"
-    sa-east-1      = "ami-6dd04501"
-    cn-north-1     = "ami-8e6aa0e3"
-  }
-}
-
 variable "elb_name" {
-  type        = string
-  default     = "artifactoryelb"
-  description = "(optional) describe your variable"
+  type    = string
+  default = "artifactoryelb"
 }
 
 variable "common_tags" {

@@ -102,5 +102,64 @@ Considering you have SSL certificate for `*.jfrog.team`
 ### Use Artifactory as backend
 
 To to store state as an artifact in a given repository of Artifactory, see [https://www.terraform.io/docs/backends/types/artifactory.html](https://www.terraform.io/docs/backends/types/artifactory.html)
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.13 |
+| aws | 3.14.1 |
+| template | 2.2.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | 3.14.1 |
+| template | 2.2.0 |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| access\_cidr | n/a | `list` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
+| artifactory\_instance\_type | Artifactory EC2 instance type | `string` | `"m4.xlarge"` | no |
+| artifactory\_license\_1 | Artifactory Enterprise License | `string` | `""` | no |
+| artifactory\_license\_2 | Artifactory Enterprise License | `string` | `""` | no |
+| artifactory\_license\_3 | Artifactory Enterprise License | `string` | `""` | no |
+| artifactory\_license\_4 | Artifactory Enterprise License | `string` | `""` | no |
+| artifactory\_license\_5 | Artifactory Enterprise License | `string` | `""` | no |
+| artifactory\_server\_name | Provide artifactory server name to be used in Nginx. e.g artifactory for artifactory.jfrog.team | `string` | `"artifactory"` | no |
+| artifactory\_sg\_name | (optional) describe your variable | `string` | `"artifactory_sg"` | no |
+| artifactory\_version | Artifactory version to deploy | `string` | `"6.9.0"` | no |
+| aws\_region | AWS region to launch servers. | `string` | `"us-west-1"` | no |
+| bucket\_name | AWS S3 Bucket name | `string` | `"artifactory-enterprise-bucket"` | no |
+| certificate\_domain | Provide your Certificate Domain Name. For e.g jfrog.team for certificate with \*.jfrog.team | `string` | `"artifactory"` | no |
+| common\_tags | n/a | `map` | n/a | yes |
+| db\_allocated\_storage | The size of the database (Gb) | `string` | `"5"` | no |
+| db\_instance\_class | The database instance type | `string` | `"db.t2.small"` | no |
+| db\_name | MySQL database name | `string` | `"artdb"` | no |
+| db\_password | Database password | `string` | `"password"` | no |
+| db\_user | Database user name | `string` | `"artifactory"` | no |
+| elb\_name | n/a | `string` | `"artifactoryelb"` | no |
+| extra\_java\_options | Setting Java Memory Parameters for Artifactory. Learn about system requirements for Artifactory https://www.jfrog.com/confluence/display/RTF/System+Requirements#SystemRequirements-RecommendedHardware. | `string` | `"-server -Xms2g -Xmx14g -Xss256k -XX:+UseG1GC -XX:OnOutOfMemoryError=\\\\"kill -9 %p\\\\""` | no |
+| key\_name | Desired name of AWS key pair | `string` | n/a | yes |
+| master\_key | Master key for Artifactory cluster. Generate master.key using command '$openssl rand -hex 16' | `string` | `"35767fa0164bac66b6cccb8880babefb"` | no |
+| secondary\_node\_count | Desired number of Artifactory secondary nodes | `number` | `0` | no |
+| sse\_algorithm | The type of encryption algorithm to use | `string` | `"aws:kms"` | no |
+| ssh\_access | n/a | `list` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
+| ssl\_certificate | To use Artifactory as docker registry you need to provide wild card valid Certificate. Provide your SSL Certificate. | `string` | `"<cert contents>"` | no |
+| ssl\_certificate\_key | Provide your SSL Certificate key | `string` | `"<cert contents>"` | no |
+| volume\_size | Disk size for each EC2 instances | `number` | `250` | no |
+| vpc\_cidr | n/a | `list` | <pre>[<br>  "10.0.0.0/16"<br>]</pre> | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| address | URL of the Artifactory |
+| autoscaling\_group | n/a |
+| autoscaling\_group\_secondary | n/a |
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
