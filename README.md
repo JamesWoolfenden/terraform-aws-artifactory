@@ -2,16 +2,23 @@
 
 modified from <https://github.com/jfrog/JFrog-Cloud-Installers>
 
+Issues with this method:
+
+- SSL termination, requires upfront provision of non ACM certificate rather than termination of SSL at ELB
+- Creates an IAM user
+- Generates access keys for IAM user and adds it an instance
+- security groups very open
+
 ## Terraform Template For Artifactory Enterprise
 
 ## Prerequisites
 
-* An AWS account
-* Basic knowledge of AWS
-* Predefined Keys
-* Basic knowledge of Artifactory
-* Learn about [system requirements for Artifactory](https://www.jfrog.com/confluence/display/RTF/System+Requirements#SystemRequirements-RecommendedHardware)
-* Learn more about Terraform AWS provider follow: https://www.terraform.io/docs/providers/aws/index.html
+- An AWS account
+- Basic knowledge of AWS
+- Predefined Keys
+- Basic knowledge of Artifactory
+- Learn about [system requirements for Artifactory](https://www.jfrog.com/confluence/display/RTF/System+Requirements#SystemRequirements-RecommendedHardware)
+- Learn more about Terraform AWS provider follow: https://www.terraform.io/docs/providers/aws/index.html
 
 ### Steps to Deploy Artifactory Enterprise Using Terraform Template
 
@@ -31,14 +38,14 @@ modified from <https://github.com/jfrog/JFrog-Cloud-Installers>
 3. Pass the Artifactory Enterprise licenses as a string in the variables `artifactory_license_1-5`.
    For example: Change disk space to 500Gb:
 
-```bash
+   ```bash
     variable "volume_size" {
       description = "Disk size for each EC2 instances"
       default     = 500
     }
    ```
 
-   Run the `terraform init -var 'key_name=myAwsKey'` command. This will install the required plugin for the AWS provider.
+4. Run the `terraform init -var 'key_name=myAwsKey'` command. This will install the required plugin for the AWS provider.
 
 5. Run the `terraform plan -var 'key_name=myAwsKey'` command.
 
@@ -49,11 +56,11 @@ modified from <https://github.com/jfrog/JFrog-Cloud-Installers>
 7. You will receive ELB Url to access Artifactory. By default, this template starts only one node in the Artifactory cluster.
    It takes 7-10 minutes for Artifactory to start and to attach the instance to the ELB.The output can be viewed as:
 
-```terraform
+   ```terraform
     Outputs:
 
     address = artifactory-elb-265664219.us-west-2.elb.amazonaws.com
-```
+   ```
 
 8. Access the Artifactory UI using ELB Url provided in outputs.
 
@@ -67,11 +74,11 @@ modified from <https://github.com/jfrog/JFrog-Cloud-Installers>
 
 ### Note
 
-* This template only supports Artifactory version 5.8.x and above.
-* Turn off daily backups. Read Documentation provided [here](https://www.jfrog.com/confluence/display/RTF/Managing+Backups).
+   This template only supports Artifactory version 5.8.x and above.
+   Turn off daily backups. Read Documentation provided [here](https://www.jfrog.com/confluence/display/RTF/Managing+Backups).
 
   **Note**: In this template as default S3 is default filestore and data is persisted in S3. If you keep daily backups on disk space (default 250Gb) will get occupied quickly.
-* Use an SSL Certificate with a valid wildcard to your artifactory as docker registry with subdomain method.
+   Use an SSL Certificate with a valid wildcard to your artifactory as docker registry with subdomain method.
 
 ### Steps to setup Artifactory as secure docker registry
 

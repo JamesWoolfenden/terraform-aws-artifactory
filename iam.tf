@@ -1,24 +1,19 @@
-
-
-
 #IAM user for S3
 resource "aws_iam_user" "s3" {
   name = "s3-access"
 }
 
 #IAM access key for S3
+#TODO This is awful
 resource "aws_iam_access_key" "s3" {
   user = aws_iam_user.s3.name
 }
 
-# S3 bucket
-resource "aws_s3_bucket" "b" {
-  bucket = var.bucket_name
-  acl    = "private"
-}
 
 #IAM Policy
+#TODO Restrict to what is actuallyu required
 resource "aws_iam_user_policy" "lb_ro" {
+  #checkov:skip=CKV_AWS_40: "Ensure IAM policies are attached only to groups or roles (Reducing access management complexity may in-turn reduce opportunity for a principal to inadvertently receive or retain excessive privileges.)"
   user = aws_iam_user.s3.name
 
   policy = <<EOF
