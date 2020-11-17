@@ -175,7 +175,7 @@ variable "vpc_id" {
 }
 
 variable "vpc_cidr" {
-  type    = list
+  type = list
 }
 
 variable "availability_zone" {

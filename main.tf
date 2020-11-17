@@ -37,8 +37,8 @@ resource "aws_db_subnet_group" "main_db_subnet_group" {
 resource "aws_cloudformation_stack" "autoscaling_group" {
   name = "artifactory-asg"
   template_body = templatefile("${path.module}/template/autoscaling", {
-    AvailabilityZones       = tolist([var.availability_zone[1],var.availability_zone[2]]),
-    VPCZoneIdentifier       = tolist([var.subnet_ids[1],var.subnet_ids[2]]),
+    AvailabilityZones       = tolist([var.availability_zone[1], var.availability_zone[2]]),
+    VPCZoneIdentifier       = tolist([var.subnet_ids[1], var.subnet_ids[2]]),
     LaunchConfigurationName = aws_launch_configuration.master.name,
     LoadBalancerNames       = aws_elb.web.name
   })
@@ -55,8 +55,8 @@ resource "aws_autoscaling_policy" "my_policy" {
 resource "aws_cloudformation_stack" "autoscaling_group_secondary" {
   name = "artifactory-secondary-asg"
   template_body = templatefile("${path.module}/template/autoscaling_group_secondary", {
-    AvailabilityZones       = tolist([var.availability_zone[1],var.availability_zone[2]]),
-    VPCZoneIdentifier       = tolist([var.subnet_ids[1],var.subnet_ids[2]]),
+    AvailabilityZones       = tolist([var.availability_zone[1], var.availability_zone[2]]),
+    VPCZoneIdentifier       = tolist([var.subnet_ids[1], var.subnet_ids[2]]),
     LaunchConfigurationName = aws_launch_configuration.master.name,
     LoadBalancerNames       = aws_elb.web.name,
     DesiredCapacity         = var.secondary_node_count
