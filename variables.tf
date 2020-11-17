@@ -7,6 +7,7 @@ variable "aws_region" {
 variable "key_name" {
   type        = string
   description = "Desired name of AWS key pair"
+  default     = "jfrog"
 }
 
 variable "artifactory_version" {
@@ -137,6 +138,8 @@ variable "elb_name" {
 
 variable "common_tags" {
   type = map
+  default = {
+  "createdby" = "Terraform" }
 }
 
 variable "access_cidr" {
@@ -144,10 +147,7 @@ variable "access_cidr" {
   default = ["0.0.0.0/0"]
 }
 
-variable "vpc_cidr" {
-  type    = list
-  default = ["10.0.0.0/16"]
-}
+
 
 variable "ssh_access" {
   type    = list
@@ -164,4 +164,19 @@ variable "sse_algorithm" {
   description = "The type of encryption algorithm to use"
   type        = string
   default     = "aws:kms"
+}
+
+variable "subnet_ids" {
+  type = list
+}
+
+variable "vpc_id" {
+  type = string
+}
+
+variable "vpc_cidr" {
+  type    = list
+}
+
+variable "availability_zone" {
 }

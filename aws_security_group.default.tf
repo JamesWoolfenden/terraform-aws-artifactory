@@ -3,7 +3,7 @@
 resource "aws_security_group" "default" {
   name        = var.artifactory_sg_name
   description = "Used in the terraform"
-  vpc_id      = aws_vpc.default.id
+  vpc_id      = var.vpc_id
 
 
   ingress {

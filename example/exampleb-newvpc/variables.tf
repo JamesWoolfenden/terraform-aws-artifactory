@@ -3,14 +3,8 @@ variable "common_tags" {
   type        = map
 }
 
-variable "vpc_id" {
-  type = string
-}
 
 variable "vpc_cidr" {
-  type = list
-}
-
-variable "subnet_ids" {
-  type = list
+  type    = list
+  default = ["10.0.0.0/16"]
 }

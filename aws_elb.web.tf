@@ -2,7 +2,7 @@ resource "aws_elb" "web" {
   #checkov:skip=CKV_AWS_92: "Ensure the ELB has access logging enabled"
   name = var.elb_name
 
-  subnets         = [aws_subnet.default_2.id, aws_subnet.default_3.id]
+  subnets         = [var.subnet_ids[1], var.subnet_ids[2]]
   security_groups = [aws_security_group.elb.id]
 
   listener {

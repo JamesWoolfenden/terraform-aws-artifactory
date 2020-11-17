@@ -3,7 +3,7 @@
 #RDS Security Group
 resource "aws_security_group" "main_db_access" {
   description = "Allow access to the database"
-  vpc_id      = aws_vpc.default.id
+  vpc_id      = var.vpc_id
 }
 
 resource "aws_security_group_rule" "allow_db_access" {
@@ -31,18 +31,14 @@ resource "aws_security_group_rule" "allow_all_outbound" {
 resource "aws_db_subnet_group" "main_db_subnet_group" {
   name        = "db-subnetgrp"
   description = "RDS subnet group"
-  subnet_ids  = [aws_subnet.default.id, aws_subnet.default_2.id, aws_subnet.default_3.id]
-
+  subnet_ids  = var.subnet_ids
 }
-
-
-
 
 resource "aws_cloudformation_stack" "autoscaling_group" {
   name = "artifactory-asg"
   template_body = templatefile("${path.module}/template/autoscaling", {
-    AvailabilityZones       = tolist([aws_subnet.default_2.availability_zone, aws_subnet.default_3.availability_zone]),
-    VPCZoneIdentifier       = tolist([aws_subnet.default_2.id, aws_subnet.default_3.id]),
+    AvailabilityZones       = tolist([var.availability_zone[1],var.availability_zone[2]]),
+    VPCZoneIdentifier       = tolist([var.subnet_ids[1],var.subnet_ids[2]]),
     LaunchConfigurationName = aws_launch_configuration.master.name,
     LoadBalancerNames       = aws_elb.web.name
   })
@@ -59,8 +55,8 @@ resource "aws_autoscaling_policy" "my_policy" {
 resource "aws_cloudformation_stack" "autoscaling_group_secondary" {
   name = "artifactory-secondary-asg"
   template_body = templatefile("${path.module}/template/autoscaling_group_secondary", {
-    AvailabilityZones       = tolist([aws_subnet.default_2.availability_zone, aws_subnet.default_3.availability_zone]),
-    VPCZoneIdentifier       = tolist([aws_subnet.default_2.id, aws_subnet.default_3.id]),
+    AvailabilityZones       = tolist([var.availability_zone[1],var.availability_zone[2]]),
+    VPCZoneIdentifier       = tolist([var.subnet_ids[1],var.subnet_ids[2]]),
     LaunchConfigurationName = aws_launch_configuration.master.name,
     LoadBalancerNames       = aws_elb.web.name,
     DesiredCapacity         = var.secondary_node_count
