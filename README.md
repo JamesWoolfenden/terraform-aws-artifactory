@@ -2,7 +2,7 @@
 
 modified from <https://github.com/jfrog/JFrog-Cloud-Installers>
 
-Issues with this method:
+This method has a number of Issues including:
 
 - SSL termination, requires upfront provision of non ACM certificate rather than termination of SSL at ELB
 - Creates an IAM user
@@ -117,6 +117,7 @@ To to store state as an artifact in a given repository of Artifactory, see [http
 | Name | Version |
 |------|---------|
 | aws | 3.14.1 |
+| local | n/a |
 | template | 2.2.0 |
 
 ## Inputs
