@@ -9,9 +9,16 @@ resource "aws_autoscaling_group" "art" {
   launch_configuration      = aws_launch_configuration.master.name
   vpc_zone_identifier       = var.subnet_ids
 
-
+  load_balancers = [
+    aws_elb.web.name
+  ]
   timeouts {
     delete = "15m"
   }
 
+}
+
+resource "aws_autoscaling_attachment" "asg_attachment_bar" {
+  autoscaling_group_name = aws_autoscaling_group.art.id
+  elb                    = aws_elb.web.id
 }

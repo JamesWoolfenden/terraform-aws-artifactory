@@ -80,7 +80,6 @@ This method has a number of Issues including:
   **Note**: In this template as default S3 is default filestore and data is persisted in S3. If you keep daily backups on disk space (default 250Gb) will get occupied quickly.
    Use an SSL Certificate with a valid wildcard to your artifactory as docker registry with subdomain method.
 
-
 ### Use Artifactory as backend
 
 To to store state as an artifact in a given repository of Artifactory, see [https://www.terraform.io/docs/backends/types/artifactory.html](https://www.terraform.io/docs/backends/types/artifactory.html)
@@ -108,13 +107,10 @@ To to store state as an artifact in a given repository of Artifactory, see [http
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | access\_cidr | n/a | `list` | n/a | yes |
-| artifactory\_instance\_type | Artifactory EC2 instance type | `string` | `"m4.xlarge"` | no |
 | artifactory\_server\_name | Provide artifactory server name to be used in Nginx. e.g artifactory for artifactory.jfrog.team | `string` | `"artifactory"` | no |
 | artifactory\_sg\_name | (optional) describe your variable | `string` | `"artifactory_sg"` | no |
 | artifactory\_version | Artifactory version to deploy | `string` | `"7.11.2"` | no |
-| availability\_zone | n/a | `any` | n/a | yes |
-| aws\_region | AWS region to launch servers. | `string` | `"us-west-1"` | no |
-| bucket\_name | AWS S3 Bucket name | `string` | `"artifactory-enterprise-bucket"` | no |
+| bucket\_name | AWS S3 Bucket name | `string` | n/a | yes |
 | common\_tags | n/a | `map` | <pre>{<br>  "createdby": "Terraform"<br>}</pre> | no |
 | db\_allocated\_storage | The size of the database (Gb) | `string` | `"5"` | no |
 | db\_instance\_class | The database instance type | `string` | `"db.t2.small"` | no |
@@ -123,8 +119,10 @@ To to store state as an artifact in a given repository of Artifactory, see [http
 | db\_user | Database user name | `string` | `"artifactory"` | no |
 | elb\_name | n/a | `string` | `"artifactoryelb"` | no |
 | extra\_java\_options | Setting Java Memory Parameters for Artifactory. Learn about system requirements for Artifactory https://www.jfrog.com/confluence/display/RTF/System+Requirements#SystemRequirements-RecommendedHardware. | `string` | `"-server -Xms2g -Xmx14g -Xss256k -XX:+UseG1GC -XX:OnOutOfMemoryError=\\\\"kill -9 %p\\\\""` | no |
+| instance\_type | Artifactory EC2 instance type | `string` | n/a | yes |
 | key\_name | Desired name of AWS key pair | `string` | `"jfrog"` | no |
 | master\_key | Master key for Artifactory cluster. Generate master.key using command '$openssl rand -hex 16' | `string` | `"35767fa0164bac66b6cccb8880babefb"` | no |
+| profile\_name | n/a | `string` | `"artifactory"` | no |
 | sse\_algorithm | The type of encryption algorithm to use | `string` | `"aws:kms"` | no |
 | ssh\_access | n/a | `list` | n/a | yes |
 | subnet\_ids | n/a | `list` | n/a | yes |

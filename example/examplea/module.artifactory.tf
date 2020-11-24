@@ -1,10 +1,17 @@
 module "artifactory" {
-  source            = "../../"
-  common_tags       = var.common_tags
-  subnet_ids        = var.subnet_ids
-  vpc_id            = var.vpc_id
-  vpc_cidr          = var.vpc_cidr
-  availability_zone = data.aws_availability_zones.available
-  ssh_access        = [module.ip.cidr]
-  access_cidr       = [module.ip.cidr]
+  source        = "../../"
+  common_tags   = var.common_tags
+  subnet_ids    = var.subnet_ids
+  vpc_id        = var.vpc_id
+  vpc_cidr      = var.vpc_cidr
+  ssh_access    = [module.ip.cidr]
+  access_cidr   = [module.ip.cidr]
+  bucket_name   = "artifactory-${data.aws_caller_identity.current.account_id}"
+  instance_type = "m4.xlarge"
+}
+
+variable "instance_type" {
+  type        = string
+  description = "(optional) describe your variable"
+  default     = "t3.micro"
 }

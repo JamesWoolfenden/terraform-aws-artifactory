@@ -46,6 +46,19 @@ resource "aws_security_group" "default" {
     cidr_blocks = var.vpc_cidr
   }
 
+
+  ingress {
+    cidr_blocks      = var.ssh_access
+    from_port        = 0
+    ipv6_cidr_blocks = []
+    prefix_list_ids  = []
+    protocol         = "-1"
+    security_groups  = []
+    self             = false
+    to_port          = 0
+  }
+
+
   egress {
     description = "outbound internet access"
     from_port   = 0

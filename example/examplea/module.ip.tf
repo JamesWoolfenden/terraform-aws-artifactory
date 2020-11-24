@@ -1,4 +1,4 @@
 module "ip" {
   source  = "JamesWoolfenden/ip/http"
-  version = "0.2.9"
+  version = "0.2.10"
 }

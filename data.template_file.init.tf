@@ -11,6 +11,7 @@ data "template_file" "init" {
     db_password             = aws_db_instance.default.password
     master_key              = var.master_key
     artifactory_server_name = var.artifactory_server_name
+    artifactory_version     = var.artifactory_version
     EXTRA_JAVA_OPTS         = var.extra_java_options
   }
 }

@@ -1,8 +1,3 @@
-variable "aws_region" {
-  type        = string
-  description = "AWS region to launch servers."
-  default     = "us-west-1"
-}
 
 variable "key_name" {
   type        = string
@@ -22,9 +17,8 @@ variable "volume_size" {
   default     = 250
 }
 
-variable "artifactory_instance_type" {
+variable "instance_type" {
   type        = string
-  default     = "m4.xlarge"
   description = "Artifactory EC2 instance type"
 }
 
@@ -37,7 +31,6 @@ variable "extra_java_options" {
 variable "bucket_name" {
   type        = string
   description = "AWS S3 Bucket name"
-  default     = "artifactory-enterprise-bucket"
 }
 
 variable "db_name" {
@@ -123,5 +116,7 @@ variable "vpc_cidr" {
   type = list
 }
 
-variable "availability_zone" {
+variable "profile_name" {
+  type    = string
+  default = "artifactory"
 }

@@ -2,16 +2,19 @@
 
 yum update -y
 yum install -y java-1.8.0>> /tmp/yum-java8.log
-alternatives --set java /usr/lib/jvm/jre-1.8.0-openjdk.x86_64/bin/java
+alternatives --force --set java /usr/lib/jvm/java-1.8.0-openjdk.x86_64/bin/java
 yum -y remove java-1.7.0-openjdk>> /tmp/yum-java7.log 2>&1
 
 ##Install Artifactory
 wget https://bintray.com/jfrog/artifactory-pro-rpms/rpm -O bintray-jfrog-artifactory-pro-rpms.repo
 mv bintray-jfrog-artifactory-pro-rpms.repo /etc/yum.repos.d/
 sleep 10
-yum install -y jfrog-artifactory-pro-${artifactory_version}>> /tmp/yum-artifactory.log 2>&1
-yum install -y nginx>> /tmp/yum-nginx.log 2>&1
-curl -L -o  /opt/jfrog/artifactory/tomcat/lib/mysql-connector-java-5.1.38.jar https://bintray.com/artifact/download/bintray/jcenter/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar
+yum install -y jfrog-artifactory-pro>> /tmp/yum-artifactory.log 2>&1
+amazon-linux-extras install nginx1>> /tmp/yum-nginx.log 2>&1
+
+# not sure this driver is still required as its not on bintray any more
+mkdir -p /opt/jfrog/artifactory/tomcat/lib
+curl -L -o  /opt/jfrog/artifactory/tomcat/lib/mysql-connector-java-5.1.38.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar
 
 cat <<EOF >/var/opt/jfrog/artifactory/etc/binarystore.xml
 <config version="2">
