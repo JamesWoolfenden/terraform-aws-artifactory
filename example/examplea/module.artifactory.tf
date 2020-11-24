@@ -5,4 +5,6 @@ module "artifactory" {
   vpc_id            = var.vpc_id
   vpc_cidr          = var.vpc_cidr
   availability_zone = data.aws_availability_zones.available
+  ssh_access        = [module.ip.cidr]
+  access_cidr       = [module.ip.cidr]
 }

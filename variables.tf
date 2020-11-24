@@ -13,38 +13,9 @@ variable "key_name" {
 variable "artifactory_version" {
   type        = string
   description = "Artifactory version to deploy"
-  default     = "6.9.0"
+  default     = "7.11.2"
 }
 
-variable "artifactory_license_1" {
-  type        = string
-  description = "Artifactory Enterprise License"
-  default     = ""
-}
-
-variable "artifactory_license_2" {
-  type        = string
-  description = "Artifactory Enterprise License"
-  default     = ""
-}
-
-variable "artifactory_license_3" {
-  type        = string
-  description = "Artifactory Enterprise License"
-  default     = ""
-}
-
-variable "artifactory_license_4" {
-  type        = string
-  description = "Artifactory Enterprise License"
-  default     = ""
-}
-
-variable "artifactory_license_5" {
-  type        = string
-  description = "Artifactory Enterprise License"
-  default     = ""
-}
 
 variable "volume_size" {
   description = "Disk size for each EC2 instances"
@@ -104,28 +75,6 @@ variable "master_key" {
   default     = "35767fa0164bac66b6cccb8880babefb"
 }
 
-variable "secondary_node_count" {
-  description = "Desired number of Artifactory secondary nodes"
-  default     = 0
-}
-
-#TODO Remove
-variable "ssl_certificate" {
-  description = "To use Artifactory as docker registry you need to provide wild card valid Certificate. Provide your SSL Certificate."
-  default     = "<cert contents>"
-}
-
-#TODO Remove
-variable "ssl_certificate_key" {
-  description = "Provide your SSL Certificate key"
-  default     = "<cert contents>"
-}
-
-variable "certificate_domain" {
-  description = "Provide your Certificate Domain Name. For e.g jfrog.team for certificate with *.jfrog.team"
-  default     = "artifactory"
-}
-
 variable "artifactory_server_name" {
   description = "Provide artifactory server name to be used in Nginx. e.g artifactory for artifactory.jfrog.team"
   default     = "artifactory"
@@ -143,15 +92,11 @@ variable "common_tags" {
 }
 
 variable "access_cidr" {
-  type    = list
-  default = ["0.0.0.0/0"]
+  type = list
 }
 
-
-
 variable "ssh_access" {
-  type    = list
-  default = ["0.0.0.0/0"]
+  type = list
 }
 
 variable "artifactory_sg_name" {
