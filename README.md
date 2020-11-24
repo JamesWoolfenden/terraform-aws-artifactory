@@ -2,7 +2,7 @@
 
 Updated and significantly modified from <https://github.com/jfrog/JFrog-Cloud-Installers>
 
-Issues with this method:
+This method has a number of Issues including:
 
 - SSL termination, requires upfront provision of non ACM certificate rather than termination of SSL at ELB
 - Creates an IAM user
