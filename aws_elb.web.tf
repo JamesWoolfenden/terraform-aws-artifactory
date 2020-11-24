@@ -6,7 +6,7 @@ resource "aws_elb" "web" {
   security_groups = [aws_security_group.elb.id]
 
   listener {
-    instance_port     = 8081
+    instance_port     = 8082
     instance_protocol = "http"
     lb_port           = 80
     lb_protocol       = "http"
@@ -23,7 +23,7 @@ resource "aws_elb" "web" {
     healthy_threshold   = 3
     unhealthy_threshold = 3
     timeout             = 15
-    target              = "HTTP:80/artifactory/webapp/#/login"
+    target              = "HTTP:8082/ui/login/"
     interval            = 30
   }
 

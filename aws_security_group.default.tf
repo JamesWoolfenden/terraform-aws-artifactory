@@ -41,7 +41,7 @@ resource "aws_security_group" "default" {
   ingress {
     description = "HTTP access from the VPC"
     from_port   = 8081
-    to_port     = 8081
+    to_port     = 8082
     protocol    = "tcp"
     cidr_blocks = var.vpc_cidr
   }
