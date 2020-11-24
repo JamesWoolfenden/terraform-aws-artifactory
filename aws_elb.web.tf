@@ -6,7 +6,7 @@ resource "aws_elb" "web" {
   security_groups = [aws_security_group.elb.id]
 
   listener {
-    instance_port     = 80
+    instance_port     = 8081
     instance_protocol = "http"
     lb_port           = 80
     lb_protocol       = "http"
