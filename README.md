@@ -109,7 +109,6 @@ To to store state as an artifact in a given repository of Artifactory, see [http
 | access\_cidr | n/a | `list` | n/a | yes |
 | artifactory\_server\_name | Provide artifactory server name to be used in Nginx. e.g artifactory for artifactory.jfrog.team | `string` | `"artifactory"` | no |
 | artifactory\_sg\_name | (optional) describe your variable | `string` | `"artifactory_sg"` | no |
-| artifactory\_version | Artifactory version to deploy | `string` | `"7.11.2"` | no |
 | bucket\_name | AWS S3 Bucket name | `string` | n/a | yes |
 | common\_tags | n/a | `map` | <pre>{<br>  "createdby": "Terraform"<br>}</pre> | no |
 | db\_allocated\_storage | The size of the database (Gb) | `string` | `"5"` | no |

@@ -5,13 +5,6 @@ variable "key_name" {
   default     = "jfrog"
 }
 
-variable "artifactory_version" {
-  type        = string
-  description = "Artifactory version to deploy"
-  default     = "7.11.2"
-}
-
-
 variable "volume_size" {
   description = "Disk size for each EC2 instances"
   default     = 250
