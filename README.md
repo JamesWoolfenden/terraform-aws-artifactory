@@ -1,6 +1,6 @@
 # terraform-aws-artifactory
 
-modified from <https://github.com/jfrog/JFrog-Cloud-Installers>
+Updated and significantly modified from <https://github.com/jfrog/JFrog-Cloud-Installers>
 
 Issues with this method:
 
