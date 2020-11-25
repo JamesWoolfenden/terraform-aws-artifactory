@@ -9,6 +9,7 @@ resource "local_file" "public_ssh" {
 }
 
 resource "local_file" "private_ssh" {
-  content  = tls_private_key.ssh.private_key_pem
-  filename = "id_rsa"
+  content         = tls_private_key.ssh.private_key_pem
+  file_permission = "600"
+  filename        = "id_rsa"
 }

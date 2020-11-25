@@ -2,17 +2,19 @@
 
 yum update -y
 yum install -y java-1.8.0>> /tmp/yum-java8.log
-alternatives --set java /usr/lib/jvm/jre-1.8.0-openjdk.x86_64/bin/java
+alternatives --force --set java /usr/lib/jvm/java-1.8.0-openjdk.x86_64/bin/java
 yum -y remove java-1.7.0-openjdk>> /tmp/yum-java7.log 2>&1
 
 ##Install Artifactory
 wget https://bintray.com/jfrog/artifactory-pro-rpms/rpm -O bintray-jfrog-artifactory-pro-rpms.repo
 mv bintray-jfrog-artifactory-pro-rpms.repo /etc/yum.repos.d/
 sleep 10
-yum install -y jfrog-artifactory-pro-${artifactory_version}>> /tmp/yum-artifactory.log 2>&1
-yum install -y nginx>> /tmp/yum-nginx.log 2>&1
-curl -L -o  /opt/jfrog/artifactory/tomcat/lib/mysql-connector-java-5.1.38.jar https://bintray.com/artifact/download/bintray/jcenter/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar
-openssl req -nodes -x509 -newkey rsa:4096 -keyout /etc/pki/tls/private/example.key -out /etc/pki/tls/certs/example.pem -days 356 -subj "/C=US/ST=California/L=SantaClara/O=IT/CN=*.localhost"
+yum install -y jfrog-artifactory-pro>> /tmp/yum-artifactory.log 2>&1
+amazon-linux-extras install nginx1>> /tmp/yum-nginx.log 2>&1
+
+# not sure this driver is still required as its not on bintray any more
+mkdir -p /opt/jfrog/artifactory/tomcat/lib
+curl -L -o  /opt/jfrog/artifactory/tomcat/lib/mysql-connector-java-5.1.38.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar
 
 cat <<EOF >/var/opt/jfrog/artifactory/etc/binarystore.xml
 <config version="2">
@@ -45,8 +47,6 @@ cat <<EOF >/var/opt/jfrog/artifactory/etc/binarystore.xml
     </provider>
     <provider id="s3" type="s3">
        <endpoint>s3.dualstack.${s3_bucket_region}.amazonaws.com</endpoint>
-       <identity>${s3_access_key}</identity>
-       <credential>${s3_secret_key}</credential>
        <bucketName>${s3_bucket_name}</bucketName>
     </provider>
 </config>
@@ -64,35 +64,6 @@ mkdir -p /var/opt/jfrog/artifactory/etc/security
 
 cat <<EOF >/var/opt/jfrog/artifactory/etc/security/master.key
 ${master_key}
-EOF
-
-cat <<EOF >/var/opt/jfrog/artifactory/etc/artifactory.cluster.license
-${artifactory_license_1}
-
-${artifactory_license_2}
-
-${artifactory_license_3}
-
-${artifactory_license_4}
-
-${artifactory_license_5}
-EOF
-
-cat <<EOF >/var/opt/jfrog/artifactory/etc/ha-node.properties
-  node.id=art1
-  artifactory.ha.data.dir=/var/opt/jfrog/artifactory/data
-  context.url=http://127.0.0.1:8081/artifactory
-  membership.port=10001
-  hazelcast.interface=172.25.0.3
-  primary=${ISPRIMARY}
-EOF
-
-cat <<EOF >/etc/pki/tls/certs/result.pem
-${ssl_certificate}
-EOF
-
-cat <<EOF >/etc/pki/tls/private/result.key
-${ssl_certificate_key}
 EOF
 
 cat <<EOF >/etc/nginx/nginx.conf
@@ -137,57 +108,6 @@ cat <<EOF >/etc/nginx/nginx.conf
     }
 EOF
 
-cat <<EOF >/etc/nginx/conf.d/artifactory.conf
-ssl_certificate      /etc/pki/tls/certs/cert.pem;
-ssl_certificate_key  /etc/pki/tls/private/cert.key;
-ssl_session_cache shared:SSL:1m;
-ssl_prefer_server_ciphers   on;
-## server configuration
-server {
-  listen 443 ssl;
-  listen 80 ;
-  server_name ~(?<repo>.+)\\.${certificate_domain} ${artifactory_server_name}.${certificate_domain};
-  if (\$http_x_forwarded_proto = '') {
-    set \$http_x_forwarded_proto  \$scheme;
-  }
-  ## Application specific logs
-  ## access_log /var/log/nginx/artifactory-access.log timing;
-  ## error_log /var/log/nginx/artifactory-error.log;
-  rewrite ^/$ /artifactory/webapp/ redirect;
-  rewrite ^/artifactory/?(/webapp)?$ /artifactory/webapp/ redirect;
-  rewrite ^/(v1|v2)/(.*) /artifactory/api/docker/\$repo/\$1/\$2;
-  chunked_transfer_encoding on;
-  client_max_body_size 0;
-  location /artifactory/ {
-    proxy_read_timeout  2400;
-    proxy_pass_header   Server;
-    proxy_cookie_path   ~*^/.* /;
-    proxy_pass          http://127.0.0.1:8081/artifactory/;
-    proxy_set_header    X-Artifactory-Override-Base-Url \$http_x_forwarded_proto://\$host:\$server_port/artifactory;
-    proxy_set_header    X-Forwarded-Port  \$server_port;
-    proxy_set_header    X-Forwarded-Proto \$http_x_forwarded_proto;
-    proxy_set_header    Host              \$http_host;
-    proxy_set_header    X-Forwarded-For   \$proxy_add_x_forwarded_for;
-   }
-}
-EOF
-
-mkdir -p /var/opt/jfrog/artifactory/etc/info
-cat <<EOF >/var/opt/jfrog/artifactory/etc/info/installer-info.json
-{
-  "productId": "Terraform_artifactory-ha/1.0.0",
-  "features": [
-  {
-    "featureId": "Partner/ACC-007450"
-  }
-  ]
-}
-EOF
-
-cat /etc/pki/tls/certs/result.pem | sed 's/CERTIFICATE----- /CERTIFICATE-----\n/g' | sed 's/-----END/\n-----END/' > temp.pem
-mv -f temp.pem /etc/pki/tls/certs/cert.pem
-cat /etc/pki/tls/private/result.key | sed 's/KEY----- /KEY-----\n/g' | sed 's/-----END/\n-----END/'  > temp.key
-mv -f temp.key /etc/pki/tls/private/cert.key
 echo "artifactory.ping.allowUnauthenticated=true" >> /var/opt/jfrog/artifactory/etc/artifactory.system.properties
 echo "export JAVA_OPTIONS=\"${EXTRA_JAVA_OPTS}\"" >> /var/opt/jfrog/artifactory/etc/default
 sed -i -e "s/art1/art-$(date +%s$RANDOM)/" /var/opt/jfrog/artifactory/etc/ha-node.properties

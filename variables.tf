@@ -1,8 +1,3 @@
-variable "aws_region" {
-  type        = string
-  description = "AWS region to launch servers."
-  default     = "us-west-1"
-}
 
 variable "key_name" {
   type        = string
@@ -10,50 +5,13 @@ variable "key_name" {
   default     = "jfrog"
 }
 
-variable "artifactory_version" {
-  type        = string
-  description = "Artifactory version to deploy"
-  default     = "6.9.0"
-}
-
-variable "artifactory_license_1" {
-  type        = string
-  description = "Artifactory Enterprise License"
-  default     = ""
-}
-
-variable "artifactory_license_2" {
-  type        = string
-  description = "Artifactory Enterprise License"
-  default     = ""
-}
-
-variable "artifactory_license_3" {
-  type        = string
-  description = "Artifactory Enterprise License"
-  default     = ""
-}
-
-variable "artifactory_license_4" {
-  type        = string
-  description = "Artifactory Enterprise License"
-  default     = ""
-}
-
-variable "artifactory_license_5" {
-  type        = string
-  description = "Artifactory Enterprise License"
-  default     = ""
-}
-
 variable "volume_size" {
   description = "Disk size for each EC2 instances"
   default     = 250
 }
 
-variable "artifactory_instance_type" {
+variable "instance_type" {
   type        = string
-  default     = "m4.xlarge"
   description = "Artifactory EC2 instance type"
 }
 
@@ -66,7 +24,6 @@ variable "extra_java_options" {
 variable "bucket_name" {
   type        = string
   description = "AWS S3 Bucket name"
-  default     = "artifactory-enterprise-bucket"
 }
 
 variable "db_name" {
@@ -104,28 +61,6 @@ variable "master_key" {
   default     = "35767fa0164bac66b6cccb8880babefb"
 }
 
-variable "secondary_node_count" {
-  description = "Desired number of Artifactory secondary nodes"
-  default     = 0
-}
-
-#TODO Remove
-variable "ssl_certificate" {
-  description = "To use Artifactory as docker registry you need to provide wild card valid Certificate. Provide your SSL Certificate."
-  default     = "<cert contents>"
-}
-
-#TODO Remove
-variable "ssl_certificate_key" {
-  description = "Provide your SSL Certificate key"
-  default     = "<cert contents>"
-}
-
-variable "certificate_domain" {
-  description = "Provide your Certificate Domain Name. For e.g jfrog.team for certificate with *.jfrog.team"
-  default     = "artifactory"
-}
-
 variable "artifactory_server_name" {
   description = "Provide artifactory server name to be used in Nginx. e.g artifactory for artifactory.jfrog.team"
   default     = "artifactory"
@@ -143,15 +78,11 @@ variable "common_tags" {
 }
 
 variable "access_cidr" {
-  type    = list
-  default = ["0.0.0.0/0"]
+  type = list
 }
 
-
-
 variable "ssh_access" {
-  type    = list
-  default = ["0.0.0.0/0"]
+  type = list
 }
 
 variable "artifactory_sg_name" {
@@ -178,5 +109,19 @@ variable "vpc_cidr" {
   type = list
 }
 
-variable "availability_zone" {
+variable "profile_name" {
+  type    = string
+  default = "artifactory"
+}
+
+variable "ssl_certificate_id" {
+  type = string
+}
+
+variable "zone_id" {
+  type = string
+}
+
+variable "record" {
+  type = string
 }

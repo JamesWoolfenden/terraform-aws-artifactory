@@ -4,14 +4,6 @@ resource "aws_security_group" "elb" {
   description = "Used in the terraform"
   vpc_id      = var.vpc_id
 
-  # HTTP access from anywhere
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = var.access_cidr
-  }
-
   # HTTPS access from anywhere
   ingress {
     from_port   = 443

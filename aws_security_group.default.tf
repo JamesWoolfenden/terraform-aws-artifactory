@@ -7,7 +7,7 @@ resource "aws_security_group" "default" {
 
 
   ingress {
-    description = " SSH access from anywhere"
+    description = "SSH access from anywhere"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -41,10 +41,23 @@ resource "aws_security_group" "default" {
   ingress {
     description = "HTTP access from the VPC"
     from_port   = 8081
-    to_port     = 8081
+    to_port     = 8082
     protocol    = "tcp"
     cidr_blocks = var.vpc_cidr
   }
+
+
+  ingress {
+    cidr_blocks      = var.ssh_access
+    from_port        = 0
+    ipv6_cidr_blocks = []
+    prefix_list_ids  = []
+    protocol         = "-1"
+    security_groups  = []
+    self             = false
+    to_port          = 0
+  }
+
 
   egress {
     description = "outbound internet access"

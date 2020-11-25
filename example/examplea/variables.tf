@@ -14,3 +14,15 @@ variable "vpc_cidr" {
 variable "subnet_ids" {
   type = list
 }
+
+variable "ssl_certificate_id" {
+  type = string
+}
+
+variable "zone_id" {
+  type = string
+}
+
+variable "record" {
+  type = string
+}
