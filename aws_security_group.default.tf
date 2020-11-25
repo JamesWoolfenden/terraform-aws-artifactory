@@ -7,7 +7,7 @@ resource "aws_security_group" "default" {
 
 
   ingress {
-    description = " SSH access from anywhere"
+    description = "SSH access from anywhere"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"

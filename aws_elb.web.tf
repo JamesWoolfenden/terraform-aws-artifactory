@@ -6,17 +6,11 @@ resource "aws_elb" "web" {
   security_groups = [aws_security_group.elb.id]
 
   listener {
-    instance_port     = 8082
-    instance_protocol = "http"
-    lb_port           = 80
-    lb_protocol       = "http"
-  }
-
-  listener {
-    instance_port     = 443
-    instance_protocol = "tcp"
-    lb_port           = 443
-    lb_protocol       = "tcp"
+    instance_port      = 8082
+    instance_protocol  = "http"
+    lb_port            = 443
+    lb_protocol        = "https"
+    ssl_certificate_id = var.ssl_certificate_id
   }
 
   health_check {

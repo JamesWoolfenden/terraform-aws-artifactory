@@ -127,12 +127,15 @@ To to store state as an artifact in a given repository of Artifactory, see [http
 | key\_name | Desired name of AWS key pair | `string` | `"jfrog"` | no |
 | master\_key | Master key for Artifactory cluster. Generate master.key using command '$openssl rand -hex 16' | `string` | `"35767fa0164bac66b6cccb8880babefb"` | no |
 | profile\_name | n/a | `string` | `"artifactory"` | no |
+| record | n/a | `string` | n/a | yes |
 | sse\_algorithm | The type of encryption algorithm to use | `string` | `"aws:kms"` | no |
 | ssh\_access | n/a | `list` | n/a | yes |
+| ssl\_certificate\_id | n/a | `string` | n/a | yes |
 | subnet\_ids | n/a | `list` | n/a | yes |
 | volume\_size | Disk size for each EC2 instances | `number` | `250` | no |
 | vpc\_cidr | n/a | `list` | n/a | yes |
 | vpc\_id | n/a | `string` | n/a | yes |
+| zone\_id | n/a | `string` | n/a | yes |
 
 ## Outputs
 

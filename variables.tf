@@ -113,3 +113,15 @@ variable "profile_name" {
   type    = string
   default = "artifactory"
 }
+
+variable "ssl_certificate_id" {
+  type = string
+}
+
+variable "zone_id" {
+  type = string
+}
+
+variable "record" {
+  type = string
+}
