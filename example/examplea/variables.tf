@@ -1,6 +1,6 @@
 variable "common_tags" {
   description = "This is to help you add tags to your cloud objects"
-  type        = map
+  type        = map(any)
 }
 
 variable "vpc_id" {
@@ -8,11 +8,11 @@ variable "vpc_id" {
 }
 
 variable "vpc_cidr" {
-  type = list
+  type = list(any)
 }
 
 variable "subnet_ids" {
-  type = list
+  type = list(any)
 }
 
 variable "ssl_certificate_id" {

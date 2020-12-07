@@ -111,11 +111,11 @@ To to store state as an artifact in a given repository of Artifactory, see [http
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| access\_cidr | n/a | `list` | n/a | yes |
+| access\_cidr | n/a | `list(any)` | n/a | yes |
 | artifactory\_server\_name | Provide artifactory server name to be used in Nginx. e.g artifactory for artifactory.jfrog.team | `string` | `"artifactory"` | no |
 | artifactory\_sg\_name | (optional) describe your variable | `string` | `"artifactory_sg"` | no |
 | bucket\_name | AWS S3 Bucket name | `string` | n/a | yes |
-| common\_tags | n/a | `map` | <pre>{<br>  "createdby": "Terraform"<br>}</pre> | no |
+| common\_tags | n/a | `map(any)` | <pre>{<br>  "createdby": "Terraform"<br>}</pre> | no |
 | db\_allocated\_storage | The size of the database (Gb) | `string` | `"5"` | no |
 | db\_instance\_class | The database instance type | `string` | `"db.t2.small"` | no |
 | db\_name | MySQL database name | `string` | `"artdb"` | no |
@@ -129,11 +129,11 @@ To to store state as an artifact in a given repository of Artifactory, see [http
 | profile\_name | n/a | `string` | `"artifactory"` | no |
 | record | n/a | `string` | n/a | yes |
 | sse\_algorithm | The type of encryption algorithm to use | `string` | `"aws:kms"` | no |
-| ssh\_access | n/a | `list` | n/a | yes |
+| ssh\_access | n/a | `list(any)` | n/a | yes |
 | ssl\_certificate\_id | n/a | `string` | n/a | yes |
-| subnet\_ids | n/a | `list` | n/a | yes |
+| subnet\_ids | n/a | `list(any)` | n/a | yes |
 | volume\_size | Disk size for each EC2 instances | `number` | `250` | no |
-| vpc\_cidr | n/a | `list` | n/a | yes |
+| vpc\_cidr | n/a | `list(any)` | n/a | yes |
 | vpc\_id | n/a | `string` | n/a | yes |
 | zone\_id | n/a | `string` | n/a | yes |
 

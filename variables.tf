@@ -48,6 +48,7 @@ variable "db_password" {
   type        = string
   description = "Database password"
   default     = "password"
+  sensitive   = true
 }
 
 variable "db_allocated_storage" {
@@ -59,6 +60,7 @@ variable "db_allocated_storage" {
 variable "master_key" {
   description = "Master key for Artifactory cluster. Generate master.key using command '$openssl rand -hex 16'"
   default     = "35767fa0164bac66b6cccb8880babefb"
+  sensitive   = true
 }
 
 variable "artifactory_server_name" {
@@ -72,17 +74,17 @@ variable "elb_name" {
 }
 
 variable "common_tags" {
-  type = map
+  type = map(any)
   default = {
   "createdby" = "Terraform" }
 }
 
 variable "access_cidr" {
-  type = list
+  type = list(any)
 }
 
 variable "ssh_access" {
-  type = list
+  type = list(any)
 }
 
 variable "artifactory_sg_name" {
@@ -98,7 +100,7 @@ variable "sse_algorithm" {
 }
 
 variable "subnet_ids" {
-  type = list
+  type = list(any)
 }
 
 variable "vpc_id" {
@@ -106,7 +108,7 @@ variable "vpc_id" {
 }
 
 variable "vpc_cidr" {
-  type = list
+  type = list(any)
 }
 
 variable "profile_name" {
