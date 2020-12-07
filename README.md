@@ -94,18 +94,21 @@ To to store state as an artifact in a given repository of Artifactory, see [http
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.13 |
-| aws | 3.14.1 |
+| terraform | >= 0.14 |
+| aws | 3.20.0 |
+| http | 2.0.0 |
+| local | 2.0.0 |
 | template | 2.2.0 |
+| tls | 3.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 3.14.1 |
-| local | n/a |
+| aws | 3.20.0 |
+| local | 2.0.0 |
 | template | 2.2.0 |
-| tls | n/a |
+| tls | 3.0.0 |
 
 ## Inputs
 
