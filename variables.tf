@@ -6,6 +6,7 @@ variable "key_name" {
 }
 
 variable "volume_size" {
+  type        = string
   description = "Disk size for each EC2 instances"
   default     = 250
 }
@@ -69,12 +70,14 @@ variable "artifactory_server_name" {
 }
 
 variable "elb_name" {
-  type    = string
-  default = "artifactoryelb"
+  type        = string
+  description = "Thge name of the Load balancer"
+  default     = "artifactoryelb"
 }
 
 variable "common_tags" {
-  type = map(any)
+  type        = map(any)
+  description = "Implements the common tags scheme"
   default = {
   "createdby" = "Terraform" }
 }
@@ -100,15 +103,18 @@ variable "sse_algorithm" {
 }
 
 variable "subnet_ids" {
-  type = list(any)
+  description = "A list of Subnet ids"
+  type        = list(any)
 }
 
 variable "vpc_id" {
-  type = string
+  description = "The VPC id"
+  type        = string
 }
 
 variable "vpc_cidr" {
-  type = list(any)
+  description = "The CIDR of the VPC"
+  type        = list(any)
 }
 
 variable "profile_name" {
@@ -117,7 +123,8 @@ variable "profile_name" {
 }
 
 variable "ssl_certificate_id" {
-  type = string
+  type        = string
+  description = "The ID of the SSL certificate from ACM"
 }
 
 variable "zone_id" {

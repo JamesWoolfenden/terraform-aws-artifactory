@@ -9,10 +9,11 @@ Updated and significantly modified from <https://github.com/jfrog/JFrog-Cloud-In
 
 This method has a number of Issues including:
 
-- SSL termination, requires upfront provision of non ACM certificate rather than termination of SSL at ELB
-- Creates an IAM user
-- Generates access keys for IAM user and adds it an instance
-- security groups very open
+- SSL termination, requires upfront provision of non ACM certificate rather than termination of SSL at an ELB.
+- Creates an IAM user.
+- Generates access keys for IAM user and adds it to filesystem of an instance.
+- Security groups very open
+
 
 ## Terraform Template For Artifactory Enterprise
 
@@ -118,13 +119,13 @@ To to store state as an artifact in a given repository of Artifactory, see [http
 | artifactory\_server\_name | Provide artifactory server name to be used in Nginx. e.g artifactory for artifactory.jfrog.team | `string` | `"artifactory"` | no |
 | artifactory\_sg\_name | (optional) describe your variable | `string` | `"artifactory_sg"` | no |
 | bucket\_name | AWS S3 Bucket name | `string` | n/a | yes |
-| common\_tags | n/a | `map(any)` | <pre>{<br>  "createdby": "Terraform"<br>}</pre> | no |
+| common\_tags | Implements the common tags scheme | `map(any)` | <pre>{<br>  "createdby": "Terraform"<br>}</pre> | no |
 | db\_allocated\_storage | The size of the database (Gb) | `string` | `"5"` | no |
 | db\_instance\_class | The database instance type | `string` | `"db.t2.small"` | no |
 | db\_name | MySQL database name | `string` | `"artdb"` | no |
 | db\_password | Database password | `string` | `"password"` | no |
 | db\_user | Database user name | `string` | `"artifactory"` | no |
-| elb\_name | n/a | `string` | `"artifactoryelb"` | no |
+| elb\_name | Thge name of the Load balancer | `string` | `"artifactoryelb"` | no |
 | extra\_java\_options | Setting Java Memory Parameters for Artifactory. Learn about system requirements for Artifactory https://www.jfrog.com/confluence/display/RTF/System+Requirements#SystemRequirements-RecommendedHardware. | `string` | `"-server -Xms2g -Xmx14g -Xss256k -XX:+UseG1GC -XX:OnOutOfMemoryError=\\\\"kill -9 %p\\\\""` | no |
 | instance\_type | Artifactory EC2 instance type | `string` | n/a | yes |
 | key\_name | Desired name of AWS key pair | `string` | `"jfrog"` | no |
@@ -133,11 +134,11 @@ To to store state as an artifact in a given repository of Artifactory, see [http
 | record | n/a | `string` | n/a | yes |
 | sse\_algorithm | The type of encryption algorithm to use | `string` | `"aws:kms"` | no |
 | ssh\_access | n/a | `list(any)` | n/a | yes |
-| ssl\_certificate\_id | n/a | `string` | n/a | yes |
-| subnet\_ids | n/a | `list(any)` | n/a | yes |
-| volume\_size | Disk size for each EC2 instances | `number` | `250` | no |
-| vpc\_cidr | n/a | `list(any)` | n/a | yes |
-| vpc\_id | n/a | `string` | n/a | yes |
+| ssl\_certificate\_id | The ID of the SSL certificate from ACM | `string` | n/a | yes |
+| subnet\_ids | A list of Subnet ids | `list(any)` | n/a | yes |
+| volume\_size | Disk size for each EC2 instances | `string` | `250` | no |
+| vpc\_cidr | The CIDR of the VPC | `list(any)` | n/a | yes |
+| vpc\_id | The VPC id | `string` | n/a | yes |
 | zone\_id | n/a | `string` | n/a | yes |
 
 ## Outputs
