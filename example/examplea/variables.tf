@@ -26,3 +26,9 @@ variable "zone_id" {
 variable "record" {
   type = string
 }
+
+variable "instance_type" {
+  type        = string
+  description = "The size/type of your instance"
+  default     = "t3.micro"
+}

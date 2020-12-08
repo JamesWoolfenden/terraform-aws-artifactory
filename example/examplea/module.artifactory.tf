@@ -12,9 +12,3 @@ module "artifactory" {
   record             = var.record
   zone_id            = var.zone_id
 }
-
-variable "instance_type" {
-  type        = string
-  description = "(optional) describe your variable"
-  default     = "t3.micro"
-}

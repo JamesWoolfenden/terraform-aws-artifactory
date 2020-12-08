@@ -118,6 +118,7 @@ To to store state as an artifact in a given repository of Artifactory, see [http
 | access\_cidr | n/a | `list(any)` | n/a | yes |
 | artifactory\_server\_name | Provide artifactory server name to be used in Nginx. e.g artifactory for artifactory.jfrog.team | `string` | `"artifactory"` | no |
 | artifactory\_sg\_name | (optional) describe your variable | `string` | `"artifactory_sg"` | no |
+| autoscaling\_group\_name | artifactory autoscaling group | `string` | `"artifactory autoscaling group"` | no |
 | bucket\_name | AWS S3 Bucket name | `string` | n/a | yes |
 | common\_tags | Implements the common tags scheme | `map(any)` | <pre>{<br>  "createdby": "Terraform"<br>}</pre> | no |
 | db\_allocated\_storage | The size of the database (Gb) | `string` | `"5"` | no |
@@ -130,8 +131,9 @@ To to store state as an artifact in a given repository of Artifactory, see [http
 | instance\_type | Artifactory EC2 instance type | `string` | n/a | yes |
 | key\_name | Desired name of AWS key pair | `string` | `"jfrog"` | no |
 | master\_key | Master key for Artifactory cluster. Generate master.key using command '$openssl rand -hex 16' | `string` | `"35767fa0164bac66b6cccb8880babefb"` | no |
-| profile\_name | n/a | `string` | `"artifactory"` | no |
-| record | n/a | `string` | n/a | yes |
+| profile\_name | Instance profile name | `string` | `"artifactory"` | no |
+| rds | Settings for the DB instance | `map(any)` | <pre>{<br>  "engine": "mysql",<br>  "engine_version": "5.5",<br>  "multi_az": "false",<br>  "skip_final_snapshot": "true",<br>  "storage_type": "gp3"<br>}</pre> | no |
+| record | Value for Route53 entry | `string` | n/a | yes |
 | sse\_algorithm | The type of encryption algorithm to use | `string` | `"aws:kms"` | no |
 | ssh\_access | n/a | `list(any)` | n/a | yes |
 | ssl\_certificate\_id | The ID of the SSL certificate from ACM | `string` | n/a | yes |
@@ -139,7 +141,7 @@ To to store state as an artifact in a given repository of Artifactory, see [http
 | volume\_size | Disk size for each EC2 instances | `string` | `250` | no |
 | vpc\_cidr | The CIDR of the VPC | `list(any)` | n/a | yes |
 | vpc\_id | The VPC id | `string` | n/a | yes |
-| zone\_id | n/a | `string` | n/a | yes |
+| zone\_id | The Route53 zone for the record | `string` | n/a | yes |
 
 ## Outputs
 

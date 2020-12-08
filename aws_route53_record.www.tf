@@ -8,4 +8,5 @@ resource "aws_route53_record" "www" {
     name                   = aws_elb.web.dns_name
     zone_id                = aws_elb.web.zone_id
   }
+
 }

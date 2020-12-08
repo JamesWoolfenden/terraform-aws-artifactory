@@ -1,5 +1,5 @@
 resource "aws_autoscaling_group" "art" {
-  name                      = "artifactory autoscaling group"
+  name                      = var.autoscaling_group_name
   max_size                  = 1
   min_size                  = 1
   health_check_grace_period = 300

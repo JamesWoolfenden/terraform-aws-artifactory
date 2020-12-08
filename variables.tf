@@ -118,8 +118,9 @@ variable "vpc_cidr" {
 }
 
 variable "profile_name" {
-  type    = string
-  default = "artifactory"
+  type        = string
+  default     = "artifactory"
+  description = "Instance profile name"
 }
 
 variable "ssl_certificate_id" {
@@ -128,9 +129,30 @@ variable "ssl_certificate_id" {
 }
 
 variable "zone_id" {
-  type = string
+  type        = string
+  description = "The Route53 zone for the record"
 }
 
 variable "record" {
-  type = string
+  type        = string
+  description = "Value for Route53 entry"
+}
+
+
+variable "autoscaling_group_name" {
+  type        = string
+  description = "artifactory autoscaling group"
+  default     = "artifactory autoscaling group"
+}
+
+variable "rds" {
+  type = map(any)
+  default = {
+    storage_type        = "gp3"
+    engine              = "mysql"
+    engine_version      = "5.5"
+    multi_az            = "false"
+    skip_final_snapshot = "true"
+  }
+  description = "Settings for the DB instance"
 }
