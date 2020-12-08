@@ -71,7 +71,7 @@ variable "artifactory_server_name" {
 
 variable "elb_name" {
   type        = string
-  description = "Thge name of the Load balancer"
+  description = "The name of the Load balancer"
   default     = "artifactoryelb"
 }
 

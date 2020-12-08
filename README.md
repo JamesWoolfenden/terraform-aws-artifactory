@@ -12,8 +12,7 @@ This method has a number of Issues including:
 - SSL termination, requires upfront provision of non ACM certificate rather than termination of SSL at an ELB.
 - Creates an IAM user.
 - Generates access keys for IAM user and adds it to filesystem of an instance.
-- Security groups very open
-
+- Security groups very very open
 
 ## Terraform Template For Artifactory Enterprise
 
@@ -25,6 +24,35 @@ This method has a number of Issues including:
 - Basic knowledge of Artifactory
 - Learn about [system requirements for Artifactory](https://www.jfrog.com/confluence/display/RTF/System+Requirements#SystemRequirements-RecommendedHardware)
 - Learn more about Terraform AWS provider follow: https://www.terraform.io/docs/providers/aws/index.html
+
+## Usage
+
+There are 2 examples included one, provisions into an existing VPC the other create a vpc for you as well.
+
+example
+├── examplea
+└── exampleb-newvpc
+
+Copy either as you starting point or make your own by adding a module definition to your own code module.artifactory.tf:
+
+```terraform
+module "artifactory" {
+  source             = "JamesWoolfenden/artifactory-oss/aws"
+  version            = "0.1.0"
+  common_tags        = var.common_tags
+  subnet_ids         = var.subnet_ids
+  vpc_id             = var.vpc_id
+  ssl_certificate_id = var.ssl_certificate_id
+  vpc_cidr           = var.vpc_cidr
+  ssh_access         = [module.ip.cidr]
+  access_cidr        = [module.ip.cidr]
+  bucket_name        = "artifactory-${data.aws_caller_identity.current.account_id}"
+  instance_type      = "m4.xlarge"
+  record             = var.record
+  zone_id            = var.zone_id
+}
+
+```
 
 ### Steps to Deploy Artifactory Enterprise Using Terraform Template
 
@@ -126,7 +154,7 @@ To to store state as an artifact in a given repository of Artifactory, see [http
 | db\_name | MySQL database name | `string` | `"artdb"` | no |
 | db\_password | Database password | `string` | `"password"` | no |
 | db\_user | Database user name | `string` | `"artifactory"` | no |
-| elb\_name | Thge name of the Load balancer | `string` | `"artifactoryelb"` | no |
+| elb\_name | The name of the Load balancer | `string` | `"artifactoryelb"` | no |
 | extra\_java\_options | Setting Java Memory Parameters for Artifactory. Learn about system requirements for Artifactory https://www.jfrog.com/confluence/display/RTF/System+Requirements#SystemRequirements-RecommendedHardware. | `string` | `"-server -Xms2g -Xmx14g -Xss256k -XX:+UseG1GC -XX:OnOutOfMemoryError=\\\\"kill -9 %p\\\\""` | no |
 | instance\_type | Artifactory EC2 instance type | `string` | n/a | yes |
 | key\_name | Desired name of AWS key pair | `string` | `"jfrog"` | no |
