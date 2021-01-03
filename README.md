@@ -85,7 +85,7 @@ module "artifactory" {
 
 6. Run the `terraform apply -var 'key_name=myAwsKey'` command to deploy Artifactory Enterprise cluster on AWS
 
-    **Note**: it takes approximately 15 minutes to bring up the cluster.
+   **Note**: it takes approximately 15 minutes to bring up the cluster.
 
 7. You will receive ELB Url to access Artifactory. By default, this template starts only one node in the Artifactory cluster.
    It takes 7-10 minutes for Artifactory to start and to attach the instance to the ELB.The output can be viewed as:
@@ -101,18 +101,18 @@ module "artifactory" {
 9. Scale your cluster using following command: `terraform apply -var 'key_name=myAwsKey' -var 'secondary_node_count=2'`
    In this example we are scaling artifactory cluster to 2 nodes.
 
-    **Note**: You can only scale nodes to number of artifactory licenses you have available for cluster.
+   **Note**: You can only scale nodes to number of artifactory licenses you have available for cluster.
 
 10. SSH into Artifactory primary instance and type [inactiveServerCleaner](inactiveServerCleaner.groovy) plugin in `'/var/opt/jfrog/artifactory/etc/plugins'` directory.
-    (Optional) To destroy the cluster, run  the following commend: `terraform destroy -var 'key_name=myAwsKey'`
+    (Optional) To destroy the cluster, run the following commend: `terraform destroy -var 'key_name=myAwsKey'`
 
 ### Note
 
-   This template only supports Artifactory version 5.8.x and above.
-   Turn off daily backups. Read Documentation provided [here](https://www.jfrog.com/confluence/display/RTF/Managing+Backups).
+This template only supports Artifactory version 5.8.x and above.
+Turn off daily backups. Read Documentation provided [here](https://www.jfrog.com/confluence/display/RTF/Managing+Backups).
 
-  **Note**: In this template as default S3 is default filestore and data is persisted in S3. If you keep daily backups on disk space (default 250Gb) will get occupied quickly.
-   Use an SSL Certificate with a valid wildcard to your artifactory as docker registry with subdomain method.
+**Note**: In this template as default S3 is default filestore and data is persisted in S3. If you keep daily backups on disk space (default 250Gb) will get occupied quickly.
+Use an SSL Certificate with a valid wildcard to your artifactory as docker registry with subdomain method.
 
 ### Use Artifactory as backend
 
@@ -121,23 +121,16 @@ To to store state as an artifact in a given repository of Artifactory, see [http
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-| Name | Version |
-|------|---------|
-| terraform | >= 0.14 |
-| aws | 3.20.0 |
-| http | 2.0.0 |
-| local | 2.0.0 |
-| template | 2.2.0 |
-| tls | 3.0.0 |
+No requirements.
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 3.20.0 |
-| local | 2.0.0 |
-| template | 2.2.0 |
-| tls | 3.0.0 |
+| aws | n/a |
+| local | n/a |
+| template | n/a |
+| tls | n/a |
 
 ## Inputs
 
@@ -199,7 +192,7 @@ Please use the [issue tracker](https://github.com/JamesWoolfenden/terraform-aws-
 
 ## Copyrights
 
-Copyright � 2019-2020 James Woolfenden
+Copyright © 2019-2021 James Woolfenden
 
 ## License
 
