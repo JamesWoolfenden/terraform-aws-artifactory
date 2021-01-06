@@ -2,11 +2,13 @@
 # Needs diagrams from pip and graphwiz installed
 from diagrams import Cluster, Diagram
 #from diagrams.aws.network.ElasticLoadBalancing import ELB
-from diagrams.aws.compute.ApplicationAutoScaling import Scale
-from diagrams.aws.compute.EC2 import EC2
-from diagrams.aws.database.RDS import RDS
-from diagrams.aws.network.Route53 import Route53
-from diagrams.aws.storage.SimpleStorageServiceS3 import S3
+from diagrams.aws.compute import AutoScaling
+from diagrams.aws.compute import EC2
+from diagrams.aws.database import RDS
+from diagrams.aws.network import Route53
+from diagrams.aws.network import ELB
+from diagrams.aws.storage import S3
+
 
 with Diagram("Artifactory", show=False):
     dns = Route53("dns")
@@ -14,14 +16,4 @@ with Diagram("Artifactory", show=False):
 
     with Cluster("DB Security Group"):
         RDS("MySql")
-
-   # with Cluster("App Security"):
-
-  #  with Cluster("ELB Security"):
-
-
-#autoscaling ->elb
-
-#elo
-#rds instance-db Security group
-#instance profile
+        S3("Artifact Store")
