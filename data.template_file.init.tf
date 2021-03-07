@@ -1,6 +1,6 @@
 
 data "template_file" "init" {
-  template = file("${path.module}/userdata.sh")
+  template = file("${path.module}/userdata.sh.template")
 
   vars = {
     s3_bucket_name          = aws_s3_bucket.b.id
