@@ -12,6 +12,7 @@ resource "aws_route" "internet_access" {
 
 # Create a subnet to launch our instances into
 resource "aws_subnet" "default" {
+  # checkov:skip=CKV_AWS_130: Its an example
   vpc_id                  = aws_vpc.default.id
   cidr_block              = "10.0.1.0/24"
   map_public_ip_on_launch = true
@@ -19,6 +20,7 @@ resource "aws_subnet" "default" {
 
 # Create a subnet to launch our instances into
 resource "aws_subnet" "default_2" {
+  # checkov:skip=CKV_AWS_130: Its an example
   vpc_id                  = aws_vpc.default.id
   cidr_block              = "10.0.2.0/24"
   map_public_ip_on_launch = true
@@ -26,6 +28,7 @@ resource "aws_subnet" "default_2" {
 }
 
 resource "aws_subnet" "default_3" {
+  # checkov:skip=CKV_AWS_130: Its an example
   vpc_id                  = aws_vpc.default.id
   cidr_block              = "10.0.3.0/24"
   map_public_ip_on_launch = true
