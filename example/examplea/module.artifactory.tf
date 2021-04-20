@@ -11,4 +11,10 @@ module "artifactory" {
   instance_type      = "m4.xlarge"
   record             = var.record
   zone_id            = var.zone_id
+  db_password        = random_string.db_password.result
+}
+
+
+resource "random_string" "db_password" {
+  length = 12
 }
