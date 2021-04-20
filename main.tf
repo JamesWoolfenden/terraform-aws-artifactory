@@ -12,6 +12,7 @@ resource "aws_security_group_rule" "allow_db_access" {
   from_port   = "3306"
   to_port     = "3306"
   protocol    = "tcp"
+  description = "DB access rule"
   cidr_blocks = var.vpc_cidr
 
   security_group_id = aws_security_group.main_db_access.id
@@ -23,6 +24,8 @@ resource "aws_security_group_rule" "allow_all_outbound" {
   from_port   = 0
   to_port     = 0
   protocol    = "-1"
+  description = "Allow outbound"
+  # tfsec:ignore:AWS007
   cidr_blocks = ["0.0.0.0/0"]
 
   security_group_id = aws_security_group.main_db_access.id

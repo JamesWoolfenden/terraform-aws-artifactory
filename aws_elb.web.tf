@@ -1,5 +1,7 @@
+
 resource "aws_elb" "web" {
-  #checkov:skip=CKV_AWS_92: "Ensure the ELB has access logging enabled"
+  # tfsec:ignore:AWS005
+  # checkov:skip=CKV_AWS_92: "Ensure the ELB has access logging enabled"
   name = var.elb_name
 
   subnets         = var.subnet_ids

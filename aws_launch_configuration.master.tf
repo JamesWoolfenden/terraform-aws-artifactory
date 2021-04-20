@@ -5,8 +5,9 @@ resource "aws_launch_configuration" "master" {
   instance_type = var.instance_type
 
   # The name of our SSH keypair we created above.
-  key_name                    = var.key_name
-  security_groups             = [aws_security_group.default.id]
+  key_name        = var.key_name
+  security_groups = [aws_security_group.default.id]
+  # tfsec:ignore:AWS012
   associate_public_ip_address = true
   user_data                   = data.template_file.init.rendered
   iam_instance_profile        = aws_iam_instance_profile.art.name
