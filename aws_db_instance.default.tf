@@ -1,5 +1,8 @@
 #RDS to for Artifactory
 resource "aws_db_instance" "default" {
+  # checkov:skip=CKV_AWS_157: Cost
+  # checkov:skip=CKV_AWS_118: Cost
+  #tfsec:ignore:AWS091
   allocated_storage               = var.db_allocated_storage
   storage_type                    = var.rds["storage_type"]
   monitoring_interval             = var.monitoring_interval
@@ -16,21 +19,4 @@ resource "aws_db_instance" "default" {
   vpc_security_group_ids          = [aws_security_group.main_db_access.id]
   skip_final_snapshot             = var.rds["skip_final_snapshot"]
   db_subnet_group_name            = aws_db_subnet_group.main_db_subnet_group.name
-
-  tags = var.common_tags
-}
-variable "monitoring_interval" {
-  type        = string
-  description = "The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB instance"
-  default     = 30
-
-  validation {
-    condition     = can(regex("0|1|5|10|15|30|60", var.monitoring_interval))
-    error_message = "Valid Values: 0, 1, 5, 10, 15, 30, 60."
-  }
-}
-
-variable "monitoring_role_arn" {
-  type    = string
-  default = ""
 }

@@ -67,6 +67,4 @@ resource "aws_security_group" "default" {
     # tfsec:ignore:AWS009
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  tags = var.common_tags
 }

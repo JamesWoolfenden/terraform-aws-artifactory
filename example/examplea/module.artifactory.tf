@@ -1,6 +1,5 @@
 module "artifactory" {
   source             = "../../"
-  common_tags        = var.common_tags
   subnet_ids         = var.subnet_ids
   vpc_id             = var.vpc_id
   ssl_certificate_id = var.ssl_certificate_id

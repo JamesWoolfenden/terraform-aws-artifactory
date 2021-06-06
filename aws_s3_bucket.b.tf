@@ -18,6 +18,13 @@ resource "aws_s3_bucket" "b" {
       }
     }
   }
+}
 
-  tags = var.common_tags
+
+resource "aws_s3_bucket_public_access_block" "b" {
+  bucket                  = aws_s3_bucket.b.id
+  restrict_public_buckets = true
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
 }

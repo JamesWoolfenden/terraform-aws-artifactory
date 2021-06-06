@@ -45,7 +45,6 @@ Copy either as you starting point or make your own by adding a module definition
 module "artifactory" {
   source             = "JamesWoolfenden/artifactory-oss/aws"
   version            = "0.1.0"
-  common_tags        = var.common_tags
   subnet_ids         = var.subnet_ids
   vpc_id             = var.vpc_id
   ssl_certificate_id = var.ssl_certificate_id
@@ -58,6 +57,41 @@ module "artifactory" {
   zone_id            = var.zone_id
 }
 
+```
+
+## Costs
+
+```text
+Monthly cost estimate
+
+Project: JamesWoolfenden/terraform-aws-artifactory/example/examplea
+
+ Name                                                           Monthly Qty  Unit                    Monthly Cost
+
+ module.artifactory.aws_autoscaling_group.art
+ └─ module.artifactory.aws_launch_configuration.master
+    ├─ Instance usage (Linux/UNIX, on-demand, m4.xlarge)                730  hours                        $169.36
+    ├─ EC2 detailed monitoring                                            7  metrics                        $2.10
+    └─ root_block_device
+       └─ Storage (general purpose SSD, gp2)                            250  GB                            $29.00
+
+ module.artifactory.aws_db_instance.default
+ ├─ Database instance                                                   730  hours                         $27.74
+ └─ Database storage                                                      5  GB                             $0.67
+
+ module.artifactory.aws_elb.web
+ ├─ Classic load balancer                                               730  hours                         $21.46
+ └─ Data processed                                        Monthly cost depends on usage: $0.0084 per GB
+
+ module.artifactory.aws_s3_bucket.b
+ └─ Standard
+    ├─ Storage                                            Monthly cost depends on usage: $0.024 per GB
+    ├─ PUT, COPY, POST, LIST requests                     Monthly cost depends on usage: $0.0053 per 1k requests
+    ├─ GET, SELECT, and all other requests                Monthly cost depends on usage: $0.00042 per 1k requests
+    ├─ Select data scanned                                Monthly cost depends on usage: $0.00225 per GB
+    └─ Select data returned                               Monthly cost depends on usage: $0.0008 per GB
+
+ OVERALL TOTAL                                                                                            $250.33
 ```
 
 ### Steps to Deploy Artifactory Enterprise Using Terraform Template
@@ -158,6 +192,7 @@ No modules.
 | [aws_launch_configuration.master](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_configuration) | resource |
 | [aws_route53_record.www](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_s3_bucket.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
+| [aws_s3_bucket_public_access_block.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
 | [aws_security_group.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_security_group.elb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_security_group.main_db_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
@@ -178,7 +213,6 @@ No modules.
 | <a name="input_artifactory_sg_name"></a> [artifactory\_sg\_name](#input\_artifactory\_sg\_name) | (optional) describe your variable | `string` | `"artifactory_sg"` | no |
 | <a name="input_autoscaling_group_name"></a> [autoscaling\_group\_name](#input\_autoscaling\_group\_name) | artifactory autoscaling group | `string` | `"artifactory autoscaling group"` | no |
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | AWS S3 Bucket name | `string` | n/a | yes |
-| <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | Implements the common tags scheme | `map(any)` | <pre>{<br>  "createdby": "Terraform"<br>}</pre> | no |
 | <a name="input_db_allocated_storage"></a> [db\_allocated\_storage](#input\_db\_allocated\_storage) | The size of the database (Gb) | `string` | `"5"` | no |
 | <a name="input_db_instance_class"></a> [db\_instance\_class](#input\_db\_instance\_class) | The database instance type | `string` | `"db.t2.small"` | no |
 | <a name="input_db_name"></a> [db\_name](#input\_db\_name) | MySQL database name | `string` | `"artdb"` | no |

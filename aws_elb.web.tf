@@ -22,6 +22,4 @@ resource "aws_elb" "web" {
     target              = "HTTP:8082/ui/login/"
     interval            = 30
   }
-
-  tags = var.common_tags
 }

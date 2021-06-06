@@ -1,7 +1,6 @@
 resource "aws_key_pair" "ssm_key" {
   key_name   = var.key_name
   public_key = tls_private_key.ssh.public_key_openssh
-  tags       = var.common_tags
 }
 
 resource "local_file" "public_ssh" {

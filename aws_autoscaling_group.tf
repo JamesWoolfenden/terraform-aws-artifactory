@@ -1,4 +1,5 @@
 resource "aws_autoscaling_group" "art" {
+  # checkov:skip=CKV_AWS_153: ADD REASON
   name                      = var.autoscaling_group_name
   max_size                  = 1
   min_size                  = 1
@@ -19,6 +20,7 @@ resource "aws_autoscaling_group" "art" {
 }
 
 resource "aws_autoscaling_attachment" "asg_attachment_bar" {
+  # checkov:skip=CKV2_AWS_15: ADD REASON
   autoscaling_group_name = aws_autoscaling_group.art.id
   elb                    = aws_elb.web.id
 }
