@@ -1,7 +1,7 @@
-#RDS to for Artifactory
 resource "aws_db_instance" "default" {
   # checkov:skip=CKV_AWS_157: Cost
   # checkov:skip=CKV_AWS_118: Cost
+  # checkov:skip=CKV_AWS_161: TODO
   #tfsec:ignore:AWS091
   allocated_storage               = var.db_allocated_storage
   storage_type                    = var.rds["storage_type"]
