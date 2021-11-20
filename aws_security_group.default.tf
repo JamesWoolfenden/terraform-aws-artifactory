@@ -48,6 +48,7 @@ resource "aws_security_group" "default" {
 
 
   ingress {
+    description      = "sELF"
     cidr_blocks      = var.ssh_access
     from_port        = 0
     ipv6_cidr_blocks = []
