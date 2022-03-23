@@ -1,7 +1,7 @@
 
 resource "aws_launch_configuration" "master" {
 
-  image_id      = data.aws_ami.amazon-linux-2-ami.id
+  image_id      = data.aws_ami.amazon_linux_2_ami.id
   instance_type = var.instance_type
 
   # The name of our SSH keypair we created above.

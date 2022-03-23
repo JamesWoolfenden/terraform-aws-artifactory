@@ -4,15 +4,17 @@ resource "aws_db_instance" "default" {
   # checkov:skip=CKV_AWS_161: TODO
   #tfsec:ignore:AWS091
   allocated_storage               = var.db_allocated_storage
+  auto_minor_version_upgrade      = true
   storage_type                    = var.rds["storage_type"]
   monitoring_interval             = var.monitoring_interval
   monitoring_role_arn             = var.monitoring_role_arn
   storage_encrypted               = true
+  kms_key_id                      = var.kms_key.arn
   engine                          = var.rds["engine"]
   engine_version                  = var.rds["engine_version"]
   enabled_cloudwatch_logs_exports = ["audit", "error", "general"]
   instance_class                  = var.db_instance_class
-  name                            = var.db_name
+  db_name                         = var.db_name
   username                        = var.db_user
   password                        = var.db_password
   multi_az                        = var.rds["multi_az"]

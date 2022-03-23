@@ -5,6 +5,7 @@ module "artifactory" {
   vpc_cidr          = var.vpc_cidr
   db_password       = random_string.db_password.result
   availability_zone = data.aws_availability_zones.available
+  kms_key           = aws_kms_key.example
 }
 
 

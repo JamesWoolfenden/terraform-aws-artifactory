@@ -11,6 +11,7 @@ module "artifactory" {
   record             = var.record
   zone_id            = var.zone_id
   db_password        = random_string.db_password.result
+  kms_key            = aws_kms_key.example
 }
 
 

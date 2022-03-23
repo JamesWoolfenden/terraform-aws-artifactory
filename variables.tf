@@ -140,7 +140,7 @@ variable "autoscaling_group_name" {
 variable "rds" {
   type = map(any)
   default = {
-    storage_type        = "gp3"
+    storage_type        = "gp2"
     engine              = "mysql"
     engine_version      = "5.5"
     multi_az            = "false"
@@ -164,3 +164,5 @@ variable "monitoring_role_arn" {
   type    = string
   default = ""
 }
+
+variable "kms_key" {}

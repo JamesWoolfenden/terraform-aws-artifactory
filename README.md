@@ -159,19 +159,18 @@ Use an SSL Certificate with a valid wildcard to your artifactory as docker regis
 To to store state as an artifact in a given repository of Artifactory, see [https://www.terraform.io/docs/backends/types/artifactory.html](https://www.terraform.io/docs/backends/types/artifactory.html)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
 ## Requirements
 
 No requirements.
 
 ## Providers
 
-| Name                                                            | Version |
-| --------------------------------------------------------------- | ------- |
-| <a name="provider_aws"></a> [aws](#provider_aws)                | n/a     |
-| <a name="provider_local"></a> [local](#provider_local)          | n/a     |
-| <a name="provider_template"></a> [template](#provider_template) | n/a     |
-| <a name="provider_tls"></a> [tls](#provider_tls)                | n/a     |
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_local"></a> [local](#provider\_local) | n/a |
+| <a name="provider_template"></a> [template](#provider\_template) | n/a |
+| <a name="provider_tls"></a> [tls](#provider\_tls) | n/a |
 
 ## Modules
 
@@ -179,71 +178,74 @@ No modules.
 
 ## Resources
 
-| Name                                                                                                                                                | Type        |
-| --------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| [aws_autoscaling_attachment.asg_attachment_bar](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_attachment) | resource    |
-| [aws_autoscaling_group.art](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group)                          | resource    |
-| [aws_db_instance.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance)                                  | resource    |
-| [aws_db_subnet_group.main_db_subnet_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_subnet_group)             | resource    |
-| [aws_elb.web](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elb)                                                      | resource    |
-| [aws_iam_instance_profile.art](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile)                    | resource    |
-| [aws_iam_role.art](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role)                                            | resource    |
-| [aws_iam_role_policy.art](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy)                              | resource    |
-| [aws_key_pair.ssm_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair)                                        | resource    |
-| [aws_launch_configuration.master](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_configuration)                 | resource    |
-| [aws_route53_record.www](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record)                                | resource    |
-| [aws_s3_bucket.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket)                                            | resource    |
-| [aws_s3_bucket_public_access_block.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block)    | resource    |
-| [aws_security_group.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group)                            | resource    |
-| [aws_security_group.elb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group)                                | resource    |
-| [aws_security_group.main_db_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group)                     | resource    |
-| [aws_security_group_rule.allow_all_outbound](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule)       | resource    |
-| [aws_security_group_rule.allow_db_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule)          | resource    |
-| [local_file.private_ssh](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file)                                        | resource    |
-| [local_file.public_ssh](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file)                                         | resource    |
-| [tls_private_key.ssh](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key)                                      | resource    |
-| [aws_ami.amazon-linux-2-ami](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami)                                    | data source |
-| [template_file.init](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file)                                      | data source |
+| Name | Type |
+|------|------|
+| [aws_autoscaling_attachment.asg_attachment_bar](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_attachment) | resource |
+| [aws_autoscaling_group.art](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group) | resource |
+| [aws_db_instance.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance) | resource |
+| [aws_db_subnet_group.main_db_subnet_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_subnet_group) | resource |
+| [aws_elb.web](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elb) | resource |
+| [aws_iam_instance_profile.art](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
+| [aws_iam_role.art](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy.art](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
+| [aws_key_pair.ssm_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
+| [aws_launch_configuration.master](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_configuration) | resource |
+| [aws_route53_record.www](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [aws_s3_bucket.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
+| [aws_s3_bucket_acl.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_acl) | resource |
+| [aws_s3_bucket_public_access_block.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
+| [aws_s3_bucket_server_side_encryption_configuration.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_server_side_encryption_configuration) | resource |
+| [aws_s3_bucket_versioning.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_versioning) | resource |
+| [aws_security_group.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_security_group.elb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_security_group.main_db_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_security_group_rule.allow_all_outbound](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.allow_db_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [local_file.private_ssh](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
+| [local_file.public_ssh](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
+| [tls_private_key.ssh](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) | resource |
+| [aws_ami.amazon_linux_2_ami](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
+| [template_file.init](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) | data source |
 
 ## Inputs
 
-| Name                                                                                                   | Description                                                                                                                                                                                              | Type        | Default                                                                                                                                                     | Required |
-| ------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | :------: |
-| <a name="input_access_cidr"></a> [access_cidr](#input_access_cidr)                                     | n/a                                                                                                                                                                                                      | `list(any)` | n/a                                                                                                                                                         |   yes    |
-| <a name="input_artifactory_server_name"></a> [artifactory_server_name](#input_artifactory_server_name) | Provide artifactory server name to be used in Nginx. e.g artifactory for artifactory.jfrog.team                                                                                                          | `string`    | `"artifactory"`                                                                                                                                             |    no    |
-| <a name="input_artifactory_sg_name"></a> [artifactory_sg_name](#input_artifactory_sg_name)             | (optional) describe your variable                                                                                                                                                                        | `string`    | `"artifactory_sg"`                                                                                                                                          |    no    |
-| <a name="input_autoscaling_group_name"></a> [autoscaling_group_name](#input_autoscaling_group_name)    | artifactory autoscaling group                                                                                                                                                                            | `string`    | `"artifactory autoscaling group"`                                                                                                                           |    no    |
-| <a name="input_bucket_name"></a> [bucket_name](#input_bucket_name)                                     | AWS S3 Bucket name                                                                                                                                                                                       | `string`    | n/a                                                                                                                                                         |   yes    |
-| <a name="input_db_allocated_storage"></a> [db_allocated_storage](#input_db_allocated_storage)          | The size of the database (Gb)                                                                                                                                                                            | `string`    | `"5"`                                                                                                                                                       |    no    |
-| <a name="input_db_instance_class"></a> [db_instance_class](#input_db_instance_class)                   | The database instance type                                                                                                                                                                               | `string`    | `"db.t2.small"`                                                                                                                                             |    no    |
-| <a name="input_db_name"></a> [db_name](#input_db_name)                                                 | MySQL database name                                                                                                                                                                                      | `string`    | `"artdb"`                                                                                                                                                   |    no    |
-| <a name="input_db_password"></a> [db_password](#input_db_password)                                     | Database password                                                                                                                                                                                        | `string`    | n/a                                                                                                                                                         |   yes    |
-| <a name="input_db_user"></a> [db_user](#input_db_user)                                                 | Database user name                                                                                                                                                                                       | `string`    | `"artifactory"`                                                                                                                                             |    no    |
-| <a name="input_elb_name"></a> [elb_name](#input_elb_name)                                              | The name of the Load balancer                                                                                                                                                                            | `string`    | `"artifactoryelb"`                                                                                                                                          |    no    |
-| <a name="input_extra_java_options"></a> [extra_java_options](#input_extra_java_options)                | Setting Java Memory Parameters for Artifactory. Learn about system requirements for Artifactory https://www.jfrog.com/confluence/display/RTF/System+Requirements#SystemRequirements-RecommendedHardware. | `string`    | `"-server -Xms2g -Xmx14g -Xss256k -XX:+UseG1GC -XX:OnOutOfMemoryError=\\\\"kill -9 %p\\\\""`                                                                |    no    |
-| <a name="input_instance_type"></a> [instance_type](#input_instance_type)                               | Artifactory EC2 instance type                                                                                                                                                                            | `string`    | n/a                                                                                                                                                         |   yes    |
-| <a name="input_key_name"></a> [key_name](#input_key_name)                                              | Desired name of AWS key pair                                                                                                                                                                             | `string`    | `"jfrog"`                                                                                                                                                   |    no    |
-| <a name="input_master_key"></a> [master_key](#input_master_key)                                        | Master key for Artifactory cluster. Generate master.key using command '$openssl rand -hex 16'                                                                                                            | `string`    | `"35767fa0164bac66b6cccb8880babefb"`                                                                                                                        |    no    |
-| <a name="input_monitoring_interval"></a> [monitoring_interval](#input_monitoring_interval)             | The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB instance                                                                                              | `string`    | `30`                                                                                                                                                        |    no    |
-| <a name="input_monitoring_role_arn"></a> [monitoring_role_arn](#input_monitoring_role_arn)             | n/a                                                                                                                                                                                                      | `string`    | `""`                                                                                                                                                        |    no    |
-| <a name="input_profile_name"></a> [profile_name](#input_profile_name)                                  | Instance profile name                                                                                                                                                                                    | `string`    | `"artifactory"`                                                                                                                                             |    no    |
-| <a name="input_rds"></a> [rds](#input_rds)                                                             | Settings for the DB instance                                                                                                                                                                             | `map(any)`  | <pre>{<br> "engine": "mysql",<br> "engine_version": "5.5",<br> "multi_az": "false",<br> "skip_final_snapshot": "true",<br> "storage_type": "gp3"<br>}</pre> |    no    |
-| <a name="input_record"></a> [record](#input_record)                                                    | Value for Route53 entry                                                                                                                                                                                  | `string`    | n/a                                                                                                                                                         |   yes    |
-| <a name="input_sse_algorithm"></a> [sse_algorithm](#input_sse_algorithm)                               | The type of encryption algorithm to use                                                                                                                                                                  | `string`    | `"aws:kms"`                                                                                                                                                 |    no    |
-| <a name="input_ssh_access"></a> [ssh_access](#input_ssh_access)                                        | n/a                                                                                                                                                                                                      | `list(any)` | n/a                                                                                                                                                         |   yes    |
-| <a name="input_ssl_certificate_id"></a> [ssl_certificate_id](#input_ssl_certificate_id)                | The ID of the SSL certificate from ACM                                                                                                                                                                   | `string`    | n/a                                                                                                                                                         |   yes    |
-| <a name="input_subnet_ids"></a> [subnet_ids](#input_subnet_ids)                                        | A list of Subnet ids                                                                                                                                                                                     | `list(any)` | n/a                                                                                                                                                         |   yes    |
-| <a name="input_volume_size"></a> [volume_size](#input_volume_size)                                     | Disk size for each EC2 instances                                                                                                                                                                         | `string`    | `250`                                                                                                                                                       |    no    |
-| <a name="input_vpc_cidr"></a> [vpc_cidr](#input_vpc_cidr)                                              | The CIDR of the VPC                                                                                                                                                                                      | `list(any)` | n/a                                                                                                                                                         |   yes    |
-| <a name="input_vpc_id"></a> [vpc_id](#input_vpc_id)                                                    | The VPC id                                                                                                                                                                                               | `string`    | n/a                                                                                                                                                         |   yes    |
-| <a name="input_zone_id"></a> [zone_id](#input_zone_id)                                                 | The Route53 zone for the record                                                                                                                                                                          | `string`    | n/a                                                                                                                                                         |   yes    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_access_cidr"></a> [access\_cidr](#input\_access\_cidr) | n/a | `list(any)` | n/a | yes |
+| <a name="input_artifactory_server_name"></a> [artifactory\_server\_name](#input\_artifactory\_server\_name) | Provide artifactory server name to be used in Nginx. e.g artifactory for artifactory.jfrog.team | `string` | `"artifactory"` | no |
+| <a name="input_artifactory_sg_name"></a> [artifactory\_sg\_name](#input\_artifactory\_sg\_name) | (optional) describe your variable | `string` | `"artifactory_sg"` | no |
+| <a name="input_autoscaling_group_name"></a> [autoscaling\_group\_name](#input\_autoscaling\_group\_name) | artifactory autoscaling group | `string` | `"artifactory autoscaling group"` | no |
+| <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | AWS S3 Bucket name | `string` | n/a | yes |
+| <a name="input_db_allocated_storage"></a> [db\_allocated\_storage](#input\_db\_allocated\_storage) | The size of the database (Gb) | `string` | `"5"` | no |
+| <a name="input_db_instance_class"></a> [db\_instance\_class](#input\_db\_instance\_class) | The database instance type | `string` | `"db.t2.small"` | no |
+| <a name="input_db_name"></a> [db\_name](#input\_db\_name) | MySQL database name | `string` | `"artdb"` | no |
+| <a name="input_db_password"></a> [db\_password](#input\_db\_password) | Database password | `string` | n/a | yes |
+| <a name="input_db_user"></a> [db\_user](#input\_db\_user) | Database user name | `string` | `"artifactory"` | no |
+| <a name="input_elb_name"></a> [elb\_name](#input\_elb\_name) | The name of the Load balancer | `string` | `"artifactoryelb"` | no |
+| <a name="input_extra_java_options"></a> [extra\_java\_options](#input\_extra\_java\_options) | Setting Java Memory Parameters for Artifactory. Learn about system requirements for Artifactory https://www.jfrog.com/confluence/display/RTF/System+Requirements#SystemRequirements-RecommendedHardware. | `string` | `"-server -Xms2g -Xmx14g -Xss256k -XX:+UseG1GC -XX:OnOutOfMemoryError=\\\\"kill -9 %p\\\\""` | no |
+| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Artifactory EC2 instance type | `string` | n/a | yes |
+| <a name="input_key_name"></a> [key\_name](#input\_key\_name) | Desired name of AWS key pair | `string` | `"jfrog"` | no |
+| <a name="input_kms_key"></a> [kms\_key](#input\_kms\_key) | n/a | `any` | n/a | yes |
+| <a name="input_master_key"></a> [master\_key](#input\_master\_key) | Master key for Artifactory cluster. Generate master.key using command '$openssl rand -hex 16' | `string` | `"35767fa0164bac66b6cccb8880babefb"` | no |
+| <a name="input_monitoring_interval"></a> [monitoring\_interval](#input\_monitoring\_interval) | The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB instance | `string` | `30` | no |
+| <a name="input_monitoring_role_arn"></a> [monitoring\_role\_arn](#input\_monitoring\_role\_arn) | n/a | `string` | `""` | no |
+| <a name="input_profile_name"></a> [profile\_name](#input\_profile\_name) | Instance profile name | `string` | `"artifactory"` | no |
+| <a name="input_rds"></a> [rds](#input\_rds) | Settings for the DB instance | `map(any)` | <pre>{<br>  "engine": "mysql",<br>  "engine_version": "5.5",<br>  "multi_az": "false",<br>  "skip_final_snapshot": "true",<br>  "storage_type": "gp2"<br>}</pre> | no |
+| <a name="input_record"></a> [record](#input\_record) | Value for Route53 entry | `string` | n/a | yes |
+| <a name="input_sse_algorithm"></a> [sse\_algorithm](#input\_sse\_algorithm) | The type of encryption algorithm to use | `string` | `"aws:kms"` | no |
+| <a name="input_ssh_access"></a> [ssh\_access](#input\_ssh\_access) | n/a | `list(any)` | n/a | yes |
+| <a name="input_ssl_certificate_id"></a> [ssl\_certificate\_id](#input\_ssl\_certificate\_id) | The ID of the SSL certificate from ACM | `string` | n/a | yes |
+| <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | A list of Subnet ids | `list(any)` | n/a | yes |
+| <a name="input_volume_size"></a> [volume\_size](#input\_volume\_size) | Disk size for each EC2 instances | `string` | `250` | no |
+| <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | The CIDR of the VPC | `list(any)` | n/a | yes |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The VPC id | `string` | n/a | yes |
+| <a name="input_zone_id"></a> [zone\_id](#input\_zone\_id) | The Route53 zone for the record | `string` | n/a | yes |
 
 ## Outputs
 
-| Name                                                     | Description            |
-| -------------------------------------------------------- | ---------------------- |
-| <a name="output_address"></a> [address](#output_address) | URL of the Artifactory |
-
+| Name | Description |
+|------|-------------|
+| <a name="output_address"></a> [address](#output\_address) | URL of the Artifactory |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Related Projects
