@@ -256,115 +256,169 @@ The Policy required is:
 ```json
 {
     "Version": "2012-10-17",
-    "Statement": {
-        "Effect": "Allow",
-        "Action": [
-            "autoscaling:CreateAutoScalingGroup",
-            "autoscaling:CreateLaunchConfiguration",
-            "autoscaling:DeleteAutoScalingGroup",
-            "autoscaling:DeleteLaunchConfiguration",
-            "autoscaling:DescribeAutoScalingGroups",
-            "autoscaling:DescribeLaunchConfigurations",
-            "autoscaling:DescribeScalingActivities",
-            "autoscaling:UpdateAutoScalingGroup",
-            "ec2:AttachInternetGateway",
-            "ec2:AuthorizeSecurityGroupEgress",
-            "ec2:AuthorizeSecurityGroupIngress",
-            "ec2:CreateInternetGateway",
-            "ec2:CreateKeyPair",
-            "ec2:CreateRoute",
-            "ec2:CreateSecurityGroup",
-            "ec2:CreateSubnet",
-            "ec2:CreateVPC",
-            "ec2:DeleteInternetGateway",
-            "ec2:DeleteKeyPair",
-            "ec2:DeleteRoute",
-            "ec2:DeleteSecurityGroup",
-            "ec2:DeleteSubnet",
-            "ec2:DeleteVPC",
-            "ec2:DescribeAccountAttributes",
-            "ec2:DescribeAvailabilityZones",
-            "ec2:DescribeImages",
-            "ec2:DescribeInternetGateways",
-            "ec2:DescribeKeyPairs",
-            "ec2:DescribeNetworkInterfaces",
-            "ec2:DescribeRouteTables",
-            "ec2:DescribeSecurityGroups",
-            "ec2:DescribeSubnets",
-            "ec2:DescribeVpcAttribute",
-            "ec2:DescribeVpcs",
-            "ec2:DetachInternetGateway",
-            "ec2:ImportKeyPair",
-            "ec2:RevokeSecurityGroupEgress",
-            "ec2:RevokeSecurityGroupIngress",
-            "elasticloadbalancing:AttachLoadBalancerToSubnets",
-            "elasticloadbalancing:CreateLoadBalancer",
-            "elasticloadbalancing:CreateLoadBalancerListeners",
-            "elasticloadbalancing:DeleteLoadBalancer",
-            "elasticloadbalancing:DescribeLoadBalancerAttributes",
-            "elasticloadbalancing:DescribeLoadBalancers",
-            "elasticloadbalancing:DescribeTags",
-            "elasticloadbalancing:ModifyLoadBalancerAttributes",
-            "iam:AddRoleToInstanceProfile",
-            "iam:CreateInstanceProfile",
-            "iam:CreateRole",
-            "iam:DeleteInstanceProfile",
-            "iam:DeleteRole",
-            "iam:DeleteRolePolicy",
-            "iam:GetInstanceProfile",
-            "iam:GetRole",
-            "iam:GetRolePolicy",
-            "iam:ListAttachedRolePolicies",
-            "iam:ListInstanceProfilesForRole",
-            "iam:ListRolePolicies",
-            "iam:PassRole",
-            "iam:PutRolePolicy",
-            "iam:RemoveRoleFromInstanceProfile",
-            "kms:CreateKey",
-            "kms:DescribeKey",
-            "kms:EnableKeyRotation",
-            "kms:GetKeyPolicy",
-            "kms:GetKeyRotationStatus",
-            "kms:ListResourceTags",
-            "kms:ScheduleKeyDeletion",
-            "rds:CreateDBInstance",
-            "rds:CreateDBSubnetGroup",
-            "rds:DeleteDBSubnetGroup",
-            "rds:DescribeDBInstances",
-            "rds:DescribeDBSubnetGroups",
-            "rds:ListTagsForResource",
-            "rds:ModifyDBInstance",
-            "route53:ChangeResourceRecordSets",
-            "route53:GetChange",
-            "route53:GetHostedZone",
-            "route53:ListResourceRecordSets",
-            "s3:CreateBucket",
-            "s3:DeleteBucket",
-            "s3:GetAccelerateConfiguration",
-            "s3:GetBucketAcl",
-            "s3:GetBucketCORS",
-            "s3:GetBucketLogging",
-            "s3:GetBucketObjectLockConfiguration",
-            "s3:GetBucketPolicy",
-            "s3:GetBucketPublicAccessBlock",
-            "s3:GetBucketRequestPayment",
-            "s3:GetBucketTagging",
-            "s3:GetBucketVersioning",
-            "s3:GetBucketWebsite",
-            "s3:GetEncryptionConfiguration",
-            "s3:GetLifecycleConfiguration",
-            "s3:GetObject",
-            "s3:GetObjectAcl",
-            "s3:GetReplicationConfiguration",
-            "s3:ListAllMyBuckets",
-            "s3:ListBucket",
-            "s3:PutBucketAcl",
-            "s3:PutBucketPublicAccessBlock",
-            "s3:PutBucketVersioning",
-            "s3:PutEncryptionConfiguration"
-        ],
-        "Resource": "*"
-    }
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:AttachLoadBalancers",
+                "autoscaling:CreateAutoScalingGroup",
+                "autoscaling:CreateLaunchConfiguration",
+                "autoscaling:DeleteAutoScalingGroup",
+                "autoscaling:DeleteLaunchConfiguration",
+                "autoscaling:DescribeAutoScalingGroups",
+                "autoscaling:DescribeLaunchConfigurations",
+                "autoscaling:DescribeScalingActivities",
+                "autoscaling:DetachLoadBalancers",
+                "autoscaling:UpdateAutoScalingGroup"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:AttachInternetGateway",
+                "ec2:AuthorizeSecurityGroupEgress",
+                "ec2:AuthorizeSecurityGroupIngress",
+                "ec2:CreateInternetGateway",
+                "ec2:CreateKeyPair",
+                "ec2:CreateRoute",
+                "ec2:CreateSecurityGroup",
+                "ec2:CreateSubnet",
+                "ec2:CreateVPC",
+                "ec2:DeleteInternetGateway",
+                "ec2:DeleteKeyPair",
+                "ec2:DeleteRoute",
+                "ec2:DeleteSecurityGroup",
+                "ec2:DeleteSubnet",
+                "ec2:DeleteVPC",
+                "ec2:DescribeAccountAttributes",
+                "ec2:DescribeAvailabilityZones",
+                "ec2:DescribeImages",
+                "ec2:DescribeInternetGateways",
+                "ec2:DescribeKeyPairs",
+                "ec2:DescribeNetworkInterfaces",
+                "ec2:DescribeRouteTables",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeVpcAttribute",
+                "ec2:DescribeVpcs",
+                "ec2:DetachInternetGateway",
+                "ec2:ImportKeyPair",
+                "ec2:RevokeSecurityGroupEgress",
+                "ec2:RevokeSecurityGroupIngress"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:AttachLoadBalancerToSubnets",
+                "elasticloadbalancing:CreateLoadBalancer",
+                "elasticloadbalancing:CreateLoadBalancerListeners",
+                "elasticloadbalancing:DeleteLoadBalancer",
+                "elasticloadbalancing:DescribeLoadBalancerAttributes",
+                "elasticloadbalancing:DescribeLoadBalancers",
+                "elasticloadbalancing:DescribeTags",
+                "elasticloadbalancing:ModifyLoadBalancerAttributes"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor3",
+            "Effect": "Allow",
+            "Action": [
+                "iam:AddRoleToInstanceProfile",
+                "iam:CreateInstanceProfile",
+                "iam:CreateRole",
+                "iam:DeleteInstanceProfile",
+                "iam:DeleteRole",
+                "iam:DeleteRolePolicy",
+                "iam:GetInstanceProfile",
+                "iam:GetRole",
+                "iam:GetRolePolicy",
+                "iam:ListAttachedRolePolicies",
+                "iam:ListInstanceProfilesForRole",
+                "iam:ListRolePolicies",
+                "iam:PassRole",
+                "iam:PutRolePolicy",
+                "iam:RemoveRoleFromInstanceProfile"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor4",
+            "Effect": "Allow",
+            "Action": [
+                "kms:CreateKey",
+                "kms:DescribeKey",
+                "kms:EnableKeyRotation",
+                "kms:GetKeyPolicy",
+                "kms:GetKeyRotationStatus",
+                "kms:ListResourceTags",
+                "kms:ScheduleKeyDeletion"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor5",
+            "Effect": "Allow",
+            "Action": [
+                "rds:CreateDBInstance",
+                "rds:CreateDBSubnetGroup",
+                "rds:DeleteDBSubnetGroup",
+                "rds:DescribeDBInstances",
+                "rds:DescribeDBSubnetGroups",
+                "rds:ListTagsForResource",
+                "rds:ModifyDBInstance"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor6",
+            "Effect": "Allow",
+            "Action": [
+                "route53:ChangeResourceRecordSets",
+                "route53:GetChange",
+                "route53:GetHostedZone",
+                "route53:ListResourceRecordSets"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor7",
+            "Effect": "Allow",
+            "Action": [
+                "s3:CreateBucket",
+                "s3:DeleteBucket",
+                "s3:GetAccelerateConfiguration",
+                "s3:GetBucketAcl",
+                "s3:GetBucketCORS",
+                "s3:GetBucketLogging",
+                "s3:GetBucketObjectLockConfiguration",
+                "s3:GetBucketPolicy",
+                "s3:GetBucketPublicAccessBlock",
+                "s3:GetBucketRequestPayment",
+                "s3:GetBucketTagging",
+                "s3:GetBucketVersioning",
+                "s3:GetBucketWebsite",
+                "s3:GetEncryptionConfiguration",
+                "s3:GetLifecycleConfiguration",
+                "s3:GetObject",
+                "s3:GetObjectAcl",
+                "s3:GetReplicationConfiguration",
+                "s3:ListAllMyBuckets",
+                "s3:ListBucket",
+                "s3:PutBucketAcl",
+                "s3:PutBucketPublicAccessBlock",
+                "s3:PutBucketVersioning",
+                "s3:PutEncryptionConfiguration"
+            ],
+            "Resource": "*"
+        }
+    ]
 }
 
 ```
@@ -421,11 +475,3 @@ under the License.
 
 [jameswoolfenden_homepage]: https://github.com/jameswoolfenden
 [jameswoolfenden_avatar]: https://github.com/jameswoolfenden.png?size=150
-[github]: https://github.com/jameswoolfenden
-[linkedin]: https://www.linkedin.com/in/jameswoolfenden/
-[twitter]: https://twitter.com/JimWoolfenden
-[share_twitter]: https://twitter.com/intent/tweet/?text=terraform-aws-artifactory&url=https://github.com/JamesWoolfenden/terraform-aws-artifactory
-[share_linkedin]: https://www.linkedin.com/shareArticle?mini=true&title=terraform-aws-artifactory&url=https://github.com/JamesWoolfenden/terraform-aws-artifactory
-[share_reddit]: https://reddit.com/submit/?url=https://github.com/JamesWoolfenden/terraform-aws-artifactory
-[share_facebook]: https://facebook.com/sharer/sharer.php?u=https://github.com/JamesWoolfenden/terraform-aws-artifactory
-[share_email]: mailto:?subject=terraform-aws-artifactory&body=https://github.com/JamesWoolfenden/terraform-aws-artifactory
