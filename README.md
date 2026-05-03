@@ -149,7 +149,7 @@ Project: JamesWoolfenden/terraform-aws-artifactory/example/examplea
 ### Note
 
 This template only supports Artifactory version 5.8.x and above.
-Turn off daily backups. Read Documentation provided [here](https://www.jfrog.com/confluence/display/RTF/Managing+Backups).
+Turn off daily backups. Read Documentation provided [backups](https://www.jfrog.com/confluence/display/RTF/Managing+Backups).
 
 **Note**: In this template as default S3 is default filestore and data is persisted in S3. If you keep daily backups on disk space (default 250Gb) will get occupied quickly.
 Use an SSL Certificate with a valid wildcard to your artifactory as docker registry with subdomain method.
