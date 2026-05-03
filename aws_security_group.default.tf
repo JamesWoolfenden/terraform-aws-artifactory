@@ -1,6 +1,7 @@
 # Our default security group to access
 # the instances over SSH and HTTP
 resource "aws_security_group" "default" {
+  # checkov:skip=CKV_AWS_382: Artifactory server requires unrestricted outbound access for package downloads and updates
   name        = var.artifactory_sg_name
   description = "Used in the terraform"
   vpc_id      = var.vpc_id

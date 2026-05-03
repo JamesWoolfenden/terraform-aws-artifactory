@@ -1,5 +1,6 @@
 # A security group for the ELB so it is accessible via the web
 resource "aws_security_group" "elb" {
+  # checkov:skip=CKV_AWS_382: ELB requires unrestricted outbound access to reach backend instances
   name        = var.elb_name
   description = "Used in the terraform"
   vpc_id      = var.vpc_id

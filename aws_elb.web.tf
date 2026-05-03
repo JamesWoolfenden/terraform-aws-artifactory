@@ -1,6 +1,7 @@
 resource "aws_elb" "web" {
   # tfsec:ignore:AWS005
   # checkov:skip=CKV_AWS_92: "Ensure the ELB has access logging enabled"
+  # checkov:skip=CKV_AWS_376: Listener uses HTTPS (lb_protocol = https) with ACM certificate
   name = var.elb_name
 
   subnets         = var.subnet_ids

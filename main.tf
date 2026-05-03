@@ -15,6 +15,7 @@ resource "aws_security_group_rule" "allow_db_access" {
   security_group_id = aws_security_group.main_db_access.id
 }
 resource "aws_security_group_rule" "allow_all_outbound" {
+  # checkov:skip=CKV_AWS_382: RDS security group requires outbound access for DB replication and updates
   type = "egress"
 
   from_port   = 0

@@ -7,6 +7,8 @@ resource "aws_s3_bucket" "b" {
   # checkov:skip=CKV_AWS_145:v4 legacy
   # checkov:skip=CKV_AWS_21:v4 legacy
   # checkov:skip=CKV2_AWS_41:no logging req
+  # checkov:skip=CKV2_AWS_62: Event notifications not required for Artifactory binary storage bucket
+  # checkov:skip=CKV2_AWS_61: Lifecycle managed by Artifactory directly, not via S3 lifecycle rules
   bucket = var.bucket_name
 }
 resource "aws_s3_bucket_acl" "b" {

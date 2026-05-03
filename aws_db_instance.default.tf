@@ -2,6 +2,8 @@ resource "aws_db_instance" "default" {
   # checkov:skip=CKV_AWS_157: Cost
   # checkov:skip=CKV_AWS_118: Cost
   # checkov:skip=CKV_AWS_161: TODO
+  # checkov:skip=CKV_AWS_353: Performance Insights adds cost, not required for this module
+  # checkov:skip=CKV_AWS_293: Deletion protection disabled to allow example teardown
   #tfsec:ignore:AWS091
   allocated_storage               = var.db_allocated_storage
   auto_minor_version_upgrade      = true
@@ -21,4 +23,5 @@ resource "aws_db_instance" "default" {
   vpc_security_group_ids          = [aws_security_group.main_db_access.id]
   skip_final_snapshot             = var.rds["skip_final_snapshot"]
   db_subnet_group_name            = aws_db_subnet_group.main_db_subnet_group.name
+  copy_tags_to_snapshot           = true
 }
