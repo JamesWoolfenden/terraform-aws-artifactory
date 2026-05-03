@@ -39,3 +39,7 @@ repos:
       - id: tf2docs
   - repo: https://github.com/bridgecrewio/checkov
     rev: e52a901a3829d818d20c9b75e544845c8b756968 # 3.2.526
+    hooks:
+      - id: checkov
+        entry: checkov -d example/examplea --external-checks-dir checkov --download-external-modules true --compact
+        verbose: true
