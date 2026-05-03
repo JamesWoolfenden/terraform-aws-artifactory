@@ -1,5 +1,3 @@
-# S3 bucket
-
 resource "aws_s3_bucket" "b" {
   # tfsec:ignore:AWS002
   # checkov:skip=CKV_AWS_18: no logging req
@@ -11,20 +9,16 @@ resource "aws_s3_bucket" "b" {
   # checkov:skip=CKV2_AWS_41:no logging req
   bucket = var.bucket_name
 }
-
 resource "aws_s3_bucket_acl" "b" {
   bucket = aws_s3_bucket.b.id
   acl    = "private"
 }
-
 resource "aws_s3_bucket_versioning" "b" {
   bucket = aws_s3_bucket.b.id
   versioning_configuration {
     status = "Enabled"
   }
 }
-
-
 resource "aws_s3_bucket_server_side_encryption_configuration" "b" {
   bucket = aws_s3_bucket.b.bucket
 
@@ -35,7 +29,6 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "b" {
     }
   }
 }
-
 resource "aws_s3_bucket_public_access_block" "b" {
   bucket                  = aws_s3_bucket.b.id
   restrict_public_buckets = true

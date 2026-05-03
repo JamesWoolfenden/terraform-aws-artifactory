@@ -1,4 +1,3 @@
-
 resource "aws_launch_configuration" "master" {
 
   image_id      = data.aws_ami.amazon_linux_2_ami.id

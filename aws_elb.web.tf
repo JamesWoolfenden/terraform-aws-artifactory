@@ -1,4 +1,3 @@
-
 resource "aws_elb" "web" {
   # tfsec:ignore:AWS005
   # checkov:skip=CKV_AWS_92: "Ensure the ELB has access logging enabled"

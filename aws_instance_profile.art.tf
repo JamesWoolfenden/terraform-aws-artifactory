@@ -2,7 +2,6 @@ resource "aws_iam_instance_profile" "art" {
   name = var.profile_name
   role = aws_iam_role.art.name
 }
-
 resource "aws_iam_role" "art" {
   name = var.profile_name
   path = "/"
@@ -23,7 +22,6 @@ resource "aws_iam_role" "art" {
 }
 EOF
 }
-
 resource "aws_iam_role_policy" "art" {
   name = var.profile_name
   role = aws_iam_role.art.id

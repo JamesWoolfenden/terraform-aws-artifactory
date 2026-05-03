@@ -1,11 +1,8 @@
-
-
 #RDS Security Group
 resource "aws_security_group" "main_db_access" {
   description = "Allow access to the database"
   vpc_id      = var.vpc_id
 }
-
 resource "aws_security_group_rule" "allow_db_access" {
   type = "ingress"
 
@@ -17,7 +14,6 @@ resource "aws_security_group_rule" "allow_db_access" {
 
   security_group_id = aws_security_group.main_db_access.id
 }
-
 resource "aws_security_group_rule" "allow_all_outbound" {
   type = "egress"
 
@@ -30,7 +26,6 @@ resource "aws_security_group_rule" "allow_all_outbound" {
 
   security_group_id = aws_security_group.main_db_access.id
 }
-
 resource "aws_db_subnet_group" "main_db_subnet_group" {
   name        = "db-subnetgrp"
   description = "RDS subnet group"

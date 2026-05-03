@@ -13,8 +13,6 @@ module "artifactory" {
   db_password        = random_string.db_password.result
   kms_key            = aws_kms_key.example
 }
-
-
 resource "random_string" "db_password" {
   length = 12
 }

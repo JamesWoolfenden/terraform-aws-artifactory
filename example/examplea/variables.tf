@@ -1,28 +1,21 @@
-
 variable "vpc_id" {
   type = string
 }
-
 variable "vpc_cidr" {
   type = list(any)
 }
-
 variable "subnet_ids" {
   type = list(any)
 }
-
 variable "ssl_certificate_id" {
   type = string
 }
-
 variable "zone_id" {
   type = string
 }
-
 variable "record" {
   type = string
 }
-
 variable "instance_type" {
   type        = string
   description = "The size/type of your instance"
