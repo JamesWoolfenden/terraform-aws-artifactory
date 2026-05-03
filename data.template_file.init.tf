@@ -1,4 +1,3 @@
-
 data "template_file" "init" {
   template = file("${path.module}/userdata.sh.template")
 
@@ -6,7 +5,7 @@ data "template_file" "init" {
     s3_bucket_name          = aws_s3_bucket.b.id
     s3_bucket_region        = aws_s3_bucket.b.region
     db_url                  = aws_db_instance.default.endpoint
-    db_name                 = aws_db_instance.default.name
+    db_name                 = aws_db_instance.default.db_name
     db_user                 = aws_db_instance.default.username
     db_password             = aws_db_instance.default.password
     master_key              = var.master_key
