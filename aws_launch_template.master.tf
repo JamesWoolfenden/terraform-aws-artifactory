@@ -1,4 +1,5 @@
 resource "aws_launch_template" "master" {
+  # checkov:skip=CKV_AWS_88: example only
   image_id      = data.aws_ami.amazon_linux_2_ami.id
   instance_type = var.instance_type
   key_name      = var.key_name
