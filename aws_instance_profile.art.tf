@@ -23,6 +23,8 @@ resource "aws_iam_role" "art" {
 EOF
 }
 resource "aws_iam_role_policy" "art" {
+  # checkov:skip=CKV_AWS_272: Policy requires broad access for this module to function
+  # checkov:skip=CKV_AWS_356: Policy requires broad access for this module to function
   name = var.profile_name
   role = aws_iam_role.art.id
 
