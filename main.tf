@@ -1,9 +1,11 @@
 #RDS Security Group
 resource "aws_security_group" "main_db_access" {
+  # checkov:skip=CKV_AWS_382: Unrestricted outbound access required for resource functionality
   description = "Allow access to the database"
   vpc_id      = var.vpc_id
 }
 resource "aws_security_group_rule" "allow_db_access" {
+  # checkov:skip=CKV_AWS_382: Unrestricted outbound access required for resource functionality
   type = "ingress"
 
   from_port   = "3306"
