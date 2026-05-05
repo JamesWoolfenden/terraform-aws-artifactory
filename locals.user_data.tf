@@ -1,7 +1,5 @@
-data "template_file" "init" {
-  template = file("${path.module}/userdata.sh.template")
-
-  vars = {
+locals {
+  user_data = templatefile("${path.module}/userdata.sh.template", {
     s3_bucket_name          = aws_s3_bucket.b.id
     s3_bucket_region        = aws_s3_bucket.b.region
     db_url                  = aws_db_instance.default.endpoint
@@ -11,5 +9,5 @@ data "template_file" "init" {
     master_key              = var.master_key
     artifactory_server_name = var.artifactory_server_name
     EXTRA_JAVA_OPTS         = var.extra_java_options
-  }
+  })
 }

@@ -13,7 +13,7 @@ resource "aws_launch_template" "master" {
     security_groups             = [aws_security_group.default.id]
   }
 
-  user_data = base64encode(data.template_file.init.rendered)
+  user_data = base64encode(local.user_data)
 
   block_device_mappings {
     device_name = "/dev/xvda"
