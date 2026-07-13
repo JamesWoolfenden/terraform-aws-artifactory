@@ -16,7 +16,7 @@ module "artifactory" {
     subnet_ids          = var.subnet_ids
     ssh_access          = [module.ip.cidr]
     access_cidr         = [module.ip.cidr]
-    associate_public_ip = true
+    associate_public_ip = false
   }
 
   database = {
