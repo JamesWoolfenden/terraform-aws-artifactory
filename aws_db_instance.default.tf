@@ -1,27 +1,31 @@
 resource "aws_db_instance" "default" {
-  # checkov:skip=CKV_AWS_157: Cost
-  # checkov:skip=CKV_AWS_118: Cost
-  # checkov:skip=CKV_AWS_161: TODO
-  # checkov:skip=CKV_AWS_353: Performance Insights adds cost, not required for this module
-  # checkov:skip=CKV_AWS_293: Deletion protection disabled to allow example teardown
-  #tfsec:ignore:AWS091
-  allocated_storage               = var.db_allocated_storage
-  auto_minor_version_upgrade      = true
-  storage_type                    = var.rds["storage_type"]
-  monitoring_interval             = var.monitoring_interval
-  monitoring_role_arn             = var.monitoring_role_arn
-  storage_encrypted               = true
-  kms_key_id                      = var.kms_key.arn
-  engine                          = var.rds["engine"]
-  engine_version                  = var.rds["engine_version"]
-  enabled_cloudwatch_logs_exports = ["audit", "error", "general"]
-  instance_class                  = var.db_instance_class
-  db_name                         = var.db_name
-  username                        = var.db_user
-  password                        = var.db_password
-  multi_az                        = var.rds["multi_az"]
-  vpc_security_group_ids          = [aws_security_group.main_db_access.id]
-  skip_final_snapshot             = var.rds["skip_final_snapshot"]
-  db_subnet_group_name            = aws_db_subnet_group.main_db_subnet_group.name
-  copy_tags_to_snapshot           = true
+  allocated_storage                   = var.database.allocated_storage
+  auto_minor_version_upgrade          = true
+  storage_type                        = var.database.storage_type
+  monitoring_interval                 = var.database.monitoring_interval
+  monitoring_role_arn                 = var.database.monitoring_role_arn
+  storage_encrypted                   = true
+  kms_key_id                          = var.kms_key
+  engine                              = var.database.engine
+  engine_version                      = var.database.engine_version
+  enabled_cloudwatch_logs_exports     = ["audit", "error", "general"]
+  instance_class                      = var.database.instance_class
+  db_name                             = var.database.name
+  username                            = var.database.user
+  password                            = var.database.password
+  multi_az                            = true
+  max_allocated_storage               = var.database.allocated_storage
+  backup_retention_period             = 7
+  iam_database_authentication_enabled = true
+  performance_insights_enabled        = true
+  performance_insights_kms_key_id     = var.kms_key
+  vpc_security_group_ids              = [aws_security_group.main_db_access.id]
+  skip_final_snapshot                 = var.database.skip_final_snapshot
+  deletion_protection                 = true
+  db_subnet_group_name                = aws_db_subnet_group.main_db_subnet_group.name
+  copy_tags_to_snapshot               = true
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }

@@ -1,9 +1,8 @@
 # A security group for the ELB so it is accessible via the web
 resource "aws_security_group" "elb" {
-  # checkov:skip=CKV_AWS_382: ELB requires unrestricted outbound access to reach backend instances
-  name        = var.elb_name
+  name        = var.load_balancer.name
   description = "Used in the terraform"
-  vpc_id      = var.vpc_id
+  vpc_id      = var.network.vpc_id
 
   # HTTPS access from anywhere
   ingress {
@@ -11,16 +10,16 @@ resource "aws_security_group" "elb" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = var.access_cidr
+    cidr_blocks = var.network.access_cidr
   }
 
-  # outbound internet access
+  # The ALB only forwards to Artifactory's target group port within the VPC -
+  # it never needs to reach the internet.
   egress {
-    description = "Allow all outbound"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    # tfsec:ignore:AWS009
-    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow HTTP to the Artifactory target group within the VPC"
+    from_port   = 8082
+    to_port     = 8082
+    protocol    = "tcp"
+    cidr_blocks = var.network.vpc_cidr
   }
 }

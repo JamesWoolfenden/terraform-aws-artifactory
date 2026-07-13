@@ -179,63 +179,67 @@ No modules.
 | ---- | ---- |
 | [aws_autoscaling_attachment.asg_attachment_bar](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_attachment) | resource |
 | [aws_autoscaling_group.art](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group) | resource |
+| [aws_cloudwatch_log_group.waf](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
 | [aws_db_instance.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance) | resource |
 | [aws_db_subnet_group.main_db_subnet_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_subnet_group) | resource |
-| [aws_elb.web](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elb) | resource |
 | [aws_iam_instance_profile.art](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
 | [aws_iam_role.art](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy.art](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
 | [aws_key_pair.ssm_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
 | [aws_launch_template.master](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) | resource |
+| [aws_lb.web](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb) | resource |
+| [aws_lb_listener.web](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener) | resource |
+| [aws_lb_target_group.web](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group) | resource |
 | [aws_route53_record.www](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [aws_s3_bucket.access_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
+| [aws_s3_bucket.alb_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
 | [aws_s3_bucket.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
 | [aws_s3_bucket_acl.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_acl) | resource |
+| [aws_s3_bucket_lifecycle_configuration.access_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_lifecycle_configuration) | resource |
+| [aws_s3_bucket_lifecycle_configuration.alb_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_lifecycle_configuration) | resource |
+| [aws_s3_bucket_logging.alb_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_logging) | resource |
+| [aws_s3_bucket_logging.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_logging) | resource |
+| [aws_s3_bucket_policy.access_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
+| [aws_s3_bucket_policy.alb_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
+| [aws_s3_bucket_public_access_block.access_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
+| [aws_s3_bucket_public_access_block.alb_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
 | [aws_s3_bucket_public_access_block.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
+| [aws_s3_bucket_server_side_encryption_configuration.access_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_server_side_encryption_configuration) | resource |
+| [aws_s3_bucket_server_side_encryption_configuration.alb_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_server_side_encryption_configuration) | resource |
 | [aws_s3_bucket_server_side_encryption_configuration.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_server_side_encryption_configuration) | resource |
+| [aws_s3_bucket_versioning.access_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_versioning) | resource |
+| [aws_s3_bucket_versioning.alb_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_versioning) | resource |
 | [aws_s3_bucket_versioning.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_versioning) | resource |
 | [aws_security_group.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_security_group.elb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_security_group.main_db_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
-| [aws_security_group_rule.allow_all_outbound](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
-| [aws_security_group_rule.allow_db_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_wafv2_web_acl.web](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl) | resource |
+| [aws_wafv2_web_acl_association.web](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl_association) | resource |
+| [aws_wafv2_web_acl_logging_configuration.web](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl_logging_configuration) | resource |
 | [local_file.private_ssh](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
 | [local_file.public_ssh](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
 | [tls_private_key.ssh](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) | resource |
 | [aws_ami.amazon_linux_2_ami](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_elb_service_account.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/elb_service_account) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
-| <a name="input_access_cidr"></a> [access\_cidr](#input\_access\_cidr) | n/a | `list(any)` | n/a | yes |
 | <a name="input_artifactory_server_name"></a> [artifactory\_server\_name](#input\_artifactory\_server\_name) | Provide artifactory server name to be used in Nginx. e.g artifactory for artifactory.jfrog.team | `string` | `"artifactory"` | no |
-| <a name="input_artifactory_sg_name"></a> [artifactory\_sg\_name](#input\_artifactory\_sg\_name) | (optional) describe your variable | `string` | `"artifactory_sg"` | no |
+| <a name="input_artifactory_sg_name"></a> [artifactory\_sg\_name](#input\_artifactory\_sg\_name) | Name for the Artifactory instance security group | `string` | `"artifactory_sg"` | no |
 | <a name="input_autoscaling_group_name"></a> [autoscaling\_group\_name](#input\_autoscaling\_group\_name) | artifactory autoscaling group | `string` | `"artifactory autoscaling group"` | no |
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | AWS S3 Bucket name | `string` | n/a | yes |
-| <a name="input_db_allocated_storage"></a> [db\_allocated\_storage](#input\_db\_allocated\_storage) | The size of the database (Gb) | `string` | `"5"` | no |
-| <a name="input_db_instance_class"></a> [db\_instance\_class](#input\_db\_instance\_class) | The database instance type | `string` | `"db.t2.small"` | no |
-| <a name="input_db_name"></a> [db\_name](#input\_db\_name) | MySQL database name | `string` | `"artdb"` | no |
-| <a name="input_db_password"></a> [db\_password](#input\_db\_password) | Database password | `string` | n/a | yes |
-| <a name="input_db_user"></a> [db\_user](#input\_db\_user) | Database user name | `string` | `"artifactory"` | no |
-| <a name="input_elb_name"></a> [elb\_name](#input\_elb\_name) | The name of the Load balancer | `string` | `"artifactoryelb"` | no |
-| <a name="input_extra_java_options"></a> [extra\_java\_options](#input\_extra\_java\_options) | Setting Java Memory Parameters for Artifactory. Learn about system requirements for Artifactory https://www.jfrog.com/confluence/display/RTF/System+Requirements#SystemRequirements-RecommendedHardware. | `string` | `"-server -Xms2g -Xmx14g -Xss256k -XX:+UseG1GC -XX:OnOutOfMemoryError=\\\\"kill -9 %p\\\\""` | no |
-| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Artifactory EC2 instance type | `string` | n/a | yes |
-| <a name="input_key_name"></a> [key\_name](#input\_key\_name) | Desired name of AWS key pair | `string` | `"jfrog"` | no |
-| <a name="input_kms_key"></a> [kms\_key](#input\_kms\_key) | n/a | `any` | n/a | yes |
-| <a name="input_master_key"></a> [master\_key](#input\_master\_key) | Master key for Artifactory cluster. Generate master.key using command '$openssl rand -hex 16' | `string` | `"35767fa0164bac66b6cccb8880babefb"` | no |
-| <a name="input_monitoring_interval"></a> [monitoring\_interval](#input\_monitoring\_interval) | The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB instance | `string` | `30` | no |
-| <a name="input_monitoring_role_arn"></a> [monitoring\_role\_arn](#input\_monitoring\_role\_arn) | n/a | `string` | `""` | no |
+| <a name="input_database"></a> [database](#input\_database) | RDS database configuration for Artifactory | <pre>object({<br/>    name                = optional(string, "artdb")<br/>    user                = optional(string, "artifactory")<br/>    password            = string<br/>    instance_class      = optional(string, "db.t2.small")<br/>    allocated_storage   = optional(string, "5")<br/>    storage_type        = optional(string, "gp2")<br/>    engine              = optional(string, "mysql")<br/>    engine_version      = optional(string, "5.5")<br/>    skip_final_snapshot = optional(bool, true)<br/>    monitoring_interval = optional(number, 30)<br/>    monitoring_role_arn = string<br/>  })</pre> | n/a | yes |
+| <a name="input_dns"></a> [dns](#input\_dns) | Route53 DNS configuration for the Artifactory endpoint | <pre>object({<br/>    zone_id = string<br/>    record  = string<br/>  })</pre> | n/a | yes |
+| <a name="input_instance"></a> [instance](#input\_instance) | EC2 instance configuration for the Artifactory launch template | <pre>object({<br/>    key_name           = optional(string, "jfrog")<br/>    volume_size        = optional(number, 250)<br/>    instance_type      = string<br/>    extra_java_options = optional(string, "-server -Xms2g -Xmx14g -Xss256k -XX:+UseG1GC -XX:OnOutOfMemoryError=\\\\"kill -9 %p\\\\"")<br/>  })</pre> | n/a | yes |
+| <a name="input_kms_key"></a> [kms\_key](#input\_kms\_key) | KMS key ARN or alias for encrypting resources | `string` | n/a | yes |
+| <a name="input_load_balancer"></a> [load\_balancer](#input\_load\_balancer) | Load balancer name and TLS certificate for the Artifactory endpoint | <pre>object({<br/>    name               = optional(string, "artifactoryelb")<br/>    ssl_certificate_id = string<br/>  })</pre> | n/a | yes |
+| <a name="input_master_key"></a> [master\_key](#input\_master\_key) | Master key for Artifactory cluster. Generate master.key using command '$openssl rand -hex 16' | `string` | n/a | yes |
+| <a name="input_network"></a> [network](#input\_network) | VPC and subnet configuration for Artifactory, its load balancer, and its database | <pre>object({<br/>    vpc_id              = string<br/>    vpc_cidr            = list(string)<br/>    subnet_ids          = list(string)<br/>    alb_subnet_ids      = optional(list(string), [])<br/>    access_cidr         = list(string)<br/>    ssh_access          = list(string)<br/>    associate_public_ip = optional(bool, true)<br/>  })</pre> | n/a | yes |
 | <a name="input_profile_name"></a> [profile\_name](#input\_profile\_name) | Instance profile name | `string` | `"artifactory"` | no |
-| <a name="input_rds"></a> [rds](#input\_rds) | Settings for the DB instance | `map(any)` | <pre>{<br/>  "engine": "mysql",<br/>  "engine_version": "5.5",<br/>  "multi_az": "false",<br/>  "skip_final_snapshot": "true",<br/>  "storage_type": "gp2"<br/>}</pre> | no |
-| <a name="input_record"></a> [record](#input\_record) | Value for Route53 entry | `string` | n/a | yes |
 | <a name="input_sse_algorithm"></a> [sse\_algorithm](#input\_sse\_algorithm) | The type of encryption algorithm to use | `string` | `"aws:kms"` | no |
-| <a name="input_ssh_access"></a> [ssh\_access](#input\_ssh\_access) | n/a | `list(any)` | n/a | yes |
-| <a name="input_ssl_certificate_id"></a> [ssl\_certificate\_id](#input\_ssl\_certificate\_id) | The ID of the SSL certificate from ACM | `string` | n/a | yes |
-| <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | A list of Subnet ids | `list(any)` | n/a | yes |
-| <a name="input_volume_size"></a> [volume\_size](#input\_volume\_size) | Disk size for each EC2 instances | `string` | `250` | no |
-| <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | The CIDR of the VPC | `list(any)` | n/a | yes |
-| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The VPC id | `string` | n/a | yes |
-| <a name="input_zone_id"></a> [zone\_id](#input\_zone\_id) | The Route53 zone for the record | `string` | n/a | yes |
 
 ## Outputs
 
@@ -250,6 +254,7 @@ No modules.
 The Terraform resource required is:
 
 ```golang
+# apply role — full permissions for terraform apply
 resource "aws_iam_policy" "terraform_pike" {
   name_prefix = "terraform_pike"
   path        = "/"
@@ -262,14 +267,8 @@ resource "aws_iam_policy" "terraform_pike" {
             "Sid": "VisualEditor0",
             "Effect": "Allow",
             "Action": [
-                "autoscaling:AttachLoadBalancers",
-                "autoscaling:CreateAutoScalingGroup",
-                "autoscaling:DeleteAutoScalingGroup",
-                "autoscaling:Describe*",
-                "autoscaling:DescribeAutoScalingGroups",
-                "autoscaling:DescribeScalingActivities",
-                "autoscaling:DetachLoadBalancers",
-                "autoscaling:UpdateAutoScalingGroup"
+                "amplify:DisassociateWebACL",
+                "amplify:GetWebACLForResource"
             ],
             "Resource": [
                 "*"
@@ -279,6 +278,74 @@ resource "aws_iam_policy" "terraform_pike" {
             "Sid": "VisualEditor1",
             "Effect": "Allow",
             "Action": [
+                "apigateway:SetWebACL"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": [
+                "apprunner:AssociateWebAcl",
+                "apprunner:DescribeWebAclForService",
+                "apprunner:DisassociateWebAcl",
+                "apprunner:ListAssociatedServicesForWebAcl"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor3",
+            "Effect": "Allow",
+            "Action": [
+                "appsync:SetWebACL"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor4",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:AttachLoadBalancerTargetGroups",
+                "autoscaling:AttachLoadBalancers",
+                "autoscaling:CreateAutoScalingGroup",
+                "autoscaling:CreateOrUpdateTags",
+                "autoscaling:DeleteAutoScalingGroup",
+                "autoscaling:DeleteTags",
+                "autoscaling:Describe*",
+                "autoscaling:DescribeAutoScalingGroups",
+                "autoscaling:DescribeScalingActivities",
+                "autoscaling:DetachLoadBalancerTargetGroups",
+                "autoscaling:DetachLoadBalancers",
+                "autoscaling:UpdateAutoScalingGroup"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor5",
+            "Effect": "Allow",
+            "Action": [
+                "cognito-idp:AssociateWebACL",
+                "cognito-idp:DisassociateWebACL",
+                "cognito-idp:GetWebACLForResource",
+                "cognito-idp:ListResourcesForWebACL"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor6",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:AssociateVerifiedAccessInstanceWebAcl",
                 "ec2:AuthorizeSecurityGroupEgress",
                 "ec2:AuthorizeSecurityGroupIngress",
                 "ec2:CreateKeyPair",
@@ -299,13 +366,15 @@ resource "aws_iam_policy" "terraform_pike" {
                 "ec2:DescribeLaunchTemplateVersions",
                 "ec2:DescribeLaunchTemplates",
                 "ec2:DescribeNetworkInterfaces",
-                "ec2:DescribeSecurityGroupRules",
                 "ec2:DescribeSecurityGroups",
                 "ec2:DescribeSubnets",
+                "ec2:DescribeVerifiedAccessInstanceWebAclAssociations",
                 "ec2:DescribeVpcAttribute",
                 "ec2:DescribeVpcs",
                 "ec2:DetachNetworkInterface",
+                "ec2:DisassociateVerifiedAccessInstanceWebAcl",
                 "ec2:Get*",
+                "ec2:GetVerifiedAccessInstanceWebAcl",
                 "ec2:ImportKeyPair",
                 "ec2:RevokeSecurityGroupEgress",
                 "ec2:RevokeSecurityGroupIngress",
@@ -316,26 +385,44 @@ resource "aws_iam_policy" "terraform_pike" {
             ]
         },
         {
-            "Sid": "VisualEditor2",
+            "Sid": "VisualEditor7",
             "Effect": "Allow",
             "Action": [
+                "elasticloadbalancing:AddListenerCertificates",
                 "elasticloadbalancing:AttachLoadBalancerToSubnets",
+                "elasticloadbalancing:CreateListener",
                 "elasticloadbalancing:CreateLoadBalancer",
                 "elasticloadbalancing:CreateLoadBalancerListeners",
+                "elasticloadbalancing:CreateTargetGroup",
+                "elasticloadbalancing:DeleteListener",
                 "elasticloadbalancing:DeleteLoadBalancer",
-                "elasticloadbalancing:Describe*",
+                "elasticloadbalancing:DeleteTargetGroup",
+                "elasticloadbalancing:DeregisterTargets",
+                "elasticloadbalancing:DescribeListenerAttributes",
+                "elasticloadbalancing:DescribeListenerCertificates",
+                "elasticloadbalancing:DescribeListeners",
                 "elasticloadbalancing:DescribeLoadBalancerAttributes",
                 "elasticloadbalancing:DescribeLoadBalancers",
                 "elasticloadbalancing:DescribeTags",
+                "elasticloadbalancing:DescribeTargetGroupAttributes",
+                "elasticloadbalancing:DescribeTargetGroups",
+                "elasticloadbalancing:DescribeTargetHealth",
+                "elasticloadbalancing:ModifyListener",
+                "elasticloadbalancing:ModifyListenerAttributes",
                 "elasticloadbalancing:ModifyLoadBalancerAttributes",
-                "elasticloadbalancing:SetSecurityGroups"
+                "elasticloadbalancing:ModifyTargetGroupAttributes",
+                "elasticloadbalancing:RegisterTargets",
+                "elasticloadbalancing:RemoveListenerCertificates",
+                "elasticloadbalancing:SetSecurityGroups",
+                "elasticloadbalancing:SetWebACL",
+                "elasticloadbalancing:SetWebAcl"
             ],
             "Resource": [
                 "*"
             ]
         },
         {
-            "Sid": "VisualEditor3",
+            "Sid": "VisualEditor8",
             "Effect": "Allow",
             "Action": [
                 "iam:AddRoleToInstanceProfile",
@@ -361,7 +448,25 @@ resource "aws_iam_policy" "terraform_pike" {
             ]
         },
         {
-            "Sid": "VisualEditor4",
+            "Sid": "VisualEditor9",
+            "Effect": "Allow",
+            "Action": [
+                "logs:AssociateKmsKey",
+                "logs:CreateLogGroup",
+                "logs:DeleteLogGroup",
+                "logs:DeleteRetentionPolicy",
+                "logs:DescribeLogGroups",
+                "logs:DisassociateKmsKey",
+                "logs:ListTagsForResource",
+                "logs:ListTagsLogGroup",
+                "logs:PutRetentionPolicy"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor10",
             "Effect": "Allow",
             "Action": [
                 "managed-fleets:DeleteAutoScalingGroup",
@@ -375,7 +480,7 @@ resource "aws_iam_policy" "terraform_pike" {
             ]
         },
         {
-            "Sid": "VisualEditor5",
+            "Sid": "VisualEditor11",
             "Effect": "Allow",
             "Action": [
                 "rds:CreateDBInstance",
@@ -399,7 +504,7 @@ resource "aws_iam_policy" "terraform_pike" {
             ]
         },
         {
-            "Sid": "VisualEditor6",
+            "Sid": "VisualEditor12",
             "Effect": "Allow",
             "Action": [
                 "route53:ChangeResourceRecordSets",
@@ -412,11 +517,12 @@ resource "aws_iam_policy" "terraform_pike" {
             ]
         },
         {
-            "Sid": "VisualEditor7",
+            "Sid": "VisualEditor13",
             "Effect": "Allow",
             "Action": [
                 "s3:CreateBucket",
                 "s3:DeleteBucket",
+                "s3:DeleteBucketPolicy",
                 "s3:GetAccelerateConfiguration",
                 "s3:GetBucketAcl",
                 "s3:GetBucketCORS",
@@ -436,9 +542,156 @@ resource "aws_iam_policy" "terraform_pike" {
                 "s3:ListAllMyBuckets",
                 "s3:ListBucket",
                 "s3:PutBucketAcl",
+                "s3:PutBucketLogging",
+                "s3:PutBucketPolicy",
                 "s3:PutBucketPublicAccessBlock",
                 "s3:PutBucketVersioning",
-                "s3:PutEncryptionConfiguration"
+                "s3:PutEncryptionConfiguration",
+                "s3:PutLifecycleConfiguration"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor14",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:DeleteParameter",
+                "ssm:Get*",
+                "ssm:PutParameter"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor15",
+            "Effect": "Allow",
+            "Action": [
+                "wafv2:AssociateWebACL",
+                "wafv2:CreateWebACL",
+                "wafv2:DeleteWebACL",
+                "wafv2:DisassociateWebACL",
+                "wafv2:GetLoggingConfiguration",
+                "wafv2:GetPermissionPolicy",
+                "wafv2:GetWebACL",
+                "wafv2:GetWebACLForResource",
+                "wafv2:ListTagsForResource",
+                "wafv2:PutLoggingConfiguration",
+                "wafv2:PutPermissionPolicy",
+                "wafv2:UpdateWebACL"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+})
+}
+
+# plan role — read-only permissions for terraform plan
+resource "aws_iam_policy" "terraform_pike_plan" {
+  name_prefix = "terraform_pike_plan"
+  path        = "/"
+  description = "Pike Autogenerated policy from IAC"
+
+  policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "amplify:GetWebACLForResource"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "apigateway:SetWebACL"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": [
+                "apprunner:AssociateWebAcl",
+                "apprunner:DescribeWebAclForService",
+                "apprunner:DisassociateWebAcl"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor3",
+            "Effect": "Allow",
+            "Action": [
+                "appsync:SetWebACL"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor4",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:Describe*"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor5",
+            "Effect": "Allow",
+            "Action": [
+                "cognito-idp:AssociateWebACL",
+                "cognito-idp:DisassociateWebACL",
+                "cognito-idp:GetWebACLForResource"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor6",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:AssociateVerifiedAccessInstanceWebAcl",
+                "ec2:DescribeAccountAttributes",
+                "ec2:DescribeAvailabilityZones",
+                "ec2:DescribeInternetGateways",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeVerifiedAccessInstanceWebAclAssociations",
+                "ec2:DescribeVpcAttribute",
+                "ec2:DescribeVpcs",
+                "ec2:DisassociateVerifiedAccessInstanceWebAcl",
+                "ec2:GetVerifiedAccessInstanceWebAcl"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor7",
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:DescribeListenerCertificates",
+                "elasticloadbalancing:DescribeTags",
+                "elasticloadbalancing:DescribeTargetGroupAttributes",
+                "elasticloadbalancing:DescribeTargetGroups",
+                "elasticloadbalancing:SetWebACL"
             ],
             "Resource": [
                 "*"
@@ -448,9 +701,45 @@ resource "aws_iam_policy" "terraform_pike" {
             "Sid": "VisualEditor8",
             "Effect": "Allow",
             "Action": [
-                "ssm:DeleteParameter",
-                "ssm:Get*",
-                "ssm:PutParameter"
+                "rds:DescribeDBInstances"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor9",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetAccelerateConfiguration",
+                "s3:GetBucketAcl",
+                "s3:GetBucketCORS",
+                "s3:GetBucketLogging",
+                "s3:GetBucketObjectLockConfiguration",
+                "s3:GetBucketPolicy",
+                "s3:GetBucketRequestPayment",
+                "s3:GetBucketTagging",
+                "s3:GetBucketVersioning",
+                "s3:GetBucketWebsite",
+                "s3:GetEncryptionConfiguration",
+                "s3:GetLifecycleConfiguration",
+                "s3:GetObject",
+                "s3:GetObjectAcl",
+                "s3:GetReplicationConfiguration",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor10",
+            "Effect": "Allow",
+            "Action": [
+                "wafv2:AssociateWebACL",
+                "wafv2:DisassociateWebACL",
+                "wafv2:GetWebACL",
+                "wafv2:GetWebACLForResource"
             ],
             "Resource": [
                 "*"

@@ -1,5 +1,4 @@
 resource "aws_autoscaling_group" "art" {
-  # checkov:skip=CKV_AWS_153: Artifactory is accessed via ELB, not a target group
   name                      = var.autoscaling_group_name
   max_size                  = 1
   min_size                  = 1
@@ -7,23 +6,28 @@ resource "aws_autoscaling_group" "art" {
   health_check_type         = "ELB"
   desired_capacity          = 1
   force_delete              = true
-  vpc_zone_identifier       = var.subnet_ids
+  vpc_zone_identifier       = var.network.subnet_ids
 
   launch_template {
     id      = aws_launch_template.master.id
-    version = "$Latest"
+    version = aws_launch_template.master.latest_version
   }
 
-  load_balancers = [
-    aws_elb.web.name
+  target_group_arns = [
+    aws_lb_target_group.web.arn
   ]
   timeouts {
     delete = "15m"
   }
+
+  tag {
+    key                 = "Name"
+    value               = var.autoscaling_group_name
+    propagate_at_launch = true
+  }
 }
 
 resource "aws_autoscaling_attachment" "asg_attachment_bar" {
-  # checkov:skip=CKV2_AWS_15: Artifactory uses Classic ELB, not Application/Network LB with target groups
   autoscaling_group_name = aws_autoscaling_group.art.id
-  elb                    = aws_elb.web.id
+  lb_target_group_arn    = aws_lb_target_group.web.arn
 }

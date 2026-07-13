@@ -8,6 +8,6 @@ locals {
     db_password             = aws_db_instance.default.password
     master_key              = var.master_key
     artifactory_server_name = var.artifactory_server_name
-    EXTRA_JAVA_OPTS         = var.extra_java_options
+    EXTRA_JAVA_OPTS         = var.instance.extra_java_options
   })
 }
