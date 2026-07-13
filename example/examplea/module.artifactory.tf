@@ -11,11 +11,12 @@ module "artifactory" {
   }
 
   network = {
-    vpc_id      = var.vpc_id
-    vpc_cidr    = var.vpc_cidr
-    subnet_ids  = var.subnet_ids
-    ssh_access  = [module.ip.cidr]
-    access_cidr = [module.ip.cidr]
+    vpc_id              = var.vpc_id
+    vpc_cidr            = var.vpc_cidr
+    subnet_ids          = var.subnet_ids
+    ssh_access          = [module.ip.cidr]
+    access_cidr         = [module.ip.cidr]
+    associate_public_ip = true
   }
 
   database = {

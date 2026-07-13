@@ -18,6 +18,7 @@ module "artifactory" {
     associate_public_ip = false
     ssh_access          = var.ssh_access
     access_cidr         = var.access_cidr
+    associate_public_ip = true
   }
 
   database = {

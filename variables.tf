@@ -126,6 +126,7 @@ variable "network" {
     alb_subnet_ids = optional(list(string), [])
     access_cidr    = list(string)
     ssh_access     = list(string)
+
     # No default: whether instances get public IPs is a real security
     # tradeoff (false requires subnet_ids to be private with NAT egress for
     # package installation at boot) that every caller must decide explicitly
