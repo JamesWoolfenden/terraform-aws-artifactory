@@ -1,0 +1,39 @@
+id: HLD_PROPOSED_001
+name: Security group rule resources must not allow unrestricted egress to all ports
+principle: network-security
+severity: MEDIUM
+rationale: |
+  Security groups that allow all outbound traffic to any destination provide no egress
+  control, letting a compromised workload freely exfiltrate data, reach command-and-control
+  infrastructure, or scan the internet for further targets. HLD_AWS_092 already flags this
+  pattern for inline egress blocks on aws_security_group, but Terraform also supports
+  declaring the identical rule as a standalone aws_security_group_rule resource
+  (type = "egress"), which HLD_AWS_092 does not evaluate because its resource_types list
+  only includes aws_security_group. The standalone-resource form is common when rules are
+  managed separately from the group (e.g. cross-module ownership, one module creating the
+  group and another attaching rules to it) and is otherwise invisible to unrestricted-egress
+  coverage.
+remediation: |
+  Restrict the aws_security_group_rule egress rule to specific ports and CIDRs rather than
+  allowing all traffic to 0.0.0.0/0, e.g.:
+    resource "aws_security_group_rule" "allow_outbound" {
+      type              = "egress"
+      from_port         = 443
+      to_port           = 443
+      protocol          = "tcp"
+      cidr_blocks       = ["10.0.0.0/8"]
+      security_group_id = aws_security_group.example.id
+    }
+resources:
+  aws_security_group_rule:
+    if_equals:
+      path: type
+      value: egress
+      then:
+        any:
+          - path: cidr_blocks
+            not_contains: "0.0.0.0/0"
+          - path: from_port
+            not_equals: 0
+          - path: to_port
+            not_equals: 0

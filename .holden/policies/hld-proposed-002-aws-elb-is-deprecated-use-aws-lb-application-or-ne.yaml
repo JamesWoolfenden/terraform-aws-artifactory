@@ -1,0 +1,39 @@
+id: HLD_PROPOSED_002
+name: aws_elb is deprecated — use aws_lb (Application or Network Load Balancer)
+principle: governance
+severity: MEDIUM
+rationale: |
+  aws_elb provisions a Classic Load Balancer, a legacy AWS product superseded by
+  Application Load Balancers (ALB) and Network Load Balancers (NLB) since 2016.
+  Classic ELBs cannot be associated with AWS WAF, do not support modern TLS security
+  policies (e.g. enforcing TLS 1.2+ ciphers via a configurable predefined policy),
+  lack native support for host/path-based routing, and are excluded from newer
+  AWS features such as HTTP/2 and gRPC. AWS documentation actively steers new
+  workloads away from Classic Load Balancers in favour of the aws_lb resource.
+remediation: |
+  Replace aws_elb with aws_lb plus an aws_lb_listener and aws_lb_target_group,
+  which additionally allows an aws_wafv2_web_acl_association and an explicit
+  ssl_policy:
+
+    resource "aws_lb" "example" {
+      name               = "example"
+      load_balancer_type = "application"
+      subnets            = var.subnet_ids
+      security_groups    = [aws_security_group.example.id]
+    }
+
+    resource "aws_lb_listener" "https" {
+      load_balancer_arn = aws_lb.example.arn
+      port              = 443
+      protocol          = "HTTPS"
+      ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+      certificate_arn   = var.ssl_certificate_id
+
+      default_action {
+        type             = "forward"
+        target_group_arn = aws_lb_target_group.example.arn
+      }
+    }
+resources:
+  aws_elb:
+    deprecated: true

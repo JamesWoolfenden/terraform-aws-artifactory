@@ -1,0 +1,12 @@
+suppressions:
+  # terraform-http-ip ships its own bundled example fixture (module "data")
+  # inside its repo, which gets pulled into .terraform/modules/ip/ on
+  # `terraform init`. It already carries its own holden:ignore comments
+  # upstream, but that's a cache directory we don't own or edit - not this
+  # repo's source - so suppress it here instead.
+  - module: module.data
+    policy_id: HLD_TF_026
+    reason: "terraform-http-ip's own bundled example fixture, cached under .terraform/modules/ip/ - not this repo's source"
+  - module: module.data
+    policy_id: HLD_TF_065
+    reason: "terraform-http-ip's own bundled example fixture, cached under .terraform/modules/ip/ - not this repo's source"
