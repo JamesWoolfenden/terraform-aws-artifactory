@@ -1,4 +1,5 @@
-# holden:ignore:HLD_TF_004
+# holden:ignore:HLD_TF_004: generic public example - must not force every
+# consumer onto a specific backend/state bucket they don't own
 terraform {
   required_providers {
     aws = {

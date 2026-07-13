@@ -1,8 +1,7 @@
 # Create a VPC to launch our instances into
-# holden:ignore:HLD_AWS_054
-# holden:ignore:HLD_AWS_133
 resource "aws_vpc" "default" {
-  cidr_block = join(",", var.vpc_cidr)
+  cidr_block           = join(",", var.vpc_cidr)
+  enable_dns_hostnames = true
 }
 
 # AWS auto-creates a default security group with this VPC that allows all

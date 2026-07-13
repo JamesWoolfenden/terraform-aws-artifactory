@@ -1,5 +1,8 @@
-# holden:ignore:HLD_TF_073
-# holden:ignore:HLD_TF_026
+# holden:ignore:HLD_TF_073: this is the example calling the module it lives
+# inside of, not a reusable module itself - the module's own scope is
+# assessed (and intentionally accepted) at the root via .holden.yaml
+# holden:ignore:HLD_TF_026: "../../" is unavoidable here - this example
+# calls its own parent module, which by definition lives two directories up
 module "artifactory" {
   source = "../../"
 
