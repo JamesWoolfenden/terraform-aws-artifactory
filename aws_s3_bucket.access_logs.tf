@@ -4,13 +4,13 @@ data "aws_caller_identity" "current" {}
 # and aws_s3_bucket.alb_logs. Not logged to itself - a log bucket logging
 # its own access is not actionable and AWS access logging cannot target the
 # same bucket it logs anyway without risking a delivery loop.
-# checkov:skip=CKV_AWS_18: this is the log-delivery target itself
-# checkov:skip=CKV2_AWS_62: log-delivery bucket; event notifications not required
-# checkov:skip=CKV_AWS_144: log-delivery bucket; cross-region replication not required for access logs
 # holden:ignore:HLD_AWS_005,HLD_AWS_144: this is the log-delivery target itself; logging to itself risks a delivery loop
 # holden:ignore:HLD_AWS_009: versioning is enabled via aws_s3_bucket_versioning.access_logs below;
 # this check only recognizes the pre-provider-v4 inline versioning{} block
 resource "aws_s3_bucket" "access_logs" {
+  # checkov:skip=CKV_AWS_18: this is the log-delivery target itself
+  # checkov:skip=CKV2_AWS_62: log-delivery bucket; event notifications not required
+  # checkov:skip=CKV_AWS_144: log-delivery bucket; cross-region replication not required for access logs
   bucket = "${var.bucket_name}-access-logs"
 }
 

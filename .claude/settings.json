@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(terraform fmt *)",
+      "Bash(git commit -m ' *)"
+    ]
+  }
+}

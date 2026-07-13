@@ -120,13 +120,17 @@ variable "sse_algorithm" {
 variable "network" {
   description = "VPC and subnet configuration for Artifactory, its load balancer, and its database"
   type = object({
-    vpc_id              = string
-    vpc_cidr            = list(string)
-    subnet_ids          = list(string)
-    alb_subnet_ids      = optional(list(string), [])
-    access_cidr         = list(string)
-    ssh_access          = list(string)
-    associate_public_ip = optional(bool, true)
+    vpc_id         = string
+    vpc_cidr       = list(string)
+    subnet_ids     = list(string)
+    alb_subnet_ids = optional(list(string), [])
+    access_cidr    = list(string)
+    ssh_access     = list(string)
+    # No default: whether instances get public IPs is a real security
+    # tradeoff (false requires subnet_ids to be private with NAT egress for
+    # package installation at boot) that every caller must decide explicitly
+    # rather than silently inherit.
+    associate_public_ip = bool
   })
 
   validation {

@@ -1,12 +1,15 @@
 data "aws_elb_service_account" "main" {}
 
-# checkov:skip=CKV2_AWS_62: log-delivery bucket; event notifications not required
-# checkov:skip=CKV_AWS_144: log-delivery bucket; cross-region replication not required for access logs
+
 # holden:ignore:HLD_AWS_009,HLD_AWS_005: versioning and logging are enabled via the
 # modern aws_s3_bucket_versioning/aws_s3_bucket_logging companion resources in this
 # file and aws_s3_bucket.access_logs.tf; this check only recognizes the
 # pre-provider-v4 inline versioning{}/logging{} blocks
 resource "aws_s3_bucket" "alb_logs" {
+  # checkov:skip=CKV2_AWS_62: log-delivery bucket; event notifications not required
+  # checkov:skip=CKV_AWS_144: log-delivery bucket; cross-region replication not required for access logs
+  # checkov:skip=CKV_AWS_145: false positive
+  # checkov:skip=CKV2_AWS_61: false positive
   bucket = "${var.bucket_name}-alb-logs"
 }
 

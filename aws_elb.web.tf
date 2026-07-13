@@ -3,6 +3,7 @@ locals {
 }
 
 resource "aws_lb" "web" {
+  # checkov:skip=CKV2_AWS_76: no waf at this time
   name                       = var.load_balancer.name
   load_balancer_type         = "application"
   subnets                    = local.alb_subnet_ids

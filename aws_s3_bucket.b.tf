@@ -9,9 +9,10 @@
 # S3 CRR alone would be a partial, misleading DR gesture; real multi-region HA
 # needs a broader redesign than this one attribute, and should be a deliberate
 # consumer decision, not a silent default.
-# checkov:skip=CKV2_AWS_61: lifecycle managed by Artifactory directly, not via S3 lifecycle rules
-# checkov:skip=CKV2_AWS_62: event notifications not required for Artifactory binary storage bucket
 resource "aws_s3_bucket" "b" {
+  # checkov:skip=CKV2_AWS_61: lifecycle managed by Artifactory directly, not via S3 lifecycle rules
+  # checkov:skip=CKV2_AWS_62: event notifications not required for Artifactory binary storage bucket
+  # checkov:skip=CKV_AWS_144: cross region not required
   bucket = var.bucket_name
 }
 
