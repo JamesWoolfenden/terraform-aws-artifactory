@@ -1,2 +1,9 @@
+# This module intentionally owns the full Artifactory stack (compute, RDS,
+# S3, IAM, ALB/WAF, Route53) as a single deployable unit rather than being
+# decomposed into narrower sub-modules or split across separate pipelines.
+skip_policies:
+  - HLD_TF_073 # module manages >15 distinct resource types by design - full-stack Artifactory deployment
+  - HLD_TF_029 # workspace requires many IAM permissions by design - same full-stack scope
+
 policies:
   - .holden/policies
