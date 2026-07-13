@@ -4,7 +4,7 @@ module "artifactory" {
   source = "../../"
 
   instance = {
-    instance_type = "m4.xlarge"
+    instance_type = var.instance_type
   }
 
   network = {

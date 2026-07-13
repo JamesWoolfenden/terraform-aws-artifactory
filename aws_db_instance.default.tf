@@ -1,8 +1,10 @@
 resource "aws_db_instance" "default" {
-  allocated_storage                   = var.database.allocated_storage
-  auto_minor_version_upgrade          = true
-  storage_type                        = var.database.storage_type
-  monitoring_interval                 = var.database.monitoring_interval
+  allocated_storage          = var.database.allocated_storage
+  auto_minor_version_upgrade = true
+  storage_type               = var.database.storage_type
+  # enhanced monitoring interval in seconds; must be a positive number
+  # default to 60s to ensure enhanced monitoring is enabled
+  monitoring_interval                 = 60
   monitoring_role_arn                 = var.database.monitoring_role_arn
   storage_encrypted                   = true
   kms_key_id                          = var.kms_key

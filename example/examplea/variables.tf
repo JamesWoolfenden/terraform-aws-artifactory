@@ -9,11 +9,23 @@ variable "vpc_id" {
 }
 
 variable "vpc_cidr" {
-  type = list(any)
+  type        = list(string)
+  description = "CIDR block(s) for the default VPC Artifactory is deployed into"
+
+  validation {
+    condition     = alltrue([for c in var.vpc_cidr : can(cidrhost(c, 0))])
+    error_message = "Each entry in vpc_cidr must be a valid CIDR block."
+  }
 }
 
 variable "subnet_ids" {
-  type = list(any)
+  type        = list(string)
+  description = "Subnet IDs Artifactory, its load balancer, and its database are deployed into"
+
+  validation {
+    condition     = length(var.subnet_ids) > 0
+    error_message = "The subnet_ids list must not be empty."
+  }
 }
 
 variable "ssl_certificate_id" {
@@ -48,15 +60,11 @@ variable "record" {
 
 variable "instance_type" {
   type        = string
-  description = "The size/type of your instance"
-  default     = "t3.micro"
+  description = "EC2 instance type for the Artifactory server"
+  default     = "m4.xlarge"
 
   validation {
-    condition     = contains(["t3.nano", "t3.micro", "t3.small", "t3.medium", "t3.large"], var.instance_type)
-    error_message = "instance_type must be a supported t3 instance type."
+    condition     = length(trimspace(var.instance_type)) > 0
+    error_message = "The instance_type must not be empty."
   }
-}
-
-locals {
-  instance_type = var.instance_type
 }
