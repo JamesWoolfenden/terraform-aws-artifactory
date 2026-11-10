@@ -1,0 +1,333 @@
+{
+  "category": "all",
+  "findings": [
+    {
+      "confidence": "high",
+      "explanation": "locals.user_data.tf passes aws_db_instance.default.password and var.master_key into userdata.sh.template, which writes them to db.properties and security/master.key with default umask (world-readable 0644 after the chown). The rendered script is stored base64 in the launch template version (readable via ec2:DescribeLaunchTemplateVersions / DescribeInstanceAttribute), in Terraform state, and on the instance's disk. holden's HLD_AWS_267 could not decide this (Unknown) because the credentials arrive through templatefile variables rather than literals; with the whole module in view it is a real exposure, and the master key decrypts every secret Artifactory stores in the DB.",
+      "file": "aws_launch_template.master.tf",
+      "first_seen": "2026-11-10",
+      "fixable": false,
+      "id": "HOLDEN_AI_001",
+      "last_seen": "2026-11-10",
+      "line": 2,
+      "principle": "data-protection",
+      "related_resources": [
+        "local.user_data",
+        "aws_db_instance.default",
+        "variable.master_key"
+      ],
+      "remediation": "Store the DB password and master key in Secrets Manager or SSM Parameter Store SecureString, grant the instance role read access to just those secrets, and fetch them at boot. Write the files with chmod 600 owned by artifactory.",
+      "resource": "aws_launch_template.master",
+      "severity": "HIGH",
+      "status": "fixed",
+      "supersedes": "HLD_AWS_267",
+      "suppression_reason": null,
+      "title": "DB password and Artifactory master key are rendered in plaintext into launch-template user_data",
+      "unresolved_since": null
+    },
+    {
+      "confidence": "high",
+      "explanation": "The AMI filter is amzn2-ami-hvm* and userdata.sh.template depends on AL2-only tooling (amazon-linux-extras, yum, Java 8). AL2 no longer receives security updates after 2026-06-30, and the scan date is after that. The instance sits behind an internet-facing ALB and holds artifact storage credentials. No deterministic rule covers an EOL OS image.",
+      "file": "data.aws_ami.amazon_linux_2_ami.tf",
+      "first_seen": "2026-11-10",
+      "fixable": false,
+      "id": "HOLDEN_AI_002",
+      "last_seen": "2026-11-10",
+      "line": 1,
+      "principle": "patch-management",
+      "related_resources": [
+        "aws_launch_template.master"
+      ],
+      "remediation": "Move to Amazon Linux 2023 (al2023-ami-*), replacing yum/amazon-linux-extras and the Java 8 install in the bootstrap script, or expose the AMI as a variable so callers can choose.",
+      "resource": "data.aws_ami.amazon_linux_2_ami",
+      "severity": "MEDIUM",
+      "status": "fixed",
+      "suppression_reason": null,
+      "title": "Instances launch from the Amazon Linux 2 AMI, which passed end of support on 2026-06-30",
+      "unresolved_since": null
+    },
+    {
+      "confidence": "high",
+      "explanation": "The default engine_version is \"5.5\" (with db.t2.small). The example does not override it, so the example inherits it. MySQL 5.5 has had no upstream patches for years and RDS no longer offers it for new instances, so apply will likely be rejected; if accepted it would be unpatched. The bootstrap also pins mysql-connector-java 5.1.38, matching the old assumption.",
+      "file": "variables.tf",
+      "first_seen": "2026-11-10",
+      "fixable": false,
+      "id": "HOLDEN_AI_003",
+      "last_seen": "2026-11-10",
+      "line": 30,
+      "principle": "patch-management",
+      "related_resources": [
+        "aws_db_instance.default",
+        "example/examplea/module.artifactory.tf"
+      ],
+      "remediation": "Default to a supported major (e.g. 8.0 or 8.4) and bump the connector driver and com.mysql.cj.jdbc.Driver class to match; consider making engine_version required instead of defaulted.",
+      "resource": "variable.database",
+      "severity": "MEDIUM",
+      "status": "fixed",
+      "suppression_reason": null,
+      "title": "database.engine_version defaults to MySQL 5.5, long past end of life",
+      "unresolved_since": null
+    },
+    {
+      "confidence": "medium",
+      "explanation": "Artifactory is now pinned (instance.artifactory_version), the MySQL driver is checksum-verified, and repo metadata is GPG-verified (repo_gpgcheck=1). Remaining gap: gpgcheck=0 for the individual RPMs because the package signing key is not confirmed, and dnf upgrade is unpinned.",
+      "file": "userdata.sh.template",
+      "first_seen": "2026-11-10",
+      "fixable": false,
+      "id": "HOLDEN_AI_004",
+      "last_seen": "2026-11-10",
+      "line": 9,
+      "principle": "supply-chain",
+      "related_resources": [
+        "local.user_data"
+      ],
+      "remediation": "Confirm JFrog's RPM signing key, then set gpgcheck=1 with that key.",
+      "resource": "aws_launch_template.master",
+      "severity": "LOW",
+      "status": "open",
+      "suppression_reason": null,
+      "title": "Bootstrap installs RPMs without per-package signature checking (repo metadata is verified; version and driver are pinned)",
+      "unresolved_since": "2026-11-10"
+    },
+    {
+      "confidence": "high",
+      "explanation": "tls_private_key.ssh generates the key in-module, so the private half is stored in state in the clear, and local_file.private_ssh also writes it to id_rsa in the caller's working directory. The repo .gitignore has no id_rsa entry, and a consumer's repo almost certainly won't either, so a routine git add can commit the key that guards SSH on an internet-facing box.",
+      "file": "aws_key_pair.ssm_key.tf",
+      "first_seen": "2026-11-10",
+      "fixable": false,
+      "id": "HOLDEN_AI_005",
+      "last_seen": "2026-11-10",
+      "line": 12,
+      "principle": "data-protection",
+      "related_resources": [
+        "tls_private_key.ssh",
+        "aws_key_pair.ssm_key"
+      ],
+      "remediation": "Accept an existing key_name and import only the public key, or drop local_file.private_ssh and keep the private key out of state. At minimum add id_rsa and id_rsa.pub to .gitignore.",
+      "resource": "local_file.private_ssh",
+      "severity": "MEDIUM",
+      "status": "open",
+      "suppression_reason": null,
+      "title": "Generated SSH private key lives in Terraform state and is written to an unignored id_rsa file",
+      "unresolved_since": "2026-11-10"
+    },
+    {
+      "confidence": "high",
+      "explanation": "Egress was tightened to 443/tcp to the internet and DNS within the VPC, on the stated assumption that the boot script only calls HTTPS. But db.properties points Artifactory at the RDS endpoint over JDBC on 3306. The DB security group allows 3306 in, yet the instance group's egress blocks the new outbound connection, so Artifactory starts, cannot connect, and the ELB health check fails.",
+      "file": "aws_security_group.default.tf",
+      "first_seen": "2026-11-10",
+      "fix": "  egress {\n    description     = \"MySQL to the Artifactory RDS instance\"\n    from_port       = 3306\n    to_port         = 3306\n    protocol        = \"tcp\"\n    security_groups = [aws_security_group.main_db_access.id]\n  }",
+      "fixable": true,
+      "id": "HOLDEN_AI_006",
+      "last_seen": "2026-11-10",
+      "line": 3,
+      "principle": "reliability",
+      "related_resources": [
+        "aws_security_group.main_db_access",
+        "aws_db_instance.default"
+      ],
+      "remediation": "Add an egress rule for 3306/tcp to the DB security group (or var.network.vpc_cidr).",
+      "resource": "aws_security_group.default",
+      "severity": "MEDIUM",
+      "status": "fixed",
+      "suppression_reason": null,
+      "title": "Instance security group has no egress to MySQL, so Artifactory cannot reach its RDS database",
+      "unresolved_since": null
+    },
+    {
+      "confidence": "high",
+      "explanation": "var.sse_algorithm defaults to aws:kms with var.kms_key, and S3 performs KMS calls as the caller. The role policy grants only s3:ListBucket/Get/Put/DeleteObject, and the example key policy delegates to IAM without naming the role, so the missing IAM grant matters. Every Artifactory read or write to the bucket gets AccessDenied on the key, which breaks the binary store.",
+      "file": "aws_instance_profile.art.tf",
+      "first_seen": "2026-11-10",
+      "fixable": false,
+      "id": "HOLDEN_AI_007",
+      "last_seen": "2026-11-10",
+      "line": 28,
+      "principle": "reliability",
+      "related_resources": [
+        "aws_s3_bucket_server_side_encryption_configuration.b",
+        "variable.sse_algorithm",
+        "variable.kms_key"
+      ],
+      "remediation": "Add kms:GenerateDataKey, kms:Decrypt (and kms:DescribeKey) on var.kms_key to the role policy when var.sse_algorithm == \"aws:kms\".",
+      "resource": "aws_iam_role_policy.art",
+      "severity": "MEDIUM",
+      "status": "fixed",
+      "suppression_reason": null,
+      "title": "Instance role has no KMS permissions but the filestore bucket defaults to SSE-KMS",
+      "unresolved_since": null
+    },
+    {
+      "confidence": "medium",
+      "explanation": "metadata_options sets http_tokens = required, but lines 114-115 run plain curl against /meta-data/public-ipv4 and local-ipv4 with no token header, so they get a 401 page. The example also sets associate_public_ip = false, so public-ipv4 has no value even with a token. sed then receives an HTML error body, fails or writes garbage, and ha-node.properties keeps its template IPs (127.0.0.1, 172.25.0.3).",
+      "file": "userdata.sh.template",
+      "first_seen": "2026-11-10",
+      "fixable": false,
+      "id": "HOLDEN_AI_008",
+      "last_seen": "2026-11-10",
+      "line": 114,
+      "principle": "reliability",
+      "related_resources": [
+        "local.user_data"
+      ],
+      "remediation": "Fetch an IMDSv2 token first (PUT /latest/api/token with the TTL header) and send it as X-aws-ec2-metadata-token; skip the public-ipv4 substitution when the instance has no public IP.",
+      "resource": "aws_launch_template.master",
+      "severity": "MEDIUM",
+      "status": "fixed",
+      "suppression_reason": null,
+      "title": "Bootstrap calls IMDS without a token although the launch template requires IMDSv2, and the example has no public IP",
+      "unresolved_since": null
+    },
+    {
+      "confidence": "medium",
+      "explanation": "The log group sets kms_key_id = var.kms_key. CloudWatch Logs needs the key policy itself to grant the logs.<region>.amazonaws.com principal (IAM delegation through the account root is not enough). The example key policy only lists the account root, so creating the log group, and the dependent WAF logging configuration, fails. Module callers with their own key hit the same trap, which is why this belongs in the docs even if the key policy is theirs.",
+      "file": "aws_elb.web.tf",
+      "first_seen": "2026-11-10",
+      "fixable": false,
+      "id": "HOLDEN_AI_009",
+      "last_seen": "2026-11-10",
+      "line": 119,
+      "principle": "reliability",
+      "related_resources": [
+        "aws_kms_key.artifactory",
+        "aws_wafv2_web_acl_logging_configuration.web"
+      ],
+      "remediation": "Add a key policy statement for logs.<region>.amazonaws.com (kms:Encrypt*, Decrypt*, ReEncrypt*, GenerateDataKey*, Describe*) conditioned on the log group ARN in the example key, and document the requirement for the kms_key input.",
+      "resource": "aws_cloudwatch_log_group.waf",
+      "severity": "MEDIUM",
+      "status": "fixed",
+      "suppression_reason": null,
+      "title": "WAF log group is encrypted with a CMK whose example key policy does not allow CloudWatch Logs",
+      "unresolved_since": null
+    },
+    {
+      "confidence": "medium",
+      "explanation": "The Artifactory repo file is fetched from bintray.com, and line 15 says the driver is \"not on bintray any more\". JFrog shut Bintray down in 2021. If the repo file cannot be fetched, yum install jfrog-artifactory-pro fails, nothing listens on 8082, and the ASG (health_check_type = ELB, force_delete = true) keeps replacing the instance. Because the script has no set -e, the failure is silent.",
+      "file": "userdata.sh.template",
+      "first_seen": "2026-11-10",
+      "fixable": false,
+      "id": "HOLDEN_AI_010",
+      "last_seen": "2026-11-10",
+      "line": 9,
+      "principle": "reliability",
+      "related_resources": [
+        "aws_autoscaling_group.art"
+      ],
+      "remediation": "Switch to JFrog's current yum repository (releases.jfrog.io) with a pinned version, and add set -euo pipefail so a failed install fails the boot visibly.",
+      "resource": "aws_launch_template.master",
+      "severity": "MEDIUM",
+      "status": "fixed",
+      "suppression_reason": null,
+      "title": "Bootstrap depends on bintray.com, which the script itself says no longer serves these packages",
+      "unresolved_since": null
+    },
+    {
+      "confidence": "high",
+      "explanation": "The ASG tracks aws_launch_template.master.latest_version (so HLD_AWS_209 is a safe Unknown), but with min = max = desired = 1 and no instance_refresh block, a new template version (changed user_data, new most_recent AMI) is applied only to instances launched later. The running instance silently diverges from the code until it is replaced by hand.",
+      "file": "aws_autoscaling_group.tf",
+      "first_seen": "2026-11-10",
+      "fixable": false,
+      "id": "HOLDEN_AI_011",
+      "last_seen": "2026-11-10",
+      "line": 1,
+      "principle": "repeatability",
+      "related_resources": [
+        "aws_launch_template.master",
+        "data.aws_ami.amazon_linux_2_ami"
+      ],
+      "remediation": "Add an instance_refresh block (strategy Rolling, triggers on launch_template). With a single instance, set min_healthy_percentage = 0, accepting a short outage per change.",
+      "resource": "aws_autoscaling_group.art",
+      "severity": "LOW",
+      "status": "fixed",
+      "suppression_reason": null,
+      "title": "Auto Scaling group has no instance_refresh, so launch template changes never reach the running instance",
+      "unresolved_since": null
+    },
+    {
+      "confidence": "high",
+      "explanation": "variable.database exposes monitoring_interval (default 30, validated against the allowed values), but aws_db_instance.default sets monitoring_interval = 60. Callers who set the variable get no effect and the documented default (30) disagrees with the real behaviour (60).",
+      "file": "aws_db_instance.default.tf",
+      "first_seen": "2026-11-10",
+      "fixable": false,
+      "id": "HOLDEN_AI_012",
+      "last_seen": "2026-11-10",
+      "line": 7,
+      "principle": "maintainability",
+      "related_resources": [
+        "variable.database"
+      ],
+      "remediation": "Use var.database.monitoring_interval, or remove the field from the variable and validation.",
+      "resource": "aws_db_instance.default",
+      "severity": "LOW",
+      "status": "fixed",
+      "suppression_reason": null,
+      "title": "database.monitoring_interval input is validated but ignored; the instance hardcodes 60",
+      "unresolved_since": null
+    },
+    {
+      "confidence": "medium",
+      "explanation": "max_allocated_storage = var.database.allocated_storage (default \"5\") sets the autoscaling ceiling to the starting size, which gives no headroom. HLD_AWS_111 reports this as null (probably because the value is a variable), but the real problem is the ceiling: the DB will fill and go read-only rather than grow.",
+      "file": "aws_db_instance.default.tf",
+      "first_seen": "2026-11-10",
+      "fixable": false,
+      "id": "HOLDEN_AI_013",
+      "last_seen": "2026-11-10",
+      "line": 19,
+      "principle": "reliability",
+      "related_resources": [
+        "variable.database"
+      ],
+      "remediation": "Add a separate database.max_allocated_storage input, or set the ceiling to a multiple of allocated_storage (e.g. tonumber(var.database.allocated_storage) * 4).",
+      "resource": "aws_db_instance.default",
+      "severity": "LOW",
+      "status": "fixed",
+      "supersedes": "HLD_AWS_111",
+      "suppression_reason": null,
+      "title": "RDS max_allocated_storage equals allocated_storage, so storage autoscaling can never grow the volume",
+      "unresolved_since": null
+    },
+    {
+      "confidence": "high",
+      "explanation": "The first scan_roots entry reads \"- path .\" where it needs \"- path: .\". holden stops with 'invalid config: mapping values are not allowed' at line 14, so the skip_policies list is ignored (HLD_TF_029 and HLD_TF_030 fired in this review though they are skipped) and a bare `holden scan` finds no paths. .holden.yaml has uncommitted changes in git status. This review could not scan the GitHub workflows target for this reason; they were read by hand instead.",
+      "file": ".holden.yaml",
+      "first_seen": "2026-11-10",
+      "fix": "  - path: .\n    targets: [gha]",
+      "fixable": true,
+      "id": "HOLDEN_AI_014",
+      "last_seen": "2026-11-10",
+      "line": 13,
+      "principle": "maintainability",
+      "related_resources": [],
+      "remediation": "Change the line to \"  - path: .\".",
+      "resource": "holden.yaml:scan_roots",
+      "severity": "LOW",
+      "status": "fixed",
+      "suppression_reason": null,
+      "title": ".holden.yaml is invalid YAML (scan_roots entry missing a colon), so skip_policies and scan_roots are not applied",
+      "unresolved_since": null
+    }
+  ],
+  "scan_date": "2026-11-10T00:00:00Z",
+  "scan_path": ".",
+  "suggested_policies": [],
+  "suggested_suppressions": [
+    {
+      "confidence": "high",
+      "file": "aws_instance_profile.art.tf",
+      "line": 6,
+      "policy_id": "HLD_AWS_316",
+      "reason": "Trust is ec2.amazonaws.com for an instance profile; EC2 does not populate aws:SourceAccount/aws:SourceArn when assuming an instance-profile role, so the condition cannot be added.",
+      "resource": "aws_iam_role.art",
+      "suppression_comment": "# holden:ignore:HLD_AWS_316: EC2 instance-profile trust - aws:SourceAccount/aws:SourceArn are not set for EC2 role assumption, so the condition cannot be applied"
+    },
+    {
+      "confidence": "high",
+      "file": "aws_s3_bucket.alb_logs.tf",
+      "line": 32,
+      "policy_id": "HLD_AWS_282",
+      "reason": "Bucket is the ALB access-log destination (aws_lb.web access_logs.bucket); ELB log delivery supports only SSE-S3 on the destination, so SSE-KMS would break log delivery.",
+      "resource": "aws_s3_bucket_server_side_encryption_configuration.alb_logs",
+      "suppression_comment": "# holden:ignore:HLD_AWS_282: ALB access-log destination - ELB log delivery supports only SSE-S3 (AES256), not SSE-KMS"
+    }
+  ]
+}
