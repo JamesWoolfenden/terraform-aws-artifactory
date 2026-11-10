@@ -16,6 +16,16 @@ resource "aws_autoscaling_group" "art" {
   target_group_arns = [
     aws_lb_target_group.web.arn
   ]
+  # Single instance: a rolling refresh replaces it in place, accepting a short
+  # outage per launch template change.
+  instance_refresh {
+    strategy = "Rolling"
+
+    preferences {
+      min_healthy_percentage = 0
+    }
+  }
+
   timeouts {
     delete = "15m"
   }

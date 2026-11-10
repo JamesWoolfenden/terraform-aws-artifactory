@@ -10,3 +10,10 @@ suppressions:
   - module: module.data
     policy_id: HLD_TF_065
     reason: "terraform-http-ip's own bundled example fixture, cached under .terraform/modules/ip/ - not this repo's source"
+
+  # examplea deploys into the default VPC, which has no NAT gateway, so the
+  # instance needs a public IP to reach yum/S3/SSM at boot (issue #1).
+  # Production use sets associate_public_ip = false with NAT or VPC endpoints.
+  - resource_id: module.artifactory.aws_launch_template.master
+    policy_id: HLD_AWS_018
+    reason: "examplea runs in the default VPC with no NAT gateway; the instance needs a public IP to reach package repos, S3 and SSM at boot. Production use sets associate_public_ip = false with NAT or VPC endpoints (exampleb-newvpc)."

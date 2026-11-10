@@ -11,6 +11,11 @@ resource "aws_iam_role" "rds_monitoring" {
           Service = "monitoring.rds.amazonaws.com"
         }
         Action = "sts:AssumeRole"
+        Condition = {
+          StringEquals = {
+            "aws:SourceAccount" = data.aws_caller_identity.current.account_id
+          }
+        }
       }
     ]
   })

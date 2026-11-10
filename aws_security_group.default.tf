@@ -82,4 +82,12 @@ resource "aws_security_group" "default" {
     protocol    = "tcp"
     cidr_blocks = var.network.vpc_cidr
   }
+
+  egress {
+    description     = "MySQL to the Artifactory RDS instance"
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
+    security_groups = [aws_security_group.main_db_access.id]
+  }
 }

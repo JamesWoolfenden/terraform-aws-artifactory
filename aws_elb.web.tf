@@ -1,9 +1,6 @@
-locals {
-  alb_subnet_ids = length(var.network.alb_subnet_ids) > 0 ? var.network.alb_subnet_ids : var.network.subnet_ids
-}
+
 
 resource "aws_lb" "web" {
-  # checkov:skip=CKV2_AWS_76: no waf at this time
   name                       = var.load_balancer.name
   load_balancer_type         = "application"
   subnets                    = local.alb_subnet_ids
@@ -117,9 +114,10 @@ resource "aws_wafv2_web_acl_association" "web" {
 
 # Name must be prefixed "aws-waf-logs-" - required by the WAFv2 logging API.
 resource "aws_cloudwatch_log_group" "waf" {
-  name              = "aws-waf-logs-${var.load_balancer.name}"
-  retention_in_days = 365
-  kms_key_id        = var.kms_key
+  name                        = "aws-waf-logs-${var.load_balancer.name}"
+  retention_in_days           = 365
+  kms_key_id                  = var.kms_key
+  deletion_protection_enabled = true
 }
 
 resource "aws_wafv2_web_acl_logging_configuration" "web" {

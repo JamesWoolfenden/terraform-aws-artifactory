@@ -16,13 +16,14 @@ resource "aws_db_instance" "default" {
   username                            = var.database.user
   password                            = var.database.password
   multi_az                            = true
-  max_allocated_storage               = var.database.allocated_storage
+  max_allocated_storage               = tonumber(var.database.allocated_storage) * 4
   backup_retention_period             = 7
   iam_database_authentication_enabled = true
   performance_insights_enabled        = true
   performance_insights_kms_key_id     = var.kms_key
   vpc_security_group_ids              = [aws_security_group.main_db_access.id]
   skip_final_snapshot                 = var.database.skip_final_snapshot
+  publicly_accessible                 = false
   deletion_protection                 = true
   db_subnet_group_name                = aws_db_subnet_group.main_db_subnet_group.name
   copy_tags_to_snapshot               = true

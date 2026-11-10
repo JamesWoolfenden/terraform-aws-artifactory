@@ -1,6 +1,7 @@
 # Public subnets for the internet-facing ALB and the NAT gateway only -
 # no instances are placed here.
 # holden:ignore:HLD_AWS_052: public by design - hosts the ALB and NAT gateway, no instances
+# holden:ignore:HLD_AWS_309: example relies on the VPC default network ACL plus security groups for filtering; an explicit NACL would be a guess at the caller's traffic
 resource "aws_subnet" "public_1" {
   vpc_id                  = aws_vpc.default.id
   cidr_block              = "10.0.101.0/24"
@@ -9,6 +10,7 @@ resource "aws_subnet" "public_1" {
 }
 
 # holden:ignore:HLD_AWS_052: public by design - hosts the ALB, no instances
+# holden:ignore:HLD_AWS_309: example relies on the VPC default network ACL plus security groups for filtering; an explicit NACL would be a guess at the caller's traffic
 resource "aws_subnet" "public_2" {
   vpc_id                  = aws_vpc.default.id
   cidr_block              = "10.0.102.0/24"
@@ -17,6 +19,7 @@ resource "aws_subnet" "public_2" {
 }
 
 # holden:ignore:HLD_AWS_052: public by design - hosts the ALB, no instances
+# holden:ignore:HLD_AWS_309: example relies on the VPC default network ACL plus security groups for filtering; an explicit NACL would be a guess at the caller's traffic
 resource "aws_subnet" "public_3" {
   vpc_id                  = aws_vpc.default.id
   cidr_block              = "10.0.103.0/24"

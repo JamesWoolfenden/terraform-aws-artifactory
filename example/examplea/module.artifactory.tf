@@ -3,6 +3,7 @@
 # assessed (and intentionally accepted) at the root via .holden.yaml
 # holden:ignore:HLD_TF_026: "../../" is unavoidable here - this example
 # calls its own parent module, which by definition lives two directories up
+# holden:ignore:HLD_AWS_018: examplea runs in the default VPC, which has no NAT gateway, so the instance needs a public IP to reach package repos, S3 and SSM at boot (see exampleb-newvpc for the private + NAT setup)
 module "artifactory" {
   source = "../../"
 
@@ -16,7 +17,7 @@ module "artifactory" {
     subnet_ids          = var.subnet_ids
     ssh_access          = [module.ip.cidr]
     access_cidr         = [module.ip.cidr]
-    associate_public_ip = false
+    associate_public_ip = true
   }
 
   database = {

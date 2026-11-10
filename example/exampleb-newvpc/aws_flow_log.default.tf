@@ -1,7 +1,8 @@
 resource "aws_cloudwatch_log_group" "vpc_flow_logs" {
-  name              = "/aws/vpc/flow-logs/${aws_vpc.default.id}"
-  retention_in_days = 365
-  kms_key_id        = aws_kms_key.artifactory.arn
+  name                        = "/aws/vpc/flow-logs/${aws_vpc.default.id}"
+  retention_in_days           = 365
+  kms_key_id                  = aws_kms_key.artifactory.arn
+  deletion_protection_enabled = true
 }
 
 resource "aws_iam_role" "vpc_flow_logs" {
@@ -17,6 +18,11 @@ resource "aws_iam_role" "vpc_flow_logs" {
           Service = "vpc-flow-logs.amazonaws.com"
         }
         Action = "sts:AssumeRole"
+        Condition = {
+          StringEquals = {
+            "aws:SourceAccount" = data.aws_caller_identity.current.account_id
+          }
+        }
       }
     ]
   })

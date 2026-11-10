@@ -5,7 +5,6 @@
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/JamesWoolfenden/terraform-aws-artifactory.svg?label=latest)](https://github.com/JamesWoolfenden/terraform-aws-artifactory/releases/latest)
 ![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.14.0-blue.svg)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
-[![checkov](https://img.shields.io/badge/checkov-verified-brightgreen)](https://www.checkov.io/)
 
 Updated and significantly modified from <https://github.com/jfrog/JFrog-Cloud-Installers>
 
@@ -194,13 +193,14 @@ No modules.
 | [aws_s3_bucket.access_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
 | [aws_s3_bucket.alb_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
 | [aws_s3_bucket.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
-| [aws_s3_bucket_acl.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_acl) | resource |
 | [aws_s3_bucket_lifecycle_configuration.access_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_lifecycle_configuration) | resource |
 | [aws_s3_bucket_lifecycle_configuration.alb_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_lifecycle_configuration) | resource |
+| [aws_s3_bucket_lifecycle_configuration.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_lifecycle_configuration) | resource |
 | [aws_s3_bucket_logging.alb_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_logging) | resource |
 | [aws_s3_bucket_logging.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_logging) | resource |
 | [aws_s3_bucket_policy.access_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
 | [aws_s3_bucket_policy.alb_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
+| [aws_s3_bucket_policy.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
 | [aws_s3_bucket_public_access_block.access_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
 | [aws_s3_bucket_public_access_block.alb_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
 | [aws_s3_bucket_public_access_block.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
@@ -213,13 +213,15 @@ No modules.
 | [aws_security_group.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_security_group.elb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_security_group.main_db_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_ssm_parameter.db_password](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
+| [aws_ssm_parameter.master_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_wafv2_web_acl.web](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl) | resource |
 | [aws_wafv2_web_acl_association.web](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl_association) | resource |
 | [aws_wafv2_web_acl_logging_configuration.web](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl_logging_configuration) | resource |
 | [local_file.private_ssh](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
 | [local_file.public_ssh](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
 | [tls_private_key.ssh](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) | resource |
-| [aws_ami.amazon_linux_2_ami](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
+| [aws_ami.amazon_linux_2023_ami](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_elb_service_account.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/elb_service_account) | data source |
 
@@ -231,9 +233,9 @@ No modules.
 | <a name="input_artifactory_sg_name"></a> [artifactory\_sg\_name](#input\_artifactory\_sg\_name) | Name for the Artifactory instance security group | `string` | `"artifactory_sg"` | no |
 | <a name="input_autoscaling_group_name"></a> [autoscaling\_group\_name](#input\_autoscaling\_group\_name) | artifactory autoscaling group | `string` | `"artifactory autoscaling group"` | no |
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | AWS S3 Bucket name | `string` | n/a | yes |
-| <a name="input_database"></a> [database](#input\_database) | RDS database configuration for Artifactory | <pre>object({<br/>    name                = optional(string, "artdb")<br/>    user                = optional(string, "artifactory")<br/>    password            = string<br/>    instance_class      = optional(string, "db.t2.small")<br/>    allocated_storage   = optional(string, "5")<br/>    storage_type        = optional(string, "gp2")<br/>    engine              = optional(string, "mysql")<br/>    engine_version      = optional(string, "5.5")<br/>    skip_final_snapshot = optional(bool, true)<br/>    monitoring_interval = optional(number, 30)<br/>    monitoring_role_arn = string<br/>  })</pre> | n/a | yes |
+| <a name="input_database"></a> [database](#input\_database) | RDS database configuration for Artifactory | <pre>object({<br/>    name                = optional(string, "artdb")<br/>    user                = optional(string, "artifactory")<br/>    password            = string<br/>    instance_class      = optional(string, "db.t3.small")<br/>    allocated_storage   = optional(string, "5")<br/>    storage_type        = optional(string, "gp2")<br/>    engine              = optional(string, "mysql")<br/>    engine_version      = optional(string, "8.4")<br/>    skip_final_snapshot = optional(bool, true)<br/>    monitoring_role_arn = string<br/>  })</pre> | n/a | yes |
 | <a name="input_dns"></a> [dns](#input\_dns) | Route53 DNS configuration for the Artifactory endpoint | <pre>object({<br/>    zone_id = string<br/>    record  = string<br/>  })</pre> | n/a | yes |
-| <a name="input_instance"></a> [instance](#input\_instance) | EC2 instance configuration for the Artifactory launch template | <pre>object({<br/>    key_name           = optional(string, "jfrog")<br/>    volume_size        = optional(number, 250)<br/>    instance_type      = string<br/>    extra_java_options = optional(string, "-server -Xms2g -Xmx14g -Xss256k -XX:+UseG1GC -XX:OnOutOfMemoryError=\\\\"kill -9 %p\\\\"")<br/>  })</pre> | n/a | yes |
+| <a name="input_instance"></a> [instance](#input\_instance) | EC2 instance configuration for the Artifactory launch template | <pre>object({<br/>    key_name           = optional(string, "jfrog")<br/>    volume_size        = optional(number, 250)<br/>    instance_type      = string<br/>    extra_java_options = optional(string, "-server -Xms2g -Xmx14g -Xss256k -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError")<br/>    # Pinned Artifactory Pro release installed at boot (jfrog-artifactory-pro-VERSION)<br/>    artifactory_version = optional(string, "7.161.15")<br/>  })</pre> | n/a | yes |
 | <a name="input_kms_key"></a> [kms\_key](#input\_kms\_key) | KMS key ARN or alias for encrypting resources | `string` | n/a | yes |
 | <a name="input_load_balancer"></a> [load\_balancer](#input\_load\_balancer) | Load balancer name and TLS certificate for the Artifactory endpoint | <pre>object({<br/>    name               = optional(string, "artifactoryelb")<br/>    ssl_certificate_id = string<br/>  })</pre> | n/a | yes |
 | <a name="input_master_key"></a> [master\_key](#input\_master\_key) | Master key for Artifactory cluster. Generate master.key using command '$openssl rand -hex 16' | `string` | n/a | yes |
@@ -467,6 +469,17 @@ resource "aws_iam_policy" "terraform_pike" {
             "Sid": "VisualEditor9",
             "Effect": "Allow",
             "Action": [
+                "kms:Decrypt",
+                "kms:Encrypt"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor10",
+            "Effect": "Allow",
+            "Action": [
                 "logs:AssociateKmsKey",
                 "logs:CreateLogGroup",
                 "logs:DeleteLogGroup",
@@ -482,7 +495,7 @@ resource "aws_iam_policy" "terraform_pike" {
             ]
         },
         {
-            "Sid": "VisualEditor10",
+            "Sid": "VisualEditor11",
             "Effect": "Allow",
             "Action": [
                 "managed-fleets:DeleteAutoScalingGroup",
@@ -496,7 +509,7 @@ resource "aws_iam_policy" "terraform_pike" {
             ]
         },
         {
-            "Sid": "VisualEditor11",
+            "Sid": "VisualEditor12",
             "Effect": "Allow",
             "Action": [
                 "rds:CreateDBInstance",
@@ -520,7 +533,7 @@ resource "aws_iam_policy" "terraform_pike" {
             ]
         },
         {
-            "Sid": "VisualEditor12",
+            "Sid": "VisualEditor13",
             "Effect": "Allow",
             "Action": [
                 "route53:ChangeResourceRecordSets",
@@ -533,7 +546,7 @@ resource "aws_iam_policy" "terraform_pike" {
             ]
         },
         {
-            "Sid": "VisualEditor13",
+            "Sid": "VisualEditor14",
             "Effect": "Allow",
             "Action": [
                 "s3:CreateBucket",
@@ -555,9 +568,7 @@ resource "aws_iam_policy" "terraform_pike" {
                 "s3:GetObject",
                 "s3:GetObjectAcl",
                 "s3:GetReplicationConfiguration",
-                "s3:ListAllMyBuckets",
                 "s3:ListBucket",
-                "s3:PutBucketAcl",
                 "s3:PutBucketLogging",
                 "s3:PutBucketPolicy",
                 "s3:PutBucketPublicAccessBlock",
@@ -570,11 +581,16 @@ resource "aws_iam_policy" "terraform_pike" {
             ]
         },
         {
-            "Sid": "VisualEditor14",
+            "Sid": "VisualEditor15",
             "Effect": "Allow",
             "Action": [
+                "ssm:AddTagsToResource",
                 "ssm:DeleteParameter",
+                "ssm:DescribeParameters",
                 "ssm:Get*",
+                "ssm:GetParameter",
+                "ssm:GetParameters",
+                "ssm:ListTagsForResource",
                 "ssm:PutParameter"
             ],
             "Resource": [
@@ -582,7 +598,7 @@ resource "aws_iam_policy" "terraform_pike" {
             ]
         },
         {
-            "Sid": "VisualEditor15",
+            "Sid": "VisualEditor16",
             "Effect": "Allow",
             "Action": [
                 "wafv2:AssociateWebACL",
@@ -686,6 +702,7 @@ resource "aws_iam_policy" "terraform_pike_plan" {
                 "ec2:AssociateVerifiedAccessInstanceWebAcl",
                 "ec2:DescribeAccountAttributes",
                 "ec2:DescribeAvailabilityZones",
+                "ec2:DescribeImages",
                 "ec2:DescribeInternetGateways",
                 "ec2:DescribeSecurityGroups",
                 "ec2:DescribeSubnets",
@@ -717,7 +734,7 @@ resource "aws_iam_policy" "terraform_pike_plan" {
             "Sid": "VisualEditor8",
             "Effect": "Allow",
             "Action": [
-                "rds:DescribeDBInstances"
+                "kms:Decrypt"
             ],
             "Resource": [
                 "*"
@@ -725,6 +742,16 @@ resource "aws_iam_policy" "terraform_pike_plan" {
         },
         {
             "Sid": "VisualEditor9",
+            "Effect": "Allow",
+            "Action": [
+                "rds:DescribeDBInstances"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor10",
             "Effect": "Allow",
             "Action": [
                 "s3:GetAccelerateConfiguration",
@@ -749,7 +776,7 @@ resource "aws_iam_policy" "terraform_pike_plan" {
             ]
         },
         {
-            "Sid": "VisualEditor10",
+            "Sid": "VisualEditor11",
             "Effect": "Allow",
             "Action": [
                 "wafv2:AssociateWebACL",

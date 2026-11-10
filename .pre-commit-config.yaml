@@ -24,12 +24,12 @@ repos:
         exclude_types: [python, javascript, dtd, markdown, makefile, xml]
         exclude: binary|\.bin$
   - repo: https://github.com/jameswoolfenden/pre-commit-shell
-    rev: 062f0b028ae65827e04f91c1e6738cfcbe9b337f # v1.0.6
+    rev: cb16822cc2c347707ea076fd4ede0d483fbbab47 # v1.0.7
     hooks:
       - id: shell-lint
         exclude: template|\.template$
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: a4d5d37e66ebcd6b3705204a1d6dbb56dea66338 # v0.49.0
+    rev: cbcdc463be5464e25e3e955a511599a67b9b987f # v0.50.0
     hooks:
       - id: markdownlint
   - repo: https://github.com/jameswoolfenden/pre-commit
@@ -37,23 +37,35 @@ repos:
     hooks:
       - id: terraform-fmt
       - id: tf2docs
-  - repo: https://github.com/bridgecrewio/checkov
-    rev: 7e4d52326380c54f2d9ad33fa8991933bc6d8c46 # 3.3.8
+  - repo: local
     hooks:
-      - id: checkov
-        verbose: true
-        entry: checkov -d example/examplea --external-checks-dir checkov --download-external-modules true --compact
+    -   id: holden
+        name: holden
+        description: Scan Terraform for security and best-practices issues with the locally installed holden CLI.
+        entry: holden scan  --deep
+        language: system
+        pass_filenames: false
+        files: \.tf$
+        # pre-push, not pre-commit: a system hook resolves holden from $PATH,
+        # and no CI runner has it. CI invokes `pre-commit run --all-files`,
+        # whose default stage is pre-commit, so anything on that stage runs
+        # there and fails with "Executable `holden` not found". pre-push still
+        # gates every push from a machine that has holden installed, and is
+        # skipped by the CI invocation.
+        #
+        # Requires `pre-commit install --hook-type pre-push` once per clone.
+        stages: [pre-push]
   - repo: https://github.com/jameswoolfenden/pike
-    rev: b5e01747b43908cc995feaa2843a3ed9562c488d # v1.0.7
+    rev: 716798c1e676a533c66d080573957b0d63610ca6 # v1.0.15
     hooks:
       - id: pike-docs-go
-        args: ["readme","-d", ".", "-i"]
+        args: ["readme", "-d", ".", "-i"]
   - repo: https://github.com/rhysd/actionlint
     rev: 914e7df21a07ef503a81201c76d2b11c789d3fca # v1.7.12
     hooks:
       - id: actionlint
   - repo: https://github.com/jameswoolfenden/ghat
-    rev: 23f983caae0cc73d67f16f691dc47211488f5dc1 # v0.1.46
+    rev: 995b7f2c3aef001969b7d8d84ebc82df8f9f5a87 # v0.1.53
     hooks:
       - id: ghat-go
       - id: ghat-go-sift

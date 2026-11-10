@@ -1,6 +1,5 @@
-# checkov:skip=CKV_AWS_88: controlled via var.network.associate_public_ip; defaults true to preserve compatibility with examplea (default VPC, no NAT gateway) - set false when subnet_ids are private with NAT egress
 resource "aws_launch_template" "master" {
-  image_id      = data.aws_ami.amazon_linux_2_ami.id
+  image_id      = data.aws_ami.amazon_linux_2023_ami.id
   instance_type = var.instance.instance_type
   key_name      = var.instance.key_name
 

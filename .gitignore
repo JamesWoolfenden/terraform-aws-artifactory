@@ -21,11 +21,14 @@ lambda
 *backup
 *.bak
 .terraform.tfstate.lock.info
+/.terraform.lock.hcl
 tf.json
 tf.plan
 *.log
 output/*.json
 secrets.auto.tfvars
+id_rsa
+id_rsa.pub
 checksums.txt
 *.tar.gz
 original/

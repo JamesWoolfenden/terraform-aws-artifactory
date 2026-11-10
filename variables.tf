@@ -4,7 +4,9 @@ variable "instance" {
     key_name           = optional(string, "jfrog")
     volume_size        = optional(number, 250)
     instance_type      = string
-    extra_java_options = optional(string, "-server -Xms2g -Xmx14g -Xss256k -XX:+UseG1GC -XX:OnOutOfMemoryError=\\\\\\\"kill -9 %p\\\\\\\"")
+    extra_java_options = optional(string, "-server -Xms2g -Xmx14g -Xss256k -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError")
+    # Pinned Artifactory Pro release installed at boot (jfrog-artifactory-pro-VERSION)
+    artifactory_version = optional(string, "7.161.15")
   })
 
   validation {
@@ -12,9 +14,11 @@ variable "instance" {
       length(trimspace(var.instance.key_name)) > 0 &&
       var.instance.volume_size > 0 &&
       length(trimspace(var.instance.instance_type)) > 0 &&
-      length(trimspace(var.instance.extra_java_options)) > 0
+      length(trimspace(var.instance.extra_java_options)) > 0 &&
+      !strcontains(var.instance.extra_java_options, "'") &&
+      can(regex("^7\\.[0-9]+\\.[0-9]+$", var.instance.artifactory_version))
     )
-    error_message = "instance.key_name, instance.instance_type, and instance.extra_java_options must not be empty, and instance.volume_size must be greater than 0."
+    error_message = "instance.key_name, instance.instance_type, and instance.extra_java_options must not be empty (and must not contain a single quote), instance.artifactory_version must look like 7.161.15, and instance.volume_size must be greater than 0."
   }
 }
 
@@ -34,13 +38,12 @@ variable "database" {
     name                = optional(string, "artdb")
     user                = optional(string, "artifactory")
     password            = string
-    instance_class      = optional(string, "db.t2.small")
+    instance_class      = optional(string, "db.t3.small")
     allocated_storage   = optional(string, "5")
     storage_type        = optional(string, "gp2")
     engine              = optional(string, "mysql")
-    engine_version      = optional(string, "5.5")
+    engine_version      = optional(string, "8.4")
     skip_final_snapshot = optional(bool, true)
-    monitoring_interval = optional(number, 30)
     monitoring_role_arn = string
   })
 
@@ -53,10 +56,9 @@ variable "database" {
       can(regex("^[0-9]+$", var.database.allocated_storage)) &&
       tonumber(var.database.allocated_storage) > 0 &&
       contains(["mysql", "postgres", "mariadb", "oracle", "sqlserver"], var.database.engine) &&
-      contains([0, 1, 5, 10, 15, 30, 60], var.database.monitoring_interval) &&
       length(trimspace(var.database.monitoring_role_arn)) > 0
     )
-    error_message = "Check database.name/user/password/instance_class are non-empty, allocated_storage is a positive integer, engine is one of mysql/postgres/mariadb/oracle/sqlserver, monitoring_interval is one of 0/1/5/10/15/30/60, and monitoring_role_arn is set."
+    error_message = "Check database.name/user/password/instance_class are non-empty, allocated_storage is a positive integer, engine is one of mysql/postgres/mariadb/oracle/sqlserver, and monitoring_role_arn is set."
   }
 }
 
@@ -141,9 +143,10 @@ variable "network" {
       alltrue([for c in var.network.vpc_cidr : can(cidrhost(c, 0))]) &&
       alltrue([for c in var.network.access_cidr : can(cidrhost(c, 0))]) &&
       alltrue([for c in var.network.ssh_access : can(cidrhost(c, 0))]) &&
+      !contains(var.network.ssh_access, "0.0.0.0/0") &&
       alltrue([for s in var.network.alb_subnet_ids : length(trimspace(s)) > 0])
     )
-    error_message = "network.vpc_id must not be empty, network.subnet_ids must not be empty, and vpc_cidr/access_cidr/ssh_access must contain only valid CIDR blocks."
+    error_message = "network.vpc_id must not be empty, network.subnet_ids must not be empty, and vpc_cidr/access_cidr/ssh_access must contain only valid CIDR blocks, and ssh_access must not contain 0.0.0.0/0."
   }
 }
 

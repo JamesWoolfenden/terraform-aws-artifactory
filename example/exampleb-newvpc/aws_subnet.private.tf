@@ -2,12 +2,14 @@
 # Outbound internet access (package installation at boot) is via the NAT
 # gateway in aws_nat_gateway.default.tf, not a direct route to the internet
 # gateway.
+# holden:ignore:HLD_AWS_309: example relies on the VPC default network ACL plus security groups for filtering; an explicit NACL would be a guess at the caller's traffic
 resource "aws_subnet" "default" {
   vpc_id                  = aws_vpc.default.id
   cidr_block              = "10.0.1.0/24"
   map_public_ip_on_launch = false
 }
 
+# holden:ignore:HLD_AWS_309: example relies on the VPC default network ACL plus security groups for filtering; an explicit NACL would be a guess at the caller's traffic
 resource "aws_subnet" "default_2" {
   vpc_id                  = aws_vpc.default.id
   cidr_block              = "10.0.2.0/24"
@@ -15,6 +17,7 @@ resource "aws_subnet" "default_2" {
   availability_zone       = data.aws_availability_zones.available.names[0]
 }
 
+# holden:ignore:HLD_AWS_309: example relies on the VPC default network ACL plus security groups for filtering; an explicit NACL would be a guess at the caller's traffic
 resource "aws_subnet" "default_3" {
   vpc_id                  = aws_vpc.default.id
   cidr_block              = "10.0.3.0/24"

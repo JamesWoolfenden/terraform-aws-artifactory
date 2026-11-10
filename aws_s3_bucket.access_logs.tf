@@ -7,10 +7,8 @@ data "aws_caller_identity" "current" {}
 # holden:ignore:HLD_AWS_005,HLD_AWS_144: this is the log-delivery target itself; logging to itself risks a delivery loop
 # holden:ignore:HLD_AWS_009: versioning is enabled via aws_s3_bucket_versioning.access_logs below;
 # this check only recognizes the pre-provider-v4 inline versioning{} block
+# holden:ignore:HLD_AWS_310: log bucket with 90-day expiry; Object Lock can only be set at creation and would force bucket replacement
 resource "aws_s3_bucket" "access_logs" {
-  # checkov:skip=CKV_AWS_18: this is the log-delivery target itself
-  # checkov:skip=CKV2_AWS_62: log-delivery bucket; event notifications not required
-  # checkov:skip=CKV_AWS_144: log-delivery bucket; cross-region replication not required for access logs
   bucket = "${var.bucket_name}-access-logs"
 }
 
@@ -29,13 +27,13 @@ resource "aws_s3_bucket_public_access_block" "access_logs" {
   ignore_public_acls      = true
 }
 
+# holden:ignore:HLD_AWS_282: S3 server-access-log target bucket - S3 log delivery supports only SSE-S3 (AES256) on the destination, not SSE-KMS (it silently drops records)
 resource "aws_s3_bucket_server_side_encryption_configuration" "access_logs" {
   bucket = aws_s3_bucket.access_logs.id
 
   rule {
     apply_server_side_encryption_by_default {
-      kms_master_key_id = var.kms_key
-      sse_algorithm     = "aws:kms"
+      sse_algorithm = "AES256"
     }
   }
 }
@@ -53,6 +51,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "access_logs" {
 
     expiration {
       days = 90
+    }
+
+    noncurrent_version_expiration {
+      noncurrent_days = 30
     }
   }
 }
@@ -80,6 +82,18 @@ resource "aws_s3_bucket_policy" "access_logs" {
           }
           StringEquals = {
             "aws:SourceAccount" = data.aws_caller_identity.current.account_id
+          }
+        }
+      },
+      {
+        Sid       = "DenyInsecureTransport"
+        Effect    = "Deny"
+        Principal = "*"
+        Action    = "s3:*"
+        Resource  = [aws_s3_bucket.access_logs.arn, "${aws_s3_bucket.access_logs.arn}/*"]
+        Condition = {
+          Bool = {
+            "aws:SecureTransport" = "false"
           }
         }
       }

@@ -38,7 +38,7 @@ docs:
 
 valid:
 	terraform fmt
-	checkov -d . --external-checks-dir ../../checkov
+
 
 target:
 	@read -p "Enter Module to target:" MODULE;

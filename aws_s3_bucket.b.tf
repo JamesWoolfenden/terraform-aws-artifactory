@@ -1,24 +1,53 @@
 # holden:ignore:HLD_AWS_009,HLD_AWS_005: versioning and logging are enabled via the
 # modern aws_s3_bucket_versioning/aws_s3_bucket_logging companion resources below;
 # this check only recognizes the pre-provider-v4 inline versioning{}/logging{} blocks
-# holden:ignore:HLD_AWS_153: lifecycle managed by Artifactory directly, not via S3 lifecycle rules
-# checkov:skip=CKV_AWS_144: this module is single-region/single-instance by design
-# (one VPC, one RDS instance, one KMS key, no destination-region input exists in
-# its interface) and Artifactory HA needs more than replicated storage - shared
-# filestore semantics and cluster config this module doesn't attempt. Bolting on
-# S3 CRR alone would be a partial, misleading DR gesture; real multi-region HA
-# needs a broader redesign than this one attribute, and should be a deliberate
-# consumer decision, not a silent default.
+# holden:ignore:HLD_AWS_310: Artifactory deletes and overwrites its own objects; Object Lock retention would block garbage collection
 resource "aws_s3_bucket" "b" {
-  # checkov:skip=CKV2_AWS_61: lifecycle managed by Artifactory directly, not via S3 lifecycle rules
-  # checkov:skip=CKV2_AWS_62: event notifications not required for Artifactory binary storage bucket
-  # checkov:skip=CKV_AWS_144: cross region not required
   bucket = var.bucket_name
 }
 
-resource "aws_s3_bucket_acl" "b" {
+# Current objects are managed by Artifactory itself (no expiration rule here);
+# only superseded versions and abandoned uploads are bounded.
+# holden:ignore:HLD_AWS_384: current objects are removed by Artifactory garbage collection, not S3 expiry; expiring them in S3 would delete live artifacts
+resource "aws_s3_bucket_lifecycle_configuration" "b" {
   bucket = aws_s3_bucket.b.id
-  acl    = "private"
+
+  rule {
+    id     = "bound-noncurrent-versions"
+    status = "Enabled"
+
+    filter {}
+
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 7
+    }
+
+    noncurrent_version_expiration {
+      noncurrent_days = 90
+    }
+  }
+}
+
+resource "aws_s3_bucket_policy" "b" {
+  bucket = aws_s3_bucket.b.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "DenyInsecureTransport"
+        Effect    = "Deny"
+        Principal = "*"
+        Action    = "s3:*"
+        Resource  = [aws_s3_bucket.b.arn, "${aws_s3_bucket.b.arn}/*"]
+        Condition = {
+          Bool = {
+            "aws:SecureTransport" = "false"
+          }
+        }
+      }
+    ]
+  })
 }
 
 resource "aws_s3_bucket_versioning" "b" {
